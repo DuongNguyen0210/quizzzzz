@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn Thi Công Nghệ Phần Mềm</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d2e;
+    --card2: #1e2235;
+    --border: #2e3250;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --green: #43e97b;
+    --red: #ff4d6d;
+    --yellow: #ffd166;
+    --text: #e8eaf6;
+    --muted: #8b92b8;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 40px 0 30px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    background: linear-gradient(135deg, #6c63ff, #a78bfa, #ff6584);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .header p { color: var(--muted); font-size: 0.95rem; }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    align-items: center;
+  }
+  .controls label { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
+  .controls select, .controls input[type=number] {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .controls select:focus, .controls input:focus { border-color: var(--accent); }
+  .controls input[type=number] { width: 70px; }
+  .btn {
+    padding: 9px 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #7c74ff; transform: translateY(-1px); }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .spacer { flex: 1; }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    height: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #a78bfa);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* QUESTION CARD */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:none; } }
+
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .q-num {
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .q-text {
+    font-size: 1rem;
+    line-height: 1.65;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--card2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s;
+    user-select: none;
+  }
+  .option:hover:not(.disabled) {
+    border-color: var(--accent);
+    background: rgba(108,99,255,0.08);
+  }
+  .option.selected { border-color: var(--accent); background: rgba(108,99,255,0.12); }
+  .option.correct { border-color: var(--green) !important; background: rgba(67,233,123,0.1) !important; }
+  .option.wrong   { border-color: var(--red) !important;   background: rgba(255,77,109,0.1) !important; }
+  .option.disabled { cursor: default; }
+  .option-letter {
+    min-width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.18s;
+  }
+  .option.selected .option-letter { background: var(--accent); color: #fff; }
+  .option.correct .option-letter  { background: var(--green); color: #111; }
+  .option.wrong .option-letter    { background: var(--red); color: #fff; }
+  .option-text { font-size: 0.92rem; line-height: 1.55; padding-top: 3px; }
+
+  /* EXPLANATION */
+  .explanation {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: rgba(255,209,102,0.07);
+    border-left: 3px solid var(--yellow);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.88rem;
+    color: #d4c17f;
+    line-height: 1.6;
+  }
+  .explanation.show { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .explanation strong { color: var(--yellow); }
+
+  /* NAV */
+  .nav {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  /* SCORE CARD */
+  .score-card {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .score-card.show { display: block; animation: slideIn 0.4s ease; }
+  .score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--green), #06d6a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .score-card h2 { font-size: 1.4rem; margin-bottom: 8px; }
+  .score-card p  { color: var(--muted); margin-bottom: 20px; }
+  .score-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .stat-pill {
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .stat-correct { background: rgba(67,233,123,0.15); color: var(--green); border: 1px solid rgba(67,233,123,0.3); }
+  .stat-wrong   { background: rgba(255,77,109,0.15);  color: var(--red);   border: 1px solid rgba(255,77,109,0.3); }
+  .stat-skip    { background: rgba(139,146,184,0.15); color: var(--muted); border: 1px solid rgba(139,146,184,0.3); }
+
+  /* QUESTION MAP */
+  .q-map {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .q-dot {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--card2);
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .q-dot:hover { border-color: var(--accent); color: var(--accent); }
+  .q-dot.current { border-color: var(--accent); background: rgba(108,99,255,0.2); color: var(--text); }
+  .q-dot.answered-correct { background: rgba(67,233,123,0.2); border-color: var(--green); color: var(--green); }
+  .q-dot.answered-wrong   { background: rgba(255,77,109,0.2); border-color: var(--red);   color: var(--red); }
+
+  .mode-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(108,99,255,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(108,99,255,0.3);
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📚 Ôn Thi CNPM</h1>
+    <p>Công Nghệ Phần Mềm · 135 câu hỏi trắc nghiệm</p>
+  </div>
+
+  <div class="controls" id="controls">
+    <label>Chế độ:</label>
+    <select id="modeSelect">
+      <option value="all">Tất cả 135 câu</option>
+      <option value="random">Ngẫu nhiên</option>
+    </select>
+    <label id="numLabel" style="display:none">Số câu:</label>
+    <input type="number" id="numQ" value="20" min="5" max="135" style="display:none">
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="startQuiz()">▶ Bắt đầu</button>
+    <button class="btn btn-outline" onclick="toggleMap()">🗺 Bản đồ</button>
+  </div>
+
+  <div class="q-map" id="qMap" style="display:none"></div>
+
+  <div class="progress-text" id="progressText" style="display:none">
+    <span id="progressLabel">Câu 1 / 135</span>
+    <span id="progressScore">✓ 0 &nbsp; ✗ 0</span>
+  </div>
+  <div class="progress-bar-wrap" id="progressWrap" style="display:none">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+
+  <div id="questionArea"></div>
+
+  <div class="nav" id="navArea" style="display:none">
+    <button class="btn btn-outline" id="btnPrev" onclick="goTo(currentIdx-1)">← Trước</button>
+    <button class="btn btn-outline" onclick="goTo(currentIdx+1)">Tiếp →</button>
+    <button class="btn btn-primary" onclick="finishQuiz()">🏁 Kết quả</button>
+  </div>
+
+  <div class="score-card" id="scoreCard">
+    <div class="score-big" id="scoreBig"></div>
+    <h2 id="scoreTitle"></h2>
+    <p id="scoreDesc"></p>
+    <div class="score-stats">
+      <span class="stat-pill stat-correct" id="statCorrect"></span>
+      <span class="stat-pill stat-wrong"   id="statWrong"></span>
+      <span class="stat-pill stat-skip"    id="statSkip"></span>
+    </div>
+    <button class="btn btn-primary" onclick="restartQuiz()" style="margin-right:10px">🔄 Làm lại</button>
+    <button class="btn btn-outline" onclick="reviewAnswers()">📋 Xem đáp án</button>
+  </div>
+</div>
+
+<script>
+const ALL_QUESTIONS = [
+  {q:`"Hệ thống phần mềm phải tuân thủ các ràng buộc về: thời gian, tốc độ xử lý" thuộc loại yêu cầu gì?`,opts:["Chức năng và phi chức năng","Chức năng","Hệ thống phần cứng","Phi chức năng"],ans:3,exp:`Thời gian xử lý, tốc độ là các ràng buộc phi chức năng (performance constraints) — chúng mô tả <strong>cách hệ thống hoạt động</strong>, không phải hệ thống làm gì.`},
+  {q:`Trong quá trình phát triển phần mềm, giai đoạn <strong>kiểm thử phần mềm</strong> có nghĩa là?`,opts:["Xây dựng không gian giải pháp cho vấn đề","Thẩm định lại tính đúng đắn của giải pháp theo yêu cầu ban đầu đã đặt ra","Nhận biết vấn đề, bài toán thực tế, các yêu cầu mà người dùng đặt ra","Xây dựng một hệ thống thực hiện được dựa vào thiết kế"],ans:1,exp:`Kiểm thử = <strong>thẩm định (validation)</strong>: xác nhận sản phẩm có đáp ứng đúng yêu cầu ban đầu không. Phân biệt với thiết kế (xây giải pháp) và lập trình (xây hệ thống).`},
+  {q:`Loại hình đặc tả nào được dùng phổ biến trong tài liệu SRS?`,opts:["Đặc tả bằng sơ đồ","Đặc tả cấu trúc dữ liệu","Đặc tả chức năng","Đặc tả đối tượng"],ans:2,exp:`<strong>Đặc tả chức năng</strong> là loại phổ biến nhất trong SRS vì nó mô tả trực tiếp những gì hệ thống phải làm (các dịch vụ, hành vi, chức năng).`},
+  {q:`Phần mềm quản lý sinh viên http://sv.dut.udn.vn/ của Trường Đại học Bách khoa là?`,opts:["Phần mềm trí tuệ nhân tạo","Phần mềm thời gian thực","Phần mềm nghiệp vụ (Business software)","Phần mềm hệ thống"],ans:2,exp:`Hệ thống quản lý sinh viên phục vụ <strong>nghiệp vụ tổ chức</strong> (quản lý điểm, học phần, sinh viên) → Business software.`},
+  {q:`Trong lược đồ use case, phát biểu nào là sai? (Giả sử: "Kiểm tra ngân quỹ chiến dịch" extend từ "In tóm tắt chiến dịch"; "Thống kê doanh thu chiến dịch theo quý" là use case mở rộng; "Tìm kiếm chiến dịch theo tháng" extend từ "Tìm kiếm chiến dịch"; "Quản lý chiến dịch" là use case cơ bản)`,opts:[`"Kiểm tra ngân quỹ chiến dịch" là use case mở rộng được mở rộng từ use case "In tóm tắt chiến dịch"`,`"Thống kê doanh thu chiến dịch theo quý" là use case cơ bản`,`"Tìm kiếm chiến dịch theo tháng" là use case mở rộng được mở rộng từ use case "Tìm kiếm chiến dịch"`,`"Quản lý chiến dịch" là use case cơ bản`],ans:1,exp:`"Thống kê doanh thu theo quý" là use case <strong>mở rộng (extend)</strong>, không phải cơ bản. Use case cơ bản là những use case không extend từ use case nào khác.`},
+  {q:`Yêu cầu nào sau đây <strong>không phải</strong> là yêu cầu chức năng?`,opts:["Những mô tả về qui trình mà hệ thống cần xử lý","Các chi tiết về dữ liệu được tổ chức trong hệ thống","Bảo mật","Các báo cáo kết xuất"],ans:2,exp:`<strong>Bảo mật</strong> là yêu cầu phi chức năng (security constraint). Ba đáp án còn lại đều mô tả <em>những gì</em> hệ thống làm → chức năng.`},
+  {q:`Phát biểu nào sau đây là <strong>sai</strong> khi nói về thiết kế?`,opts:["Thiết kế phải được đánh giá chất lượng khi nó đang được tạo, không phải khi nó có vấn đề","Thiết kế phải chỉ ra được hệ thống thực thi như thế nào, các yêu cầu được hiện thực hóa ra sao","Mô hình thiết kế cung cấp chi tiết về kiến trúc, giao diện và thành phần cần thiết để cài đặt phần mềm","Thiết kế không là code, code không là thiết kế"],ans:3,exp:`Ranh giới thiết kế-code đôi khi bị làm mờ, đặc biệt ở <strong>thiết kế chi tiết</strong> (pseudocode, class diagram chi tiết). Phát biểu "Thiết kế không là code, code không là thiết kế" là đơn giản hóa quá mức → sai.`},
+  {q:`Kết quả của giai đoạn thu thập yêu cầu là?`,opts:["Bảng ước tính chi phí dự án","Tài liệu đặc tả yêu cầu phần mềm","Lược đồ ngữ cảnh","Lược đồ Use case và các lược đồ khác"],ans:1,exp:`Đầu ra chính thức của giai đoạn <strong>kỹ thuật yêu cầu</strong> là <strong>tài liệu SRS</strong> (Software Requirements Specification) — cầu nối giữa khách hàng và nhà phát triển.`},
+  {q:`Kết quả cuối cùng của giai đoạn xác định và phân tích yêu cầu là?`,opts:["Tài liệu SRS","Sơ đồ DFD","Sơ đồ ERD","Sơ đồ Use case"],ans:0,exp:`<strong>Tài liệu SRS</strong> là sản phẩm đầu ra cuối cùng, tổng hợp tất cả: use case, DFD, ERD... đều chỉ là công cụ hỗ trợ để xây dựng SRS.`},
+  {q:`Tài liệu nào sau đây sẽ được tạo ra trong pha thiết kế hệ thống?`,opts:["Mã lệnh","Thiết kế chi tiết","Kế hoạch kiểm thử","Lập kế hoạch"],ans:1,exp:`Pha <strong>thiết kế</strong> tạo ra <strong>thiết kế chi tiết</strong> (class diagram, database schema, component design...). Mã lệnh thuộc pha lập trình; kế hoạch kiểm thử thuộc pha kiểm thử.`},
+  {q:`Trong thiết kế hướng đối tượng, nguyên tắc "Loose coupling" mang lại lợi ích gì cho việc bảo trì hệ thống phần mềm?`,opts:["Giúp giảm sự phụ thuộc giữa các module, dễ dàng thay đổi độc lập","Hợp nhất toàn bộ các lớp thành một cấu trúc duy nhất","Tăng cường số lượng hàm trong mỗi lớp để xử lý tác vụ","Cho phép sử dụng các biến toàn cục để truyền dữ liệu nhanh hơn"],ans:0,exp:`<strong>Loose coupling (kết nối lỏng)</strong>: giảm sự phụ thuộc → thay đổi module A ít ảnh hưởng module B → dễ bảo trì, dễ test, dễ thay thế.`},
+  {q:`Bạn đang xây dựng hệ thống thanh toán ngân hàng yêu cầu độ tin cậy cực cao và tài liệu kiểm chứng chặt chẽ. Mô hình nào phù hợp nhất?`,opts:["Mô hình V-model để kiểm thử song hành với các giai đoạn phát triển","Mô hình Agile Scrum để tăng tốc độ ra mắt thị trường","Mô hình Prototype để lấy ý kiến khách hàng hàng tuần","Mô hình Spiral để ưu tiên các tính năng phụ trước khi làm chính"],ans:0,exp:`<strong>V-model</strong> liên kết từng giai đoạn phát triển với một giai đoạn kiểm thử tương ứng → đảm bảo tài liệu và độ tin cậy cao, phù hợp hệ thống tài chính, ngân hàng.`},
+  {q:`Một công ty muốn phát triển ứng dụng di động cần thay đổi tính năng liên tục dựa trên phản hồi của người dùng cuối. Mô hình nào tối ưu?`,opts:["Mô hình V-model với các bước kiểm tra nghiêm ngặt","Mô hình Rational Unified Process (RUP) theo kiểu cũ","Mô hình Waterfall truyền thống đã được chuẩn hóa","Mô hình Agile (Scrum hoặc Kanban) để đáp ứng nhanh"],ans:3,exp:`<strong>Agile</strong> tối ưu cho dự án <em>yêu cầu thay đổi liên tục</em> — các sprint ngắn (2 tuần) cho phép tích hợp phản hồi người dùng nhanh chóng.`},
+  {q:`Phát biểu nào sau đây là <strong>không đúng</strong> khi nói đến quá trình thu thập yêu cầu?`,opts:["Yêu cầu rất dễ bị thay đổi","Yêu cầu luôn được biết một cách chính xác","Yêu cầu rất khó phát hiện","Yêu cầu phải luôn thống nhất"],ans:1,exp:`Thực tế: yêu cầu <strong>hiếm khi được biết chính xác ngay từ đầu</strong>. Khách hàng thường không biết rõ họ muốn gì cho đến khi thấy sản phẩm — đó là lý do prototype và agile ra đời.`},
+  {q:`Đặc tả hệ thống mô tả?`,opts:["Thời gian đòi hỏi cho việc giả lập hệ thống","Việc thi hành của mỗi thành phần hệ thống","Chức năng và hành vi của hệ thống dựa vào máy tính","Chi tiết giải thuật và cấu trúc hệ thống"],ans:2,exp:`Đặc tả hệ thống mô tả <strong>chức năng và hành vi</strong> (what the system does) từ góc nhìn bên ngoài, không đi sâu vào giải thuật hay cấu trúc nội bộ.`},
+  {q:`Mục nào sau đây <strong>không</strong> bao gồm trong tài liệu SRS?`,opts:["Mục tiêu thực hiện","Hướng dẫn sử dụng","Yêu cầu chức năng","Yêu cầu phi chức năng"],ans:1,exp:`<strong>Hướng dẫn sử dụng</strong> (User Manual) là tài liệu riêng biệt dành cho người dùng cuối. SRS là tài liệu kỹ thuật cho nhà phát triển và khách hàng thỏa thuận.`},
+  {q:`Trong yêu cầu phi chức năng, phát biểu "Yêu cầu về hệ thống được phát triển như tốc độ, bộ nhớ, độ tin cậy, tính di chuyển được, tính dùng lại được..." là?`,opts:["Các yêu cầu về sản phẩm","Yêu cầu về phương pháp thiết kế và lập trình","Các yêu cầu ngoại lai","Yêu cầu về quá trình phát triển phần mềm"],ans:0,exp:`Phi chức năng phân loại 3 nhóm: <strong>Product</strong> (tốc độ, bộ nhớ, tin cậy...), <strong>Process</strong> (quy trình phát triển) và <strong>External</strong> (ràng buộc bên ngoài). Câu này thuộc nhóm <strong>yêu cầu về sản phẩm</strong>.`},
+  {q:`Ai là người viết tài liệu SRS?`,opts:["Khách hàng","Lập trình viên","Phân tích viên","Người quản lý dự án"],ans:2,exp:`<strong>Phân tích viên hệ thống (System Analyst)</strong> là người thu thập yêu cầu từ khách hàng, phân tích và viết tài liệu SRS — là cầu nối giữa domain business và kỹ thuật.`},
+  {q:`Mô hình phát triển phần mềm dựa trên mẫu thử (prototype) là?`,opts:["Một phương pháp thích hợp được sử dụng khi các yêu cầu đã được xác định rõ ràng","Phương pháp tốt nhất được sử dụng trong các dự án có nhiều thành viên","Một mô hình rất rủi ro, khó đưa ra được một sản phẩm tốt","Một phương pháp hữu ích khi khách hàng không thể xác định yêu cầu một cách rõ ràng"],ans:3,exp:`Prototype phù hợp khi <strong>yêu cầu mơ hồ</strong> — tạo nguyên mẫu nhanh để khách hàng hình dung và phản hồi, từ đó làm rõ yêu cầu thực sự.`},
+  {q:`Trong quá trình phát triển phần mềm, hoạt động <strong>đặc tả phần mềm</strong> có nghĩa là?`,opts:["Nhận biết vấn đề, bài toán thực tế, các yêu cầu mà người dùng đặt ra","Xây dựng một hệ thống thực hiện được dựa vào thiết kế","Xây dựng không gian giải pháp cho vấn đề","Thẩm định lại tính đúng đắn của giải pháp theo yêu cầu ban đầu đã đặt ra"],ans:0,exp:`Đặc tả (specification) = <strong>nhận biết và mô tả vấn đề, yêu cầu</strong>. Đây là bước đầu tiên: hiểu bài toán trước khi giải. Lập trình = xây hệ thống; Thiết kế = xây giải pháp.`},
+  {q:`Mối quan tâm chính của công nghệ phần mềm là gì?`,opts:["Cấu hình mạng","Phần mềm có thể dùng lại","Sản xuất phần mềm","Sản xuất phần cứng"],ans:2,exp:`<strong>Software Engineering</strong> tập trung vào <strong>sản xuất phần mềm</strong> một cách có hệ thống, đúng tiến độ, trong ngân sách, đáp ứng yêu cầu.`},
+  {q:`"Xác định yêu cầu phi chức năng", nghĩa là?`,opts:["Đặc tả trừu tượng các ràng buộc mà hệ thống phải tuân theo","Đặc tả trừu tượng các dịch vụ mà hệ thống phải cung cấp","Đặc tả trừu tượng các nhu cầu của người dùng mà hệ thống phải cung cấp","Đặc tả các yêu cầu của người dùng"],ans:0,exp:`<strong>Phi chức năng = ràng buộc</strong> (constraints): thời gian phản hồi, bảo mật, khả năng mở rộng... Chức năng = dịch vụ (services): những gì hệ thống làm.`},
+  {q:`Yêu cầu nào là <strong>yêu cầu chức năng</strong>?`,opts:["Cảnh báo ngày hệ thống bị sai","Yêu cầu chỉnh lại ngày giờ hệ thống mỗi khi làm việc","Thực hiện thao tác thêm, xem, xóa, sửa dữ liệu bảng danh mục","Cảnh báo người dùng khi dung lượng trống trên đĩa còn 20%"],ans:2,exp:`<strong>CRUD</strong> (Create, Read, Update, Delete) là chức năng cốt lõi — hệ thống <em>làm gì</em>. Cảnh báo ngày sai hay cảnh báo dung lượng đĩa là monitoring/constraint → phi chức năng.`},
+  {q:`Trong phát triển phần mềm, yếu tố nào quan trọng nhất?`,opts:["Quy trình","Thời gian thực hiện","Con người","Sản phẩm"],ans:2,exp:`<strong>Con người</strong> (People) là yếu tố số một — kỹ năng, kinh nghiệm, giao tiếp của đội ngũ quyết định thành bại dự án. Quy trình tốt nhưng con người kém vẫn thất bại.`},
+  {q:`Tác vụ nào <strong>không</strong> được biểu diễn như là một phần của phân tích yêu cầu phần mềm?`,opts:["Lập kế hoạch và lịch biểu","Mô hình hóa và thừa nhận vấn đề","Định giá và tổng hợp","Đặc tả và xem xét"],ans:0,exp:`<strong>Lập kế hoạch và lịch biểu</strong> là công việc của <em>quản lý dự án</em>, không thuộc phân tích yêu cầu. Phân tích yêu cầu gồm: elicitation, modeling, specification, validation.`},
+  {q:`CASE là từ viết tắt của?`,opts:["Computer Analyzing Software Engineering","Control Aided Software Engineering","Computer Aided Software Engineering","Cost Aided Software Engineering"],ans:2,exp:`<strong>CASE = Computer Aided Software Engineering</strong>: các công cụ phần mềm hỗ trợ quá trình phát triển phần mềm (UML tools, IDEs, testing tools...).`},
+  {q:`Mô tả nào sau đây là phù hợp nhất của mô hình chế thử "Prototyping Model"?`,opts:["Một ứng dụng lớn sẽ được phân thành các phần nhỏ có tính độc lập cao","Phần mềm được phân thành 2 loại: đặc tả cố định và đặc tả cần thay đổi","Một sản phẩm thực nghiệm được tạo ra trong giai đoạn trước, cho phép loại bỏ những nhập nhằng giữa người dùng và nhóm phát triển","Công việc thực hiện theo trình tự: lập kế hoạch, thiết kế ngoài, thiết kế trong, lập trình, kiểm thử"],ans:2,exp:`Prototype = <strong>sản phẩm thực nghiệm</strong> được xây nhanh → làm rõ yêu cầu → loại bỏ hiểu nhầm trước khi đầu tư toàn bộ nguồn lực.`},
+  {q:`Mô hình phát triển phần mềm <strong>lặp lại tăng thêm</strong> được áp dụng khi nào?`,opts:["Khi dự án có những nhóm phát triển lớn","Khi cần tạo nhanh một sản phẩm thực thi lõi","Khi yêu cầu được xác định rõ","Khi sử dụng một mô hình mạng nhưng không được dùng cho sản phẩm thương mại"],ans:1,exp:`Incremental model phù hợp khi cần <strong>ra mắt sản phẩm nhanh với tính năng lõi</strong>, sau đó bổ sung dần các tính năng qua các vòng lặp.`},
+  {q:`Trong quá trình phát triển phần mềm, giai đoạn <strong>lập trình phần mềm</strong> có nghĩa là?`,opts:["Thẩm định lại tính đúng đắn của giải pháp theo yêu cầu ban đầu đã đặt ra","Xây dựng một hệ thống thực hiện được dựa vào thiết kế","Xây dựng không gian giải pháp cho vấn đề","Nhận biết vấn đề, bài toán thực tế, các yêu cầu mà người dùng đặt ra"],ans:1,exp:`Lập trình = <strong>xây dựng hệ thống thực thi</strong> dựa trên bản thiết kế. Input = design documents; Output = mã nguồn chạy được.`},
+  {q:`Kỹ sư phần mềm <strong>không cần</strong>?`,opts:["Kiến thức về cơ sở dữ liệu","Lập trình thành thạo bằng một ngôn ngữ lập trình","Kinh nghiệm quản lý dự án phần mềm","Kiến thức về phân tích thiết kế hệ thống"],ans:2,exp:`<strong>Quản lý dự án</strong> là kỹ năng của Project Manager. Kỹ sư phần mềm cần: lập trình, CSDL, phân tích thiết kế — nhưng không nhất thiết phải quản lý dự án.`},
+  {q:`Phân tích yêu cầu bao gồm 3 hoạt động theo đúng thứ tự?`,opts:["Xem xét yêu cầu, làm tài liệu yêu cầu, làm rõ yêu cầu","Làm rõ yêu cầu, xem xét yêu cầu, làm tài liệu yêu cầu","Làm tài liệu yêu cầu, làm rõ yêu cầu, xem xét yêu cầu","Làm rõ yêu cầu, làm tài liệu yêu cầu, xem xét yêu cầu"],ans:3,exp:`Thứ tự chuẩn: <strong>Elicitation</strong> (làm rõ/thu thập) → <strong>Specification</strong> (làm tài liệu) → <strong>Validation</strong> (xem xét/thẩm định). Không thể viết tài liệu khi chưa thu thập yêu cầu.`},
+  {q:`Thẩm định là công việc chỉ được thực hiện sau?`,opts:["Tất cả các giai đoạn phát triển phần mềm như: đặc tả, thiết kế, lập trình","Giai đoạn đặc tả","Các giai đoạn phát triển phần mềm như: đặc tả, thiết kế, lập trình","Giai đoạn thiết kế và lập trình"],ans:0,exp:`Thẩm định (validation/verification) được thực hiện <strong>sau mỗi giai đoạn</strong>: review đặc tả, review thiết kế, kiểm thử code. Không chỉ ở cuối dự án.`},
+  {q:`Trong một hệ thống đa người dùng, bạn cần đảm bảo dữ liệu người dùng A tuyệt đối không hiển thị cho người dùng B. Tài liệu nào quan trọng nhất để đặc tả ràng buộc về quyền hạn này?`,opts:["Tài liệu đặc tả yêu cầu phi chức năng (Non-functional Requirements)","Sơ đồ kiến trúc phần cứng (Hardware Diagram)","Sơ đồ biểu đồ Use Case (Use Case Diagram)","Tài liệu đặc tả giao diện người dùng (UI Mockups)"],ans:0,exp:`<strong>Bảo mật và phân quyền (Authorization)</strong> là yêu cầu phi chức năng — đặc tả trong phần Security/Non-functional Requirements của SRS.`},
+  {q:`Giải thích nào sau đây là phù hợp nhất với mô hình thác nước "Waterfall Model"?`,opts:["Một hệ thống thực nghiệm đang khai thác được khởi tạo và kiểm tra đặc tả đã được làm ở giai đoạn trước","Việc phát triển hệ thống sẽ được làm theo thứ tự tiến trình, không kết quả của công việc nào được gửi ngược lên tiến trình ở mức trước","Mỗi ứng dụng sẽ được chia thành các phần nhỏ, mỗi đơn vị được thiết kế và lập trình tuần tự","Thời gian phát triển được rút ngắn bởi sự tham gia của người dùng và áp dụng các công cụ hiệu quả"],ans:1,exp:`<strong>Waterfall</strong> = tiến trình tuyến tính một chiều: không có phản hồi ngược (no backflow). Mỗi giai đoạn chỉ bắt đầu khi giai đoạn trước hoàn thành 100%.`},
+  {q:`Theo thống kê từ những thách thức đối với công nghệ phần mềm thì lỗi nhiều nhất là do?`,opts:["Phân tích yêu cầu","Kiểm thử","Kiểm tra và bảo trì","Thiết kế"],ans:0,exp:`Thống kê: ~50-60% lỗi phần mềm bắt nguồn từ <strong>phân tích yêu cầu</strong> sai hoặc thiếu. Lỗi ở giai đoạn này tốn kém nhất để sửa vì lan ra toàn bộ các giai đoạn sau.`},
+  {q:`Đặc tả yêu cầu phần mềm dành cho?`,opts:["Khách hàng và người phát triển phần mềm","Người lập trình và người kiểm thử","Người quản lý dự án phần mềm","Người thiết kế phần mềm"],ans:0,exp:`SRS là <strong>hợp đồng kỹ thuật</strong> giữa <em>khách hàng</em> (xác nhận đúng yêu cầu) và <em>nhà phát triển</em> (hiểu và thực hiện). Cả hai bên đều cần đọc và đồng thuận.`},
+  {q:`Trong mô hình phát triển phần mềm Waterfall, rủi ro lớn nhất khi khách hàng yêu cầu thay đổi tính năng ở giai đoạn cuối dự án là gì?`,opts:["Hệ thống sẽ mất đi tính thẩm mỹ của giao diện người dùng ban đầu","Chi phí sửa đổi tăng cao và ảnh hưởng toàn bộ cấu trúc hệ thống","Các tài liệu kỹ thuật sẽ trở nên quá dài và khó đọc","Đội ngũ lập trình viên sẽ không có đủ thời gian để học ngôn ngữ mới"],ans:1,exp:`Trong Waterfall, thay đổi cuối dự án = phải <strong>sửa lại thiết kế, code, kiểm thử</strong> từ đầu. Chi phí sửa lỗi tăng theo hàm mũ khi càng về cuối dự án.`},
+  {q:`"Xác định yêu cầu chức năng", nghĩa là?`,opts:["Đặc tả trừu tượng các nhu cầu của người dùng mà hệ thống phải cung cấp","Đặc tả các yêu cầu của người dùng","Đặc tả trừu tượng các dịch vụ mà hệ thống phải cung cấp","Đặc tả trừu tượng các ràng buộc mà hệ thống phải tuân theo"],ans:2,exp:`<strong>Chức năng = dịch vụ</strong> hệ thống cung cấp (what it does). <strong>Phi chức năng = ràng buộc</strong> (how it performs). Ví dụ: "đăng nhập" là chức năng; "đăng nhập trong < 2 giây" là phi chức năng.`},
+  {q:`Phát biểu nào sau đây <strong>không đúng</strong>?`,opts:["Khoa học máy tính thuộc ngành công nghệ phần mềm","Công nghệ phần mềm có liên quan với việc phát triển và cung cấp các phần mềm hữu ích","Công nghệ phần mềm thuộc ngành khoa học máy tính","Công nghệ phần mềm là một phần của ngành kỹ thuật hệ thống"],ans:0,exp:`Sai: <em>Khoa học máy tính (CS)</em> là lĩnh vực rộng hơn, <strong>Công nghệ phần mềm là một nhánh của CS</strong> — không phải ngược lại. CS bao gồm: AI, networking, algorithms, SE...`},
+  {q:`Cách tốt nhất để đưa tới việc xem xét việc đánh giá yêu cầu là?`,opts:["Dùng danh sách các câu hỏi kiểm tra (checklist) để kiểm tra mỗi yêu cầu","Nhờ khách hàng kiểm tra yêu cầu","Gửi họ tới đội thiết kế và xem họ có sự quan tâm nào không","Kiểm tra lỗi mô hình hệ thống"],ans:0,exp:`<strong>Checklist</strong> là phương pháp chuẩn hóa, đảm bảo không bỏ sót tiêu chí quan trọng khi đánh giá yêu cầu: tính đầy đủ, nhất quán, khả thi, có thể kiểm thử...`},
+  {q:`Hai (02) hình thức dùng mô tả yêu cầu là?`,opts:["Yêu cầu cụ thể và yêu cầu trừu tượng","Yêu cầu chức năng và yêu cầu phi chức năng","Yêu cầu người dùng và yêu cầu hệ thống","Yêu cầu chủ động và yêu cầu thụ động"],ans:2,exp:`Theo Sommerville: <strong>User Requirements</strong> (mức cao, ngôn ngữ tự nhiên, dành cho stakeholders) và <strong>System Requirements</strong> (mức chi tiết, kỹ thuật, dành cho developers).`},
+  {q:`Trong quá trình phát triển phần mềm, các hoạt động nào quan trọng nhất?`,opts:["Hoạt động kiểm thử và bảo hành","Hoạt động lập trình","Hoạt động thiết kế và lập trình","Hoạt động đặc tả và thiết kế"],ans:3,exp:`<strong>Đặc tả và thiết kế</strong> quan trọng nhất vì lỗi ở đây lan sang toàn bộ giai đoạn sau. Làm tốt 2 bước này giảm đáng kể chi phí sửa lỗi.`},
+  {q:`Tính khả thi của phần mềm dựa vào các yếu tố sau?`,opts:["Kỹ năng và năng lực của nhà phát triển","Nghiệp vụ và tiếp thị","Phạm vi, ràng buộc và thị trường","Công nghệ, tiền bạc, thời gian và tài nguyên"],ans:3,exp:`Phân tích khả thi (feasibility study) đánh giá 4 chiều: <strong>Technical</strong> (công nghệ), <strong>Financial</strong> (tiền bạc/kinh tế), <strong>Schedule</strong> (thời gian), và <strong>Resource</strong> (tài nguyên/nhân lực).`},
+  {q:`Phần mềm dự báo thời tiết thu thập các số liệu về nhiệt độ, độ ẩm,... xử lý tính toán để cho ra các dự báo thời tiết là 1 ví dụ của loại phần mềm?`,opts:["Phần mềm nghiệp vụ (Business software)","Phần mềm thời gian thực (Real time software)","Phần mềm trí tuệ nhân tạo (Artificial Intelligence Software)","Phần mềm hệ thống (System software)"],ans:1,exp:`Hệ thống dự báo thời tiết thu thập dữ liệu cảm biến liên tục và xử lý real-time → <strong>Real-time software</strong>. Đặc trưng: phải đáp ứng ràng buộc thời gian nghiêm ngặt.`},
+  {q:`Chọn lựa nào sau đây mô tả một <strong>yêu cầu phi chức năng</strong>?`,opts:["Hệ thống phải nhập được danh sách sản phẩm từ tập tin Excel","Hệ thống phải cho phép những người sử dụng nhập vào chi tiết các khách hàng","Hệ thống phải có khả năng lưu trữ ban đầu là 500MB dữ liệu, mỗi năm tăng lên 100MB","Hệ thống phải phát sinh ra một báo cáo về tất cả các chiến dịch quảng cáo cho một khách hàng cụ thể"],ans:2,exp:`500MB/năm tăng 100MB = <strong>capacity constraint</strong> (phi chức năng). Nhập Excel, nhập khách hàng, tạo báo cáo đều là các <em>tính năng</em> → chức năng.`},
+  {q:`Để xây dựng mô hình hệ thống, kỹ sư phải quan tâm tới một trong những nhân tố hạn chế sau?`,opts:["Ngân sách và phí tổn","Những giả định và những ràng buộc","Những đối tượng và những hoạt động","Lịch biểu và các mốc sự kiện"],ans:0,exp:`<strong>Ngân sách và phí tổn</strong> là nhân tố ràng buộc quan trọng nhất khi xây dựng mô hình hệ thống — quyết định phạm vi và độ phức tạp của giải pháp.`},
+  {q:`Làm rõ yêu cầu (Eliciting requirements) là?`,opts:["Các yêu cầu được ghi nhận lại theo nhiều hình thức","Các yêu cầu được tổng hợp lại theo nhiều hình thức","Giao tiếp với khách hàng và người sử dụng để xác định các yêu cầu của họ","Xem các yêu cầu có ở tình trạng không rõ ràng"],ans:2,exp:`<strong>Elicitation</strong> = giao tiếp với stakeholders để <em>khám phá và làm rõ</em> yêu cầu. Kỹ thuật: phỏng vấn, workshop, quan sát, prototype...`},
+  {q:`Trong quá trình phát triển phần mềm, hoạt động <strong>thiết kế phần mềm</strong> có nghĩa là?`,opts:["Xây dựng không gian giải pháp cho vấn đề","Nhận biết vấn đề, bài toán thực tế, các yêu cầu mà người dùng đặt ra","Thẩm định lại tính đúng đắn của giải pháp theo yêu cầu ban đầu đã đặt ra","Xây dựng một hệ thống thực hiện được dựa vào thiết kế"],ans:0,exp:`Thiết kế = <strong>xây dựng không gian giải pháp</strong>. Phân tích = hiểu bài toán (problem space). Thiết kế = tạo ra giải pháp (solution space). Lập trình = triển khai giải pháp.`},
+  {q:`Thiết kế hướng đến sự thay đổi quan trọng, vì?`,opts:["Có thể lập trình bằng nhiều ngôn ngữ khác nhau","Sự thay đổi là tính chất đặc trưng của phần mềm","Thiết kế đòi hỏi sự sáng tạo","Kiểm thử cần phải dựa trên thiết kế"],ans:1,exp:`<strong>Phần mềm luôn thay đổi</strong> (yêu cầu mới, bug fix, cải tiến). Thiết kế tốt = dễ thay đổi → giảm chi phí bảo trì dài hạn.`},
+  {q:`Xác nhận yêu cầu (Requirements Validation) được tiến hành bởi?`,opts:["Phân tích viên và các bên có liên quan","Phân tích viên và lập trình viên","Phân tích viên và người dùng","Phân tích viên và khách hàng"],ans:0,exp:`<strong>Stakeholders</strong> (các bên có liên quan) = khách hàng + người dùng + quản lý + technical team. Validation cần tất cả để đảm bảo yêu cầu đúng và đầy đủ.`},
+  {q:`Hãy chỉ ra phát biểu <strong>SAI</strong> về bản chất, mục tiêu và phạm vi của quy trình V&V?`,opts:["V&V bao gồm đánh giá xem hệ thống có tính khả dụng/dễ sử dụng hay không","V&V bao gồm các hoạt động liên quan trực tiếp đến việc gỡ lỗi và đảm bảo bảo mật","V&V và Kiểm thử (Testing) là hai lĩnh vực/hoạt động hoàn toàn tách biệt và riêng rẽ nhau","Một trong các mục tiêu chính của V&V là kiểm tra xem phần mềm có thực hiện đúng những gì người dùng thực sự cần"],ans:2,exp:`SAI: Testing <strong>là một trong những hoạt động cốt lõi của V&V</strong> — không tách biệt. V&V bao gồm: reviews, inspections, walkthroughs, và testing.`},
+  {q:`Kiểm thử hộp trắng (White-box Testing) đòi hỏi người kiểm thử phải tập trung vào khía cạnh nào của phần mềm?`,opts:["Giao diện đồ họa của người dùng","Hiệu năng và tốc độ tải trang","Cấu trúc mã nguồn, các nhánh logic và luồng điều khiển bên trong chương trình","Yêu cầu nghiệp vụ của khách hàng"],ans:2,exp:`<strong>White-box (Glass-box) testing</strong>: biết được cấu trúc bên trong. Thiết kế test dựa trên: đường dẫn logic, nhánh điều kiện, vòng lặp, biểu thức logic trong mã nguồn.`},
+  {q:`Khi gỡ lỗi (Debugging), kỹ thuật nào được sử dụng bằng cách dò vết ngược từ điểm phát sinh lỗi?`,opts:["Brute force (Vét cạn)","Backtracking (Dò vết ngược)","Cause elimination (Loại trừ nguyên nhân)","Smoke testing"],ans:1,exp:`<strong>Backtracking</strong>: từ điểm lỗi → lần ngược code → tìm gốc rễ. Phù hợp chương trình nhỏ. Brute force = in/log mọi thứ. Cause elimination = loại trừ giả thuyết.`},
+  {q:`Thuận lợi chính của chiến lược Kiểm thử tích hợp từ <strong>dưới lên</strong> (Bottom-up Integration Testing) là gì?`,opts:["Các luồng điều khiển chính được kiểm thử sớm","Người kiểm thử không cần phải viết các chương trình điều khiển giả lập (Drivers)","Không cần phải viết các module giả lập mức thấp (Stubs) cho các thành phần chưa hoàn thiện","Loại bỏ hoàn toàn nhu cầu kiểm thử hồi quy"],ans:2,exp:`Bottom-up: test từ module cấp thấp → không cần <strong>Stubs</strong>. Nhược điểm: cần viết nhiều <strong>Drivers</strong>. Top-down: ngược lại — không cần Drivers, cần nhiều Stubs.`},
+  {q:`Phát biểu nào sau đây là <strong>MỤC ĐÍCH</strong> chính của Kiểm thử hồi quy (Regression Testing)?`,opts:["Kiểm tra xem phần mềm có bị quá tải không","Đảm bảo rằng những thay đổi, bổ sung mã nguồn mới không làm hỏng các chức năng cũ đang hoạt động tốt","Xác định xem người dùng có dễ sử dụng phần mềm không","Kiểm tra sự tương thích trên nhiều trình duyệt khác nhau"],ans:1,exp:`<strong>Regression testing</strong>: sau mỗi lần thay đổi code, chạy lại test suite cũ để đảm bảo không có <em>regression bugs</em> — lỗi mới xuất hiện ở chức năng trước đó đang hoạt động tốt.`},
+  {q:`Một trong những nhược điểm lớn nhất của chiến lược Tích hợp từ <strong>trên xuống</strong> (Top-down Integration) là gì?`,opts:["Không thể áp dụng cho lập trình hướng đối tượng","Đòi hỏi phải thiết kế và lập trình rất nhiều module giả lập mức thấp (Stubs) để mô phỏng dữ liệu","Không kiểm tra được lỗi giao diện","Phải viết nhiều chương trình điều khiển giả (Drivers)"],ans:1,exp:`Top-down: test từ module điều khiển cao nhất xuống → các module cấp thấp chưa có → phải viết nhiều <strong>Stubs</strong> (giả lập) → tốn công. Ưu điểm: kiểm tra luồng điều khiển chính sớm.`},
+  {q:`Hoạt động Kiểm thử chấp nhận (Acceptance Testing) thường được thực hiện chủ yếu bởi đối tượng nào?`,opts:["Đội ngũ lập trình viên (Developers)","Những người dùng cuối hoặc khách hàng (End-users / Customers)","Nhóm kiểm thử phần mềm độc lập (ITG)","Kỹ sư hệ thống"],ans:1,exp:`<strong>Acceptance Testing</strong> = kiểm tra "có đúng sản phẩm không" — do <em>khách hàng/người dùng cuối</em> thực hiện trong môi trường thực tế để quyết định nghiệm thu.`},
+  {q:`Sự khác biệt chính giữa Alpha Testing và Beta Testing là gì?`,opts:["Alpha do lập trình viên làm, Beta do QA làm","Alpha dùng kỹ thuật hộp trắng, Beta dùng hộp đen","Alpha được thực hiện tại môi trường của nhà phát triển (có sự giám sát), Beta được thực hiện tại môi trường thực tế của người dùng cuối (không có giám sát)","Alpha test sớm để lấy yêu cầu, Beta test ở cuối dự án"],ans:2,exp:`<strong>Alpha</strong>: tại nhà phát triển, có giám sát, người dùng được mời đến. <strong>Beta</strong>: tại môi trường người dùng thực, không có lập trình viên giám sát trực tiếp.`},
+  {q:`Tính năng "Toàn bộ website phải chạy trên giao thức HTTPS và mật khẩu phải được băm bằng thuật toán BCrypt" là ví dụ của loại yêu cầu nào?`,opts:["3.3 Tính khả dụng","3.4 Hiệu năng","3.5 Cơ sở dữ liệu logic","3.8 Thuộc tính phần mềm (Bảo mật)"],ans:3,exp:`HTTPS và BCrypt là yêu cầu <strong>bảo mật (Security)</strong> — thuộc mục 3.8 Software System Attributes trong cấu trúc SRS theo IEEE 29148.`},
+  {q:`Yêu cầu "Hệ thống bắt buộc phát triển trên nền tảng Node.js hoặc Java và sử dụng database PostgreSQL" được phân loại vào mục nào?`,opts:["3.2 Yêu cầu chức năng","3.5 Cơ sở dữ liệu logic","3.6 Ràng buộc thiết kế (Design Constraints)","3.7 Tuân thủ tiêu chuẩn"],ans:2,exp:`Ràng buộc về ngôn ngữ lập trình và DBMS → <strong>Design Constraints</strong> (mục 3.6): quyết định bởi môi trường triển khai, chính sách công ty, hoặc tích hợp với hệ thống có sẵn.`},
+  {q:`Theo cấu trúc IEEE 29148, Yêu cầu Giao diện bên ngoài (External Interfaces - Mục 3.1) đặc tả 4 giao diện nào của hệ thống?`,opts:["Giao diện Người dùng, Phần mềm, Phần cứng, Mạng","Màn hình, Bàn phím, Chuột, Máy in","Cơ sở dữ liệu, API, Website, Mobile App","Giao diện phẳng, 3D, Âm thanh, Hình ảnh"],ans:0,exp:`Mục 3.1 External Interfaces = 4 loại: <strong>User Interfaces</strong> (UI/UX), <strong>Software Interfaces</strong> (API/SDK), <strong>Hardware Interfaces</strong>, <strong>Communication Interfaces</strong> (giao thức mạng).`},
+  {q:`Mục 'User Characteristics' trong Phần 2 của SRS đóng vai trò gì trong việc phân tích?`,opts:["Cung cấp danh sách email người dùng để chạy chiến dịch marketing","Đặc tả chi tiết cấu hình phần cứng tối thiểu mà người dùng phải có","Hiểu đặc điểm về trình độ, kinh nghiệm và khuyết tật để làm cơ sở biện luận cho các Yêu cầu Phi chức năng","Liệt kê các kịch bản kiểm thử người dùng (UAT)"],ans:2,exp:`User Characteristics giúp định nghĩa <strong>personas</strong>: trình độ kỹ thuật, khuyết tật, kinh nghiệm → làm cơ sở cho NFR như usability, accessibility, language support.`},
+  {q:`Sự khác biệt thực sự giữa Kiểm thử (Testing) và Gỡ lỗi (Debugging) là gì?`,opts:["Testing do lập trình viên làm, Debugging do khách hàng làm","Testing là quá trình tìm ra các lỗi (bugs), còn Debugging là quá trình theo vết và sửa chữa (solving) các lỗi đó","Testing thực hiện trên mã nguồn, Debugging thực hiện trên giao diện","Không có sự khác biệt, chúng là một"],ans:1,exp:`<strong>Testing</strong>: phát hiện lỗi (bug detection). <strong>Debugging</strong>: xác định vị trí, nguyên nhân và sửa lỗi (bug fixing). Testing → thông báo có lỗi → Debugging → sửa → Testing lại.`},
+  {q:`Phương pháp Kiểm thử hộp đen (Black-box Testing) tập trung vào việc phát hiện những loại lỗi nào?`,opts:["Các lỗi về logic thuật toán vòng lặp bên trong hàm","Tất cả các loại lỗi nêu trong đây","Các lỗi liên quan đến cú pháp lập trình","Các chức năng bị thiếu, không hoạt động đúng đặc tả, lỗi giao diện hoặc lỗi hiệu năng"],ans:3,exp:`<strong>Black-box</strong>: không biết nội bộ, test dựa trên specification → phát hiện: chức năng thiếu, đầu ra sai, lỗi giao diện, lỗi truy cập DB, lỗi hiệu năng. Không phát hiện lỗi logic nội bộ.`},
+  {q:`Trong kỹ thuật kiểm thử phần mềm, Nguyên lý Pareto (Quy tắc 80/20) được phát biểu như thế nào?`,opts:["Khoảng 80% các lỗi được tìm thấy trong phần mềm thường xuất phát từ khoảng 20% số lượng các module của chương trình","20% lỗi trong chương trình thường do 80% các lỗi nghiêm trọng gây ra","Chi phí sửa một lỗi ở giai đoạn đầu chỉ bằng 1/5 so với chi phí sửa lỗi ở giai đoạn cuối","Khoảng 60% tổng số lỗi phải được tìm thấy ở Unit Testing"],ans:0,exp:`<strong>Pareto 80/20</strong>: 80% bugs tập trung ở 20% modules → tập trung test vào các module phức tạp, thay đổi nhiều, có lịch sử bug cao → tối ưu nguồn lực kiểm thử.`},
+  {q:`Lý do quan trọng nhất của việc sử dụng Nhóm kiểm thử phần mềm độc lập (ITG) là gì?`,opts:["Để các lập trình viên tập trung hoàn toàn vào viết mã mà không cần kiểm thử","Vì những người bên ngoài sẽ có cái nhìn khắt khe và công tâm hơn","Để đảm bảo người kiểm thử không biết gì về dự án","Để loại bỏ mâu thuẫn về lợi ích giữa người phát triển và người kiểm thử, giúp việc phát hiện lỗi khách quan hơn"],ans:3,exp:`<strong>Conflict of interest</strong>: lập trình viên có xu hướng "chứng minh code chạy" thay vì "tìm lỗi". ITG độc lập → khách quan, không có thiên kiến bảo vệ sản phẩm mình viết.`},
+  {q:`Hãy chỉ ra phát biểu <strong>SAI</strong> về các đặc điểm và mục tiêu của Quá trình kiểm thử phần mềm.`,opts:["Quá trình kiểm thử phải được thiết kế để có khả năng tìm ra lỗi cao","Quá trình kiểm thử phải có tính chọn lọc, tập trung vào khu vực rủi ro cao","Mục đích của quá trình kiểm thử là nhằm xác định rằng phần mềm hoàn toàn không có lỗi","Quy trình và các ca kiểm thử không nên quá phức tạp hoặc dư thừa"],ans:2,exp:`SAI: Dijkstra: "<em>Testing can show the presence of bugs, but not their absence.</em>" Không thể chứng minh phần mềm <strong>hoàn toàn không có lỗi</strong> — chỉ có thể tăng độ tin tưởng.`},
+  {q:`Sự khác biệt cơ bản nhất giữa Verification và Validation trong V&V là gì?`,opts:["Verification tập trung vào hiệu năng, Validation tập trung vào giao diện","Verification: 'Chúng ta có đang xây dựng sản phẩm đúng cách không?'; Validation: 'Chúng ta có đang xây dựng đúng sản phẩm không?'","Verification do khách hàng làm, Validation do lập trình viên làm","Verification tìm lỗi cú pháp, Validation tìm lỗi vận hành"],ans:1,exp:`Boehm: <strong>Verification</strong> = "Are we building the product right?" (đúng quy trình, đúng spec). <strong>Validation</strong> = "Are we building the right product?" (đúng nhu cầu thực của người dùng).`},
+  {q:`Trong các kỹ thuật thiết kế ca kiểm thử sau đây, kỹ thuật nào <strong>KHÔNG</strong> thuộc nhóm Kiểm thử hộp đen?`,opts:["Kiểm thử điều kiện (Condition Testing)","Phân tích giá trị biên (Boundary Value Analysis)","Kiểm thử chuyển đổi trạng thái (State Transition Testing)","Đoán lỗi (Error Guessing)"],ans:0,exp:`<strong>Condition Testing</strong> là kỹ thuật <em>White-box</em> — kiểm tra các biểu thức logic bên trong code. BVA, State Transition, Error Guessing đều là Black-box (dựa trên specification).`},
+  {q:`Kiểm thử điều kiện (Condition Testing) là một kỹ thuật kiểm thử cấu trúc điều khiển mà trong đó các kịch bản kiểm thử được thiết kế nhằm mục đích gì?`,opts:["Dựa vào kiểm thử đường cơ bản","Tập trung kiểm tra tính đúng đắn của các biểu thức logic (điều kiện kết hợp) trong module","Chọn đường dẫn dựa vào nơi biến được định nghĩa và sử dụng","Kiểm tra các giá trị biên của vòng lặp"],ans:1,exp:`<strong>Condition Testing</strong>: thiết kế test case để kiểm tra từng boolean condition (điều kiện đơn và kết hợp AND/OR) → đảm bảo tất cả nhánh logic được thực thi.`},
+  {q:`Trong quy trình phát triển phần mềm, kỹ thuật thiết kế ca kiểm thử nào nên được ưu tiên sử dụng cho giai đoạn Kiểm thử đơn vị (Unit Testing)?`,opts:["Chỉ dùng kỹ thuật hộp trắng","Chỉ dùng kỹ thuật hộp đen","Cả hai kỹ thuật hộp đen và trắng","Kỹ thuật hồi quy (Regression Testing)"],ans:2,exp:`Unit testing dùng <strong>cả hai</strong>: White-box để bao phủ logic nội bộ (branches, conditions, paths); Black-box để test theo specification/interface của module. Kết hợp = coverage tốt nhất.`},
+  {q:`Kiểm thử luồng dữ liệu (Data Flow Testing) thiết kế các ca kiểm thử dựa trên tiêu chí nào?`,opts:["Thực thi các lộ trình logic độc lập","Tính đúng đắn của biểu thức logic","Vị trí định nghĩa (Definition) và vị trí sử dụng (Use) của các biến trong chương trình","Các giá trị biên tại vòng lặp"],ans:2,exp:`<strong>Data Flow Testing</strong>: theo dõi vòng đời biến — từ nơi được <em>định nghĩa (def)</em> đến nơi được <em>sử dụng (use)</em>. Phát hiện: biến chưa khởi tạo được dùng, biến được gán nhưng không dùng.`},
+  {q:`Thuận lợi lớn nhất của chiến lược Kiểm thử tích hợp từ <strong>trên xuống</strong> (Top-down Integration Testing) là gì?`,opts:["Các module mức thấp sẽ không bao giờ cần phải kiểm thử","Các module điều khiển và các điểm quyết định chính của hệ thống được kiểm tra và xác nhận sớm","Người kiểm thử không cần phải viết các module giả lập (Stubs)","Tốc độ chạy test nhanh hơn"],ans:1,exp:`Top-down ưu điểm: <strong>kiểm tra luồng điều khiển chính và kiến trúc tổng thể sớm</strong> → phát hiện lỗi thiết kế nghiêm trọng ngay từ đầu. Nhược: cần nhiều Stubs.`},
+  {q:`Khi thực hiện Kiểm thử vòng lặp (Loop Testing), người kiểm thử cần thiết kế kịch bản để tập trung vào kiểm tra điều gì?`,opts:["Logic của toàn bộ hệ thống phân tán","Các giá trị của cấu trúc lặp, đặc biệt tại các điểm biên (ví dụ: lặp 0 lần, lặp 1 lần, lặp N lần, lặp N+1 lần)","Vòng đời của các biến dùng chung","Giao diện đồ họa của danh sách lặp"],ans:1,exp:`<strong>Loop Testing</strong>: test biên vòng lặp — 0 lần (bỏ qua loop), 1 lần (lặp tối thiểu), N lần (lặp điển hình), N+1 lần (vượt giới hạn). Phát hiện off-by-one errors.`},
+  {q:`Hoạt động kiểm thử nào được thực hiện bằng cách cố tình đẩy hệ thống vượt quá giới hạn thiết kế (tải cực đại) để xem cách hệ thống sụp đổ và khả năng phục hồi?`,opts:["Kiểm thử hồi quy (Regression Testing)","Kiểm thử khả dụng (Usability Testing)","Kiểm thử áp lực (Stress Testing)","Kiểm thử bảo mật (Security Testing)"],ans:2,exp:`<strong>Stress Testing</strong>: push hệ thống vượt ngưỡng thiết kế → quan sát cách hệ thống fail và recover. Khác <em>Load Testing</em> (test tại ngưỡng bình thường) và <em>Performance Testing</em> (đo hiệu năng).`},
+  {q:`Trong cấu trúc chuẩn IEEE 29148, phần 'Scope' (Phạm vi) nằm ở Phần 1 có mục đích chính là gì?`,opts:["Nêu rõ mục đích của phần mềm và đối tượng đọc tài liệu","Định nghĩa mọi thuật ngữ và chữ viết tắt","Định danh sản phẩm, giải thích phần mềm sẽ làm gì, ứng dụng thực tiễn và lợi ích","Liệt kê các tài liệu kỹ thuật liên quan"],ans:2,exp:`Phần 1.2 Scope: <strong>đặt tên sản phẩm, mô tả những gì phần mềm làm</strong>, ứng dụng thực tiễn (sẽ dùng ở đâu), và lợi ích mang lại. Phần 1.1 là Purpose (mục đích tài liệu).`},
+  {q:`Tiêu chuẩn hiện đại nào đã chính thức thay thế tiêu chuẩn IEEE 830-1993 để định hình cấu trúc cho một tài liệu SRS?`,opts:["ISO/IEC/IEEE 29148","ISO 9001","IEEE 1016","ISO/IEC 27001"],ans:0,exp:`<strong>ISO/IEC/IEEE 29148:2018</strong> là tiêu chuẩn hiện hành thay thế IEEE 830-1993. ISO 9001 = quality management; IEEE 1016 = software design; ISO 27001 = information security.`},
+  {q:`Khi kết thúc giai đoạn Lập trình (Coding), hoạt động xem xét lại mã nguồn (Code Walkthrough / Review) mang lại lợi ích chính nào?`,opts:["Tự động sinh ra tài liệu hướng dẫn sử dụng","Tìm và loại bỏ các lỗi logic, vi phạm tiêu chuẩn lập trình trước khi bước vào giai đoạn kiểm thử động","Biên dịch mã nguồn nhanh hơn 50%","Loại bỏ hoàn toàn sự cần thiết của Kiểm thử tích hợp"],ans:1,exp:`<strong>Code Review / Walkthrough</strong>: kiểm thử tĩnh (static testing) — đọc code, tìm lỗi logic, naming convention, security issues mà không chạy chương trình. Chi phí thấp, hiệu quả cao.`},
+  {q:`Trong kiểm thử hộp trắng, tiêu chuẩn bao phủ nào đòi hỏi MỖI nhánh (đúng/sai) của MỌI điều kiện logic đều phải được thực thi ít nhất một lần?`,opts:["Condition Coverage (Bao phủ điều kiện)","Branch Coverage (Bao phủ nhánh)","Statement Coverage (Bao phủ câu lệnh)","Path Coverage (Bao phủ đường dẫn)"],ans:1,exp:`<strong>Branch Coverage (Decision Coverage)</strong>: mỗi nhánh true/false của EVERY if/switch phải được test ít nhất 1 lần. Cao hơn Statement Coverage, thấp hơn Path Coverage.`},
+  {q:`Khi thiết kế ca kiểm thử hộp trắng, người kiểm thử CẦN ĐƯỢC trang bị loại kiến thức nào?`,opts:["Kiến thức lập trình, hiểu biết về cấu trúc thiết kế nội bộ và mã nguồn của chương trình","Kỹ năng thiết kế đồ họa UI/UX","Kinh nghiệm quản lý dự án và phân bổ nguồn lực","Kiến thức về phân tích hệ thống mà không cần biết lập trình"],ans:0,exp:`White-box tester <strong>phải biết lập trình</strong> và đọc hiểu được mã nguồn — vì phải thiết kế test dựa trên luồng điều khiển, điều kiện, vòng lặp bên trong code.`},
+  {q:`Mục đích chính của tài liệu Đặc tả Yêu cầu Phần mềm (SRS) là gì?`,opts:["Làm cơ sở thỏa thuận giữa khách hàng và nhà phát triển về những gì phần mềm sẽ làm","Cung cấp mã nguồn chi tiết cho các lập trình viên","Liệt kê danh sách các công cụ phần cứng cần mua","Hướng dẫn người dùng cuối cách cài đặt phần mềm"],ans:0,exp:`SRS = <strong>hợp đồng kỹ thuật</strong>: là tài liệu thỏa thuận (agreement document) giữa customer và developer về scope, chức năng, và constraints của sản phẩm.`},
+  {q:`Ai là người chịu trách nhiệm chính trong việc thu thập yêu cầu và viết tài liệu SRS?`,opts:["Database Administrator (Quản trị CSDL)","Tester (Người kiểm thử)","System Analyst (Phân tích viên hệ thống)","UI/UX Designer"],ans:2,exp:`<strong>System Analyst</strong>: phân tích nghiệp vụ, giao tiếp với stakeholders, dịch yêu cầu thành đặc tả kỹ thuật. Đây là vai trò trung gian quan trọng giữa business và IT.`},
+  {q:`Yêu cầu "Hệ thống bắt buộc phải được phát triển bằng ngôn ngữ C# và chạy trên server Windows" được mô tả ở phần nào trong tài liệu SRS?`,opts:["Mục 3.1: Giao diện bên ngoài (External Interfaces)","Mục 3.2: Yêu cầu chức năng (Functional Requirements)","Mục 3.6: Ràng buộc thiết kế (Design Constraints)","Mục 3.4: Hiệu năng (Performance)"],ans:2,exp:`Ngôn ngữ lập trình và OS = <strong>Design Constraints</strong> (mục 3.6). Ràng buộc này thường đến từ: tích hợp hệ thống cũ, chính sách IT của tổ chức, hoặc yêu cầu licensing.`},
+  {q:`Đặc tả về 'Giao thức mạng, API liên kết với cổng thanh toán' nên được đặt ở phần nào trong tài liệu SRS?`,opts:["3.4 Hiệu năng (Performance)","3.5 Cơ sở dữ liệu logic","3.2 Yêu cầu chức năng","3.1 Giao diện bên ngoài (External Interfaces)"],ans:3,exp:`Giao thức mạng (HTTPS, REST, SOAP) và API tích hợp bên ngoài → <strong>3.1 External Interfaces / Communication Interfaces</strong>. Đây là giao tiếp giữa hệ thống và môi trường bên ngoài.`},
+  {q:`Yêu cầu "Hệ thống phải có khả năng xử lý 10.000 giao dịch đồng thời mà thời gian phản hồi không vượt quá 2 giây" thuộc nhóm yêu cầu nào?`,opts:["3.3 Tính khả dụng (Usability)","3.4 Hiệu năng (Performance)","3.8 Thuộc tính phần mềm (Software System Attributes)","3.5 CSDL Logic"],ans:1,exp:`Số giao dịch đồng thời + thời gian phản hồi = <strong>Performance Requirements</strong> (mục 3.4). Đây là ràng buộc hiệu năng cụ thể, đo được, có thể kiểm thử được.`},
+  {q:`Mức độ kiểm thử (Test level) nào thường được thực hiện <strong>đầu tiên nhất</strong> trong quy trình phát triển phần mềm?`,opts:["Integration Testing (Kiểm thử tích hợp)","Unit Testing (Kiểm thử đơn vị)","System Testing (Kiểm thử hệ thống)","Acceptance Testing (Kiểm thử chấp nhận)"],ans:1,exp:`Thứ tự: <strong>Unit → Integration → System → Acceptance</strong>. Unit Testing đầu tiên: test từng module nhỏ nhất ngay sau khi code, trước khi tích hợp.`},
+  {q:`Kỹ thuật kiểm thử hộp đen (Black-box testing) tập trung vào chức năng đầu ra/đầu vào còn được gọi bằng thuật ngữ nào?`,opts:["Structural testing","Glass-box testing","Behavioral testing / Functional testing","Clear-box testing"],ans:2,exp:`Black-box = <strong>Behavioral/Functional testing</strong>: quan sát hành vi bên ngoài (input → output) theo đặc tả. Glass-box/Clear-box/Structural = White-box testing.`},
+  {q:`Trong kiểm thử phần mềm, một "Test Case" (Ca kiểm thử) tiêu chuẩn bắt buộc phải bao gồm những thành phần cơ bản nào?`,opts:["Source code, Test script, User manual","Input data (Dữ liệu đầu vào), Execution conditions (Điều kiện thực thi), Expected results (Kết quả mong đợi)","Project plan, Test plan, Test summary report","Developer name, Tester name, Bug ID"],ans:1,exp:`Test Case tối thiểu gồm 3 thành phần: <strong>Input</strong> (dữ liệu đầu vào), <strong>Execution conditions</strong> (môi trường, precondition), <strong>Expected output</strong> (kết quả mong đợi để so sánh).`},
+  {q:`Phương pháp phân tích giá trị biên (Boundary Value Analysis) là một kỹ thuật thuộc loại kiểm thử nào?`,opts:["White-box testing","Black-box testing","Integration testing","System testing"],ans:1,exp:`<strong>BVA là Black-box</strong>: dựa trên đặc tả miền giá trị, test tại ranh giới (vd: 0, 1, max-1, max) mà không cần biết code. Lỗi thường xảy ra tại biên (off-by-one errors).`},
+  {q:`Kiểm thử hệ thống (System Testing) được thực hiện nhằm mục đích chính là gì?`,opts:["Kiểm tra từng module riêng lẻ để tìm lỗi logic","Kiểm tra cấu trúc ghép nối và sự tương tác giữa các module","Đánh giá toàn bộ hệ thống đã được tích hợp hoàn chỉnh để đảm bảo đáp ứng đúng các yêu cầu (SRS) đã đặc tả","Đảm bảo giao diện phần mềm có tính thẩm mỹ cao"],ans:2,exp:`<strong>System Testing</strong>: test toàn bộ hệ thống tích hợp hoàn chỉnh → so sánh với SRS. Bao gồm: functional, performance, security, usability, compatibility testing.`},
+  {q:`Beta testing thường được thực hiện bởi ai và ở đâu?`,opts:["Đội ngũ phát triển (Developers) tại công ty phần mềm","Khách hàng hoặc Người dùng cuối tại môi trường thực tế của họ (không có sự giám sát trực tiếp)","Nhóm kiểm thử độc lập (ITG) tại phòng lab","Quản lý dự án (Project Manager) tại buổi họp bàn giao"],ans:1,exp:`<strong>Beta testing</strong>: người dùng cuối thực hiện trong môi trường thực tế, <em>không có giám sát</em> từ nhà phát triển. Phát hiện lỗi trong điều kiện sử dụng thực tế đa dạng.`},
+  {q:`Tài liệu nào mô tả chi tiết về phạm vi, cách tiếp cận, nguồn lực, và lịch trình của toàn bộ các hoạt động kiểm thử trong dự án?`,opts:["Test Plan (Kế hoạch kiểm thử)","Test Case (Ca kiểm thử)","Test Script (Kịch bản kiểm thử)","Bug Report (Báo cáo lỗi)"],ans:0,exp:`<strong>Test Plan</strong>: tài liệu chiến lược kiểm thử tổng thể — scope, approach, resources, schedule, entry/exit criteria. Test Case = chi tiết từng ca test. Test Script = tự động hóa.`},
+  {q:`Kỹ thuật đặc tả hình thức (Formal Specification) sử dụng ký pháp toán học chính xác tuyệt đối thường phù hợp nhất với loại dự án nào?`,opts:["Các dự án e-commerce thông thường","Các ứng dụng quản lý doanh nghiệp vừa và nhỏ","Hệ thống an toàn cao (y tế, hàng không, quân sự)","Các website tin tức, giới thiệu công ty"],ans:2,exp:`<strong>Formal specification</strong> (Z notation, VDM, TLA+): cực kỳ chính xác, không ambiguous. Chi phí cao → chỉ xứng đáng với <em>safety-critical systems</em>: máy bay, thiết bị y tế, vũ khí.`},
+  {q:`Các công cụ như Use Case Diagram, Activity Diagram, ERD, DFD thuộc về loại kỹ thuật đặc tả nào?`,opts:["Đặc tả hình thức (Formal)","Đặc tả phi hình thức (Informal)","Đặc tả bán hình thức (Semi-formal)","Đặc tả luồng dữ liệu"],ans:2,exp:`<strong>Semi-formal</strong>: có cú pháp (syntax) định nghĩa rõ ràng nhưng không hoàn toàn toán học. UML/ERD/DFD có ký hiệu chuẩn nhưng semantics vẫn có thể mơ hồ.`},
+  {q:`[Lặp C73] Thuận lợi lớn nhất của chiến lược Kiểm thử tích hợp từ trên xuống (Top-down Integration Testing) là gì?`,opts:["Các module mức thấp sẽ không bao giờ cần phải kiểm thử","Các module điều khiển và các điểm quyết định chính của hệ thống được kiểm tra và xác nhận sớm","Người kiểm thử không cần phải viết các module giả lập (Stubs)","Tốc độ chạy test nhanh hơn"],ans:1,exp:`Top-down ưu điểm: <strong>kiểm tra luồng điều khiển chính và kiến trúc tổng thể sớm</strong> → phát hiện lỗi thiết kế nghiêm trọng ngay từ đầu. Nhược: cần nhiều Stubs.`},
+  {q:`[Lặp C74] Kiểm thử vòng lặp (Loop Testing) tập trung vào kiểm tra điều gì?`,opts:["Logic của toàn bộ hệ thống phân tán","Các giá trị của cấu trúc lặp, đặc biệt tại các điểm biên (ví dụ: lặp 0 lần, lặp 1 lần, lặp N lần, lặp N+1 lần)","Vòng đời của các biến dùng chung","Giao diện đồ họa của danh sách lặp"],ans:1,exp:`<strong>Loop Testing</strong>: test biên vòng lặp — 0 lần (bỏ qua loop), 1 lần (lặp tối thiểu), N lần (lặp điển hình), N+1 lần (vượt giới hạn). Phát hiện off-by-one errors.`},
+  {q:`[Lặp C72] Kiểm thử luồng dữ liệu (Data Flow Testing) thiết kế các ca kiểm thử dựa trên tiêu chí nào?`,opts:["Thực thi các lộ trình logic độc lập","Tính đúng đắn của biểu thức logic","Vị trí định nghĩa (Definition) và vị trí sử dụng (Use) của các biến trong chương trình","Các giá trị biên tại vòng lặp"],ans:2,exp:`<strong>Data Flow Testing</strong>: theo dõi vòng đời biến — từ nơi được định nghĩa (def) đến nơi được sử dụng (use). Phát hiện: biến chưa khởi tạo được dùng, biến được gán nhưng không dùng.`},
+  {q:`[Lặp C98] Kỹ thuật nào KHÔNG thuộc nhóm Kiểm thử hộp đen?`,opts:["Kiểm thử điều kiện (Condition Testing)","Phân tích giá trị biên (Boundary Value Analysis)","Kiểm thử chuyển đổi trạng thái (State Transition Testing)","Đoán lỗi (Error Guessing)"],ans:0,exp:`<strong>Condition Testing</strong> là kỹ thuật White-box — kiểm tra các biểu thức logic bên trong code. BVA, State Transition, Error Guessing đều là Black-box (dựa trên specification).`},
+  {q:`[Lặp C99] Kiểm thử điều kiện (Condition Testing) nhằm mục đích gì?`,opts:["Dựa vào kiểm thử đường cơ bản","Tập trung kiểm tra tính đúng đắn của các biểu thức logic (điều kiện kết hợp) trong module","Chọn đường dẫn dựa vào nơi biến được định nghĩa và sử dụng","Kiểm tra các giá trị biên của vòng lặp"],ans:1,exp:`<strong>Condition Testing</strong>: thiết kế test case để kiểm tra từng boolean condition (điều kiện đơn và kết hợp AND/OR) → đảm bảo tất cả nhánh logic được thực thi.`},
+  {q:`[Lặp C100] Sự khác biệt cơ bản giữa Verification và Validation trong V&V?`,opts:["Verification tập trung vào hiệu năng, Validation tập trung vào giao diện","Verification: 'Chúng ta có đang xây dựng sản phẩm đúng cách không?'; Validation: 'Chúng ta có đang xây dựng đúng sản phẩm không?'","Verification do khách hàng làm, Validation do lập trình viên làm","Verification tìm lỗi cú pháp, Validation tìm lỗi vận hành"],ans:1,exp:`Boehm: <strong>Verification</strong> = "Are we building the product right?" (đúng quy trình, đúng spec). <strong>Validation</strong> = "Are we building the right product?" (đúng nhu cầu thực).`},
+  {q:`[Lặp C101] Phát biểu SAI về bản chất, mục tiêu của quy trình V&V?`,opts:["V&V bao gồm đánh giá xem hệ thống có tính khả dụng/dễ sử dụng hay không","V&V bao gồm các hoạt động liên quan trực tiếp đến việc gỡ lỗi và đảm bảo bảo mật","V&V và Kiểm thử (Testing) là hai lĩnh vực/hoạt động hoàn toàn tách biệt và riêng rẽ nhau","Một trong các mục tiêu chính của V&V là kiểm tra xem phần mềm có thực hiện đúng những gì người dùng thực sự cần"],ans:2,exp:`SAI: Testing <strong>là một trong những hoạt động cốt lõi của V&V</strong> — không tách biệt. V&V bao gồm: reviews, inspections, walkthroughs, và testing.`},
+  {q:`[Lặp C102] Nguyên lý Pareto (Quy tắc 80/20) trong kiểm thử phần mềm?`,opts:["Khoảng 80% các lỗi được tìm thấy trong phần mềm thường xuất phát từ khoảng 20% số lượng các module","20% lỗi trong chương trình thường do 80% các lỗi nghiêm trọng gây ra","Chi phí sửa một lỗi ở giai đoạn đầu chỉ bằng 1/5 so với chi phí sửa lỗi ở giai đoạn cuối","Khoảng 60% tổng số lỗi phải được tìm thấy ở Unit Testing"],ans:0,exp:`<strong>Pareto 80/20</strong>: 80% bugs tập trung ở 20% modules → tập trung test vào các module phức tạp, thay đổi nhiều, có lịch sử bug cao → tối ưu nguồn lực kiểm thử.`},
+  {q:`[Lặp C103] Phát biểu SAI về mục tiêu của Quá trình kiểm thử phần mềm?`,opts:["Quá trình kiểm thử phải được thiết kế để có khả năng tìm ra lỗi cao","Quá trình kiểm thử phải có tính chọn lọc, tập trung vào khu vực rủi ro cao","Mục đích của quá trình kiểm thử là nhằm xác định rằng phần mềm hoàn toàn không có lỗi","Quy trình và các ca kiểm thử không nên quá phức tạp hoặc dư thừa"],ans:2,exp:`SAI: "Testing can show the presence of bugs, but not their absence" (Dijkstra). Không thể chứng minh phần mềm <strong>hoàn toàn không có lỗi</strong>.`},
+  {q:`[Lặp C104] Lý do quan trọng nhất của việc sử dụng ITG (Independent Test Group)?`,opts:["Để các lập trình viên tập trung hoàn toàn vào viết mã mà không cần kiểm thử","Vì những người bên ngoài sẽ có cái nhìn khắt khe và công tâm hơn","Để đảm bảo người kiểm thử không biết gì về dự án","Để loại bỏ mâu thuẫn về lợi ích giữa người phát triển và người kiểm thử, giúp việc phát hiện lỗi khách quan hơn"],ans:3,exp:`<strong>Conflict of interest</strong>: lập trình viên có xu hướng "chứng minh code chạy" thay vì "tìm lỗi". ITG độc lập → khách quan, không có thiên kiến bảo vệ sản phẩm mình viết.`},
+  {q:`[Lặp C105] Sự khác biệt thực sự giữa Kiểm thử (Testing) và Gỡ lỗi (Debugging)?`,opts:["Testing do lập trình viên làm, Debugging do khách hàng làm","Testing là quá trình tìm ra các lỗi (bugs), còn Debugging là quá trình theo vết và sửa chữa (solving) các lỗi đó","Testing thực hiện trên mã nguồn, Debugging thực hiện trên giao diện","Không có sự khác biệt, chúng là một"],ans:1,exp:`<strong>Testing</strong>: phát hiện lỗi. <strong>Debugging</strong>: xác định vị trí, nguyên nhân và sửa lỗi. Testing → thông báo có lỗi → Debugging → sửa → Testing lại để xác nhận.`},
+  {q:`[Lặp C106] Kiểm thử hộp trắng (White-box Testing) đòi hỏi tập trung vào khía cạnh nào?`,opts:["Giao diện đồ họa của người dùng","Hiệu năng và tốc độ tải trang","Cấu trúc mã nguồn, các nhánh logic và luồng điều khiển bên trong chương trình","Yêu cầu nghiệp vụ của khách hàng"],ans:2,exp:`<strong>White-box (Glass-box) testing</strong>: biết được cấu trúc bên trong. Thiết kế test dựa trên: đường dẫn logic, nhánh điều kiện, vòng lặp, biểu thức logic trong mã nguồn.`},
+  {q:`[Lặp C107] Phương pháp Black-box Testing tập trung phát hiện những loại lỗi nào?`,opts:["Các lỗi về logic thuật toán vòng lặp bên trong hàm","Tất cả các loại lỗi nêu trong đây","Các lỗi liên quan đến cú pháp lập trình","Các chức năng bị thiếu, không hoạt động đúng đặc tả, lỗi giao diện hoặc lỗi hiệu năng"],ans:3,exp:`<strong>Black-box</strong>: không biết nội bộ, test dựa trên specification → phát hiện: chức năng thiếu, đầu ra sai, lỗi giao diện, lỗi truy cập DB, lỗi hiệu năng.`},
+  {q:`Anti-pattern trong thiết kế phần mềm là gì?`,opts:["Một mẫu thiết kế xuất sắc nhất","Những giải pháp phổ biến cho một vấn đề nhưng lại dẫn đến kết quả xấu, tạo ra phần mềm kém chất lượng","Một công cụ diệt virus","Mẫu giao diện không có hình ảnh"],ans:1,exp:`<strong>Anti-pattern</strong>: giải pháp có vẻ hợp lý nhưng thực tế gây hại. Ví dụ: God Object (một class làm tất cả), Spaghetti Code, Copy-Paste Programming, Magic Numbers.`},
+  {q:`Sự khác biệt chính giữa Framework và Design Pattern là gì?`,opts:["Không có sự khác biệt, chúng là một","Framework là một mã nguồn/cấu trúc cơ sở hạ tầng cụ thể, trong khi Pattern mang tính trừu tượng và không phụ thuộc vào code","Pattern lớn hơn và bao trùm nhiều Framework","Framework chỉ dùng cho Web, Pattern dùng cho Mobile"],ans:1,exp:`<strong>Framework</strong>: code thực tế, cụ thể (React, Spring, Django). <strong>Design Pattern</strong>: ý tưởng trừu tượng, giải pháp tổng quát (Singleton, Observer...) → có thể implement bằng bất kỳ ngôn ngữ nào.`},
+  {q:`Mẫu thiết kế (Design pattern) trong phần mềm được mô tả là gì?`,opts:["Một công cụ kiểm thử tự động","Một giải pháp đã được chứng minh cho một vấn đề lặp đi lặp lại trong một ngữ cảnh cụ thể","Một ngôn ngữ lập trình mới","Một lỗi phổ biến trong mã nguồn"],ans:1,exp:`Design Pattern (GoF): <strong>giải pháp tái sử dụng được</strong> cho vấn đề thiết kế phổ biến. 3 nhóm: Creational (Singleton, Factory), Structural (Adapter, Facade), Behavioral (Observer, Strategy).`},
+  {q:`Hành động nào của thiết kế giao diện thể hiện quy tắc 'Đặt người dùng vào quyền kiểm soát' (Place the user in control)?`,opts:["Bắt người dùng nhập chính xác chuỗi phức tạp","Cho phép các tương tác có thể bị ngắt ngang và hoàn tác (undoable)","Khóa mọi phím tắt của trình duyệt","Xóa nút quay lại (back button)"],ans:1,exp:`<strong>"Place the user in control"</strong>: user làm chủ → phải cho phép undo/redo, cancel, interrupt. Bắt nhập chuỗi phức tạp / khóa phím tắt / xóa back button = vi phạm nguyên tắc này.`},
+  {q:`Ba 'Quy tắc Vàng' (Golden Rules) trong thiết kế giao diện người dùng do Theo Mandel đề xuất bao gồm những gì?`,opts:["Làm cho nó nhiều màu sắc, có âm thanh, có hình ảnh động","Đặt người dùng vào quyền kiểm soát; Giảm tải bộ nhớ của người dùng; Làm cho giao diện nhất quán","Chạy nhanh, code ngắn, không cần database","Bảo mật cao, giá rẻ, dễ cài đặt"],ans:1,exp:`Mandel's Golden Rules: (1) <strong>Place the user in control</strong>; (2) <strong>Reduce the user's memory load</strong>; (3) <strong>Make the interface consistent</strong>. Đây là nền tảng của UI/UX design tốt.`},
+  {q:`Nguyên tắc CRP (Common Reuse Principle) cảnh báo điều gì?`,opts:["Luôn đóng gói ngẫu nhiên","Các lớp không được sử dụng cùng nhau thì không nên được đóng gói cùng nhau","Các lớp dùng chung không nên đóng gói cùng","Mọi lớp đều phải có giao diện riêng"],ans:1,exp:`<strong>CRP</strong>: "Don't force users of a package to depend on things they don't need." Nếu class A và B không được dùng cùng nhau → tách ra → giảm phụ thuộc không cần thiết.`},
+  {q:`Theo CCP (Common Closure Principle), những lớp như thế nào thì nên được đóng gói cùng nhau?`,opts:["Những lớp thay đổi cùng nhau thì nên thuộc về cùng một gói (package)","Những lớp có tên giống nhau","Tất cả các lớp trong toàn bộ dự án","Những lớp không bao giờ thay đổi"],ans:0,exp:`<strong>CCP</strong> (tương tự SRP cho packages): "Gather into components those classes that change at the same times and for the same reasons." → giảm số package cần deploy khi có thay đổi.`},
+  {q:`Đơn vị của sự tái sử dụng (reuse) chính là đơn vị của sự phát hành (release) là nguyên tắc nào?`,opts:["Chỉ tái sử dụng code của người khác","Đơn vị của sự tái sử dụng (reuse) chính là đơn vị của bản phát hành (release)","Phần mềm không cần phát hành","Không bao giờ tái sử dụng code cũ"],ans:1,exp:`<strong>REP (Reuse/Release Equivalence Principle)</strong>: để tái sử dụng một component, nó phải được quản lý phiên bản và phát hành chính thức. Không thể tái sử dụng code chưa được versioned.`},
+  {q:`Theo định nghĩa của OMG UML, thành phần (Component) là gì?`,opts:["Một biến toàn cục","Một hàm ẩn danh","Một phần có tính mô-đun, có thể triển khai và thay thế được, đóng gói triển khai và phơi bày các giao diện","Một thư mục chứa tài liệu"],ans:2,exp:`<strong>Component (UML)</strong>: modular, deployable, replaceable. Đóng gói implementation bên trong, giao tiếp qua provided/required interfaces. Ví dụ: DLL, JAR, microservice.`},
+  {q:`Archetype (Nguyên mẫu) trong thiết kế kiến trúc là gì?`,opts:["Bản nháp giao diện người dùng","Một lớp hoặc mẫu đại diện cho một sự trừu tượng cốt lõi quan trọng đối với kiến trúc hệ thống","Mã nguồn cuối cùng","Máy chủ cơ sở dữ liệu"],ans:1,exp:`<strong>Archetype</strong>: abstraction cốt lõi của domain, xuất hiện trong mọi ứng dụng của loại đó. Ví dụ: e-commerce archetype = Node (user/product), Transaction, Role, Rule.`},
+  {q:`Phương pháp ATAM do SEI phát triển dùng để làm gì?`,opts:["Viết mã tự động","Kiểm thử hộp đen","Đánh giá các thiết kế kiến trúc phần mềm và phân tích đánh đổi","Quản lý phiên bản mã nguồn"],ans:2,exp:`<strong>ATAM (Architecture Tradeoff Analysis Method)</strong>: phương pháp đánh giá kiến trúc phần mềm, phân tích các đánh đổi (tradeoffs) giữa các quality attributes (hiệu năng vs bảo mật...).`},
+  {q:`Mẫu kiến trúc MVC (Model-View-Controller) thường được sử dụng trong loại ứng dụng nào?`,opts:["Hệ thống nhúng (Embedded Systems)","Ứng dụng Web (WebApps) hoặc Mobile","Trình biên dịch (Compilers)","Hệ điều hành"],ans:1,exp:`<strong>MVC</strong>: tách biệt dữ liệu (Model), giao diện (View), logic điều khiển (Controller). Phù hợp nhất với Web/Mobile apps. Phát sinh từ Smalltalk, phổ biến với Rails, Spring MVC, Laravel.`},
+  {q:`Đặc điểm của kiến trúc Gọi và Trả về (Call-and-Return Architecture) là gì?`,opts:["Sử dụng thông điệp để giao tiếp giữa các lớp","Tạo ra cấu trúc phân cấp điều khiển truyền thống (main program/subprogram) dễ thay đổi và mở rộng","Chỉ có một lớp giao diện duy nhất","Dữ liệu được lưu chung ở một nơi"],ans:1,exp:`<strong>Call-and-Return</strong>: chương trình chính gọi các chương trình con, tạo cây phân cấp điều khiển. Dễ hiểu, dễ thay đổi. Bao gồm: main/subroutine, OOP, layered architecture.`},
+  {q:`Thiết kế kiến trúc (Architectural design) cho phần mềm có thể được ví với điều gì?`,opts:["Trang trí nội thất cho ngôi nhà","Bản thiết kế mặt bằng (floor plan) của một ngôi nhà","Xây móng nhà","Lắp đặt hệ thống điện nước"],ans:1,exp:`Tương tự: kiến trúc phần mềm = <strong>bản vẽ floor plan</strong> — xác định cấu trúc tổng thể, vị trí các "phòng" (modules/components), và cách chúng kết nối — trước khi xây dựng chi tiết.`},
+  {q:`Sự gắn kết (Cohesion) trong thiết kế cấp thành phần là gì?`,opts:["Mức độ kết nối giữa các mô-đun khác nhau","Tính 'đơn nhiệm' (single-mindedness), tập trung thực hiện duy nhất một chức năng của một mô-đun","Tốc độ xử lý của một hàm","Mức độ phức tạp của mã nguồn"],ans:1,exp:`<strong>Cohesion</strong>: module tập trung làm <em>một việc</em> tốt (SRP - Single Responsibility Principle). High cohesion → dễ hiểu, dễ test, dễ tái sử dụng. Ngược với coupling (sự phụ thuộc giữa modules).`},
+  {q:`Khái niệm che giấu thông tin (Information Hiding) có ý nghĩa gì trong thiết kế phần mềm?`,opts:["Mã hóa dữ liệu để tránh bị hacker tấn công","Các mô-đun được thiết kế sao cho dữ liệu và thủ tục nội bộ của chúng không thể bị truy cập bởi các mô-đun khác không cần đến thông tin đó","Xóa các tài liệu thiết kế sau khi lập trình xong","Che giấu mã nguồn với khách hàng"],ans:1,exp:`<strong>Information Hiding</strong> (Parnas 1972): module che giấu implementation chi tiết → chỉ expose interface cần thiết. Giảm coupling, tăng modularity. Cơ sở của encapsulation trong OOP.`},
+  {q:`Khái niệm 'Phân tách các mối quan tâm' (Separation of concerns) khuyên chúng ta điều gì?`,opts:["Gộp mọi vấn đề lại để giải quyết một lần","Chia nhỏ một vấn đề phức tạp thành các phần có thể giải quyết độc lập","Tập trung vào giao diện trước khi làm dữ liệu","Bỏ qua các vấn đề khó để làm sau"],ans:1,exp:`<strong>Separation of Concerns (SoC)</strong>: chia hệ thống thành các phần riêng biệt, mỗi phần giải quyết một mối quan tâm cụ thể. Ví dụ: MVC tách UI / logic / data. Tăng modularity và maintainability.`},
+  {q:`Tầm quan trọng của thiết kế phần mềm được tóm gọn bằng từ nào?`,opts:["Tốc độ (Speed)","Chi phí (Cost)","Chất lượng (Quality)","Tính năng (Features)"],ans:2,exp:`<strong>Chất lượng</strong> là từ khóa: thiết kế tốt → code chất lượng → ít bug → dễ bảo trì → giảm chi phí dài hạn. "Quality is free" (Philip Crosby) — đầu tư vào thiết kế tốt tiết kiệm nhiều hơn.`},
+  {q:`Mục tiêu cốt lõi của kỹ thuật FAST (Facilitated Application Specification Technique) khi đưa nhà phát triển và khách hàng làm việc cùng nhau là gì?`,opts:["Xây dựng một bản mẫu (prototype) hoàn chỉnh để thay thế tài liệu yêu cầu","Để khách hàng trực tiếp tham gia vào quá trình viết mã nguồn (coding)","Thống nhất một tập hợp các yêu cầu ban đầu (danh sách đối tượng, chức năng, ràng buộc)","Đào tạo kỹ năng lập trình cơ bản cho khách hàng và người dùng"],ans:2,exp:`<strong>FAST</strong>: workshop có người điều phối → developer và customer cùng làm việc → thống nhất danh sách: objects (đối tượng), services (chức năng), constraints (ràng buộc), performance criteria.`},
+  {q:`Kỹ thuật thu thập yêu cầu nào được thực hiện qua các buổi làm việc tập trung, có người điều phối (facilitator)?`,opts:["Prototyping","Facilitated Workshops","Observation","Questionnaires & Surveys"],ans:1,exp:`<strong>Facilitated Workshops</strong>: buổi họp có cấu trúc, có facilitator trung lập điều phối → nhóm đại diện các bên → thống nhất nhanh hơn phỏng vấn 1-1. Ví dụ: JAD sessions.`},
+  {q:`Phương pháp đặc tả nào sau đây KHÔNG phù hợp để mô tả yêu cầu trong giai đoạn Phân tích?`,opts:["Đặc tả thao tác","Đặc tả mô hình","Đặc tả bằng sơ đồ","Đặc tả thuật toán"],ans:3,exp:`<strong>Đặc tả thuật toán</strong> thuộc giai đoạn <em>Thiết kế chi tiết</em> (detail design), không phải Phân tích yêu cầu. Phân tích dùng: đặc tả thao tác, mô hình, sơ đồ (use case, DFD...).`},
+  {q:`Trong quy trình TDD (Test-Driven Development), bước 'Refactor' có ý nghĩa gì?`,opts:["Viết mã mới để vượt qua bài kiểm thử","Chỉnh sửa cấu trúc mã nguồn cho tối ưu mà không làm thay đổi hành vi","Xóa bỏ hoàn toàn các bài kiểm thử bị lỗi","Viết thêm các tính năng mới vào hệ thống"],ans:1,exp:`TDD cycle: <strong>Red</strong> (viết test fail) → <strong>Green</strong> (viết code pass) → <strong>Refactor</strong> (cải thiện cấu trúc code mà không thay đổi hành vi — tests vẫn pass). Refactoring ≠ thêm tính năng.`},
+  {q:`Trong mô hình Scrum, vai trò nào chịu trách nhiệm tối đa hóa giá trị sản phẩm và quản lý Product Backlog?`,opts:["Scrum Master","Product Owner","Development Team","Stakeholders"],ans:1,exp:`<strong>Product Owner</strong>: đại diện business, định nghĩa vision, quản lý và ưu tiên hóa Product Backlog, quyết định "làm gì tiếp theo" để tối đa hóa ROI. Scrum Master = coach quy trình.`},
+  {q:`Kỹ thuật thu thập yêu cầu nào dựa trên việc lấy ý kiến từ nhóm chuyên gia làm việc độc lập và ẩn danh nhằm đạt sự đồng thuận?`,opts:["Interview","Observation","Expert","Delphi"],ans:3,exp:`<strong>Delphi method</strong>: chuyên gia làm việc <em>độc lập, ẩn danh</em> → tổng hợp → phản hồi → lặp lại cho đến khi đạt consensus. Loại bỏ ảnh hưởng của "chuyên gia có tiếng nói lớn".`},
+  {q:`Khái niệm 'User Story' trong Agile thường được viết theo cấu trúc nào?`,opts:["Nếu A thì làm B","Là một [vai trò], tôi muốn [hành động], để [lợi ích]","Hệ thống phải thực hiện chức năng X","Danh sách các thuộc tính cơ sở dữ liệu"],ans:1,exp:`User Story format: <strong>"As a [role], I want [action], so that [benefit]"</strong>. Ví dụ: "Là một khách hàng, tôi muốn xem lịch sử đơn hàng, để tôi có thể theo dõi việc giao hàng."  `},
+  {q:`Trong giai đoạn Phân tích yêu cầu, thuật ngữ Độ lớn (Volume) thường được dùng để mô tả thông số nào?`,opts:["Số lượng máy tính chạy phần mềm","Số lượng dữ liệu phát sinh trong một chu kỳ nào đó","Số lượng các nghiệp vụ hệ thống phải tiến hành trong một chu kỳ nào đó","Số lượng người làm việc với phần mềm"],ans:1,exp:`<strong>Volume</strong> (khối lượng dữ liệu): số lượng records, transactions, files phát sinh trong một kỳ → ảnh hưởng đến thiết kế database, storage, và performance requirements.`},
+  {q:`Sản phẩm đầu ra (deliverable) chính thức, quan trọng nhất của giai đoạn Kỹ thuật yêu cầu là gì?`,opts:["Bảng ước tính chi phí dự án","Tài liệu đặc tả yêu cầu phần mềm","Lược đồ ngữ cảnh","Lược đồ Use case và các lược đồ khác"],ans:1,exp:`<strong>Tài liệu SRS</strong>: deliverable quan trọng nhất của Requirements Engineering. Use case, ERD, DFD... là công cụ hỗ trợ; SRS là tài liệu chính thức ký kết giữa hai bên.`},
+  {q:`Trong Công nghệ phần mềm, chữ viết tắt SRS là ký hiệu chuẩn của thuật ngữ nào?`,opts:["Software Requirement Specification","System Requirement Specification","Studying Requirement Specification","Solve Requirement Specification"],ans:0,exp:`<strong>SRS = Software Requirements Specification</strong> (không phải System). Tài liệu này đặc tả yêu cầu của <em>phần mềm</em> cụ thể, dù đôi khi được viết trong bối cảnh hệ thống lớn hơn.`},
+];
+
+let questions = [];
+let currentIdx = 0;
+let answers = {}; // idx -> chosen option index
+let mode = 'all';
+let quizStarted = false;
+
+const modeSelect = document.getElementById('modeSelect');
+const numQInput = document.getElementById('numQ');
+const numLabel = document.getElementById('numLabel');
+
+modeSelect.addEventListener('change', () => {
+  const isRandom = modeSelect.value === 'random';
+  numLabel.style.display = isRandom ? '' : 'none';
+  numQInput.style.display = isRandom ? '' : 'none';
+});
+
+function startQuiz() {
+  mode = modeSelect.value;
+  if (mode === 'random') {
+    const n = Math.min(Math.max(parseInt(numQInput.value)||20, 5), 135);
+    numQInput.value = n;
+    questions = shuffle([...ALL_QUESTIONS]).slice(0, n);
+  } else {
+    questions = [...ALL_QUESTIONS];
+  }
+  answers = {};
+  currentIdx = 0;
+  quizStarted = true;
+  document.getElementById('scoreCard').classList.remove('show');
+  document.getElementById('progressText').style.display = '';
+  document.getElementById('progressWrap').style.display = '';
+  document.getElementById('navArea').style.display = '';
+  updateProgress();
+  renderQuestion(currentIdx);
+  buildMap();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderQuestion(idx) {
+  if (!questions.length) return;
+  currentIdx = idx;
+  const q = questions[idx];
+  const chosen = answers[idx];
+  const letters = ['A', 'B', 'C', 'D'];
+  const disabled = chosen !== undefined;
+
+  const optsHtml = q.opts.map((opt, i) => {
+    let cls = 'option';
+    if (disabled) {
+      cls += ' disabled';
+      if (i === q.ans) cls += ' correct';
+      else if (i === chosen) cls += ' wrong';
+    } else if (chosen === i) cls += ' selected';
+    return `<div class="${cls}" onclick="selectOption(${idx}, ${i})">
+      <div class="option-letter">${letters[i]}</div>
+      <div class="option-text">${opt}</div>
+    </div>`;
+  }).join('');
+
+  const expHtml = disabled ? `<div class="explanation show"><strong>📖 Giải thích:</strong> ${q.exp}</div>` : `<div class="explanation"></div>`;
+
+  document.getElementById('questionArea').innerHTML = `
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">Câu ${idx+1} / ${questions.length}</div>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHtml}</div>
+      ${expHtml}
+    </div>`;
+  document.getElementById('btnPrev').disabled = idx === 0;
+  updateProgress();
+  updateMap();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function selectOption(idx, choice) {
+  if (answers[idx] !== undefined) return;
+  answers[idx] = choice;
+  renderQuestion(idx);
+}
+
+function goTo(idx) {
+  if (idx < 0 || idx >= questions.length) return;
+  renderQuestion(idx);
+}
+
+function updateProgress() {
+  const answered = Object.keys(answers).length;
+  const correct = Object.keys(answers).filter(k => answers[k] === questions[k].ans).length;
+  const wrong = answered - correct;
+  document.getElementById('progressLabel').textContent = `Câu ${currentIdx+1} / ${questions.length} · Đã làm: ${answered}`;
+  document.getElementById('progressScore').textContent = `✓ ${correct}  ✗ ${wrong}`;
+  document.getElementById('progressBar').style.width = `${(answered/questions.length)*100}%`;
+}
+
+function buildMap() {
+  const map = document.getElementById('qMap');
+  map.innerHTML = questions.map((_, i) => `<div class="q-dot" id="dot${i}" onclick="goTo(${i})">${i+1}</div>`).join('');
+  updateMap();
+}
+
+function updateMap() {
+  questions.forEach((q, i) => {
+    const dot = document.getElementById(`dot${i}`);
+    if (!dot) return;
+    dot.className = 'q-dot';
+    if (i === currentIdx) dot.classList.add('current');
+    if (answers[i] !== undefined) {
+      dot.classList.add(answers[i] === q.ans ? 'answered-correct' : 'answered-wrong');
+    }
+  });
+}
+
+function toggleMap() {
+  const map = document.getElementById('qMap');
+  map.style.display = map.style.display === 'none' ? 'flex' : 'none';
+}
+
+function finishQuiz() {
+  const answered = Object.keys(answers).length;
+  const correct = Object.keys(answers).filter(k => answers[k] === questions[k].ans).length;
+  const wrong = answered - correct;
+  const skip = questions.length - answered;
+  const pct = Math.round((correct / questions.length) * 100);
+
+  document.getElementById('scoreCard').classList.add('show');
+  document.getElementById('scoreBig').textContent = `${pct}%`;
+  document.getElementById('scoreTitle').textContent = pct >= 80 ? '🎉 Xuất sắc!' : pct >= 60 ? '👍 Khá tốt!' : '💪 Cần ôn thêm!';
+  document.getElementById('scoreDesc').textContent = `${correct} đúng / ${questions.length} câu`;
+  document.getElementById('statCorrect').textContent = `✓ ${correct} đúng`;
+  document.getElementById('statWrong').textContent = `✗ ${wrong} sai`;
+  document.getElementById('statSkip').textContent = `— ${skip} chưa làm`;
+  document.getElementById('scoreCard').scrollIntoView({behavior:'smooth'});
+}
+
+function restartQuiz() {
+  document.getElementById('scoreCard').classList.remove('show');
+  startQuiz();
+}
+
+function reviewAnswers() {
+  document.getElementById('scoreCard').classList.remove('show');
+  // force answer all unanswered to show explanations
+  goTo(0);
+}
+
+// init
+document.getElementById('progressText').style.display = 'none';
+document.getElementById('progressWrap').style.display = 'none';
+document.getElementById('navArea').style.display = 'none';
+document.getElementById('questionArea').innerHTML = `
+  <div class="question-card" style="text-align:center;padding:48px 28px">
+    <div style="font-size:3rem;margin-bottom:16px">📖</div>
+    <h2 style="font-family:'Playfair Display',serif;margin-bottom:8px">Sẵn sàng ôn thi?</h2>
+    <p style="color:var(--muted)">Chọn chế độ và nhấn <strong>Bắt đầu</strong> để làm bài</p>
+  </div>`;
+</script>
+</body>
+</html>
