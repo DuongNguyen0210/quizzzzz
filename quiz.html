@@ -3,308 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ôn Thi Mạng Máy Tính</title>
+<title>Ôn Thi C# & .NET</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
-
-  :root {
-    --bg: #0f1117;
-    --card: #1a1d2e;
-    --card2: #1e2235;
-    --border: #2e3250;
-    --accent: #6c63ff;
-    --accent2: #ff6584;
-    --green: #43e97b;
-    --red: #ff4d6d;
-    --yellow: #ffd166;
-    --text: #e8eaf6;
-    --muted: #8b92b8;
-    --radius: 14px;
-  }
-
+  :root { --bg: #0f1117; --card: #1a1d2e; --card2: #1e2235; --border: #2e3250; --accent: #6c63ff; --accent2: #ff6584; --green: #43e97b; --red: #ff4d6d; --yellow: #ffd166; --text: #e8eaf6; --muted: #8b92b8; --radius: 14px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 20px;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: -200px; left: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
+  body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px; }
+  body::before { content: ''; position: fixed; top: -200px; left: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(108,99,255,0.12) 0%, transparent 70%); pointer-events: none; z-index: 0; }
   .container { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
-
-  /* HEADER */
-  .header {
-    text-align: center;
-    padding: 40px 0 30px;
-  }
-  .header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    background: linear-gradient(135deg, #6c63ff, #a78bfa, #ff6584);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
-  }
+  .header { text-align: center; padding: 40px 0 30px; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); background: linear-gradient(135deg, #6c63ff, #a78bfa, #ff6584); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
   .header p { color: var(--muted); font-size: 0.95rem; }
-
-  /* CONTROLS */
-  .controls {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    align-items: center;
-  }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; align-items: center; }
   .controls label { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
-  .controls select, .controls input[type=number] {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .controls select, .controls input[type=number] { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 8px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
   .controls select:focus, .controls input:focus { border-color: var(--accent); }
   .controls input[type=number] { width: 70px; }
-  .btn {
-    padding: 9px 20px;
-    border: none;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+  .btn { padding: 9px 20px; border: none; border-radius: 8px; font-family: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: #7c74ff; transform: translateY(-1px); }
   .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .spacer { flex: 1; }
-
-  /* PROGRESS BAR */
-  .progress-bar-wrap {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    height: 8px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), #a78bfa);
-    border-radius: 999px;
-    transition: width 0.4s ease;
-  }
-  .progress-text {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-
-  /* QUESTION CARD */
-  .question-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px;
-    margin-bottom: 16px;
-    animation: slideIn 0.3s ease;
-  }
+  .progress-bar-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 999px; height: 8px; margin-bottom: 20px; overflow: hidden; }
+  .progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa); border-radius: 999px; transition: width 0.4s ease; }
+  .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 16px; animation: slideIn 0.3s ease; }
   @keyframes slideIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:none; } }
-
-  .q-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 16px;
-    gap: 12px;
-  }
-  .q-num {
-    background: linear-gradient(135deg, var(--accent), #a78bfa);
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
-  .q-text {
-    font-size: 1rem;
-    line-height: 1.65;
-    font-weight: 500;
-    flex: 1;
-  }
-
-  /* OPTIONS */
+  .q-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 12px; }
+  .q-num { background: linear-gradient(135deg, var(--accent), #a78bfa); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .q-text { font-size: 1rem; line-height: 1.65; font-weight: 500; flex: 1; white-space: pre-wrap; }
   .options { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
-  .option {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--card2);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.18s;
-    user-select: none;
-  }
-  .option:hover:not(.disabled) {
-    border-color: var(--accent);
-    background: rgba(108,99,255,0.08);
-  }
+  .option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--card2); border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.18s; user-select: none; }
+  .option:hover:not(.disabled) { border-color: var(--accent); background: rgba(108,99,255,0.08); }
   .option.selected { border-color: var(--accent); background: rgba(108,99,255,0.12); }
   .option.correct { border-color: var(--green) !important; background: rgba(67,233,123,0.1) !important; }
-  .option.wrong   { border-color: var(--red) !important;   background: rgba(255,77,109,0.1) !important; }
+  .option.wrong   { border-color: var(--red) !important; background: rgba(255,77,109,0.1) !important; }
   .option.disabled { cursor: default; }
-  .option-letter {
-    min-width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.78rem; font-weight: 700;
-    flex-shrink: 0;
-    transition: all 0.18s;
-  }
+  .option-letter { min-width: 28px; height: 28px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; transition: all 0.18s; }
   .option.selected .option-letter { background: var(--accent); color: #fff; }
   .option.correct .option-letter  { background: var(--green); color: #111; }
   .option.wrong .option-letter    { background: var(--red); color: #fff; }
   .option-text { font-size: 0.92rem; line-height: 1.55; padding-top: 3px; }
-
-  /* EXPLANATION */
-  .explanation {
-    display: none;
-    margin-top: 14px;
-    padding: 14px 16px;
-    background: rgba(255,209,102,0.07);
-    border-left: 3px solid var(--yellow);
-    border-radius: 0 8px 8px 0;
-    font-size: 0.88rem;
-    color: #d4c17f;
-    line-height: 1.6;
-  }
+  .explanation { display: none; margin-top: 14px; padding: 14px 16px; background: rgba(255,209,102,0.07); border-left: 3px solid var(--yellow); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #d4c17f; line-height: 1.6; white-space: pre-wrap; }
   .explanation.show { display: block; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   .explanation strong { color: var(--yellow); }
-
-  /* NAV */
-  .nav {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-  }
-
-  /* SCORE CARD */
-  .score-card {
-    display: none;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 36px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  .nav { display: flex; gap: 10px; justify-content: space-between; margin-bottom: 30px; flex-wrap: wrap; }
+  .score-card { display: none; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; text-align: center; margin-bottom: 20px; }
   .score-card.show { display: block; animation: slideIn 0.4s ease; }
-  .score-big {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--green), #06d6a0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
-    margin-bottom: 10px;
-  }
+  .score-big { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 700; background: linear-gradient(135deg, var(--green), #06d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 10px; }
   .score-card h2 { font-size: 1.4rem; margin-bottom: 8px; }
   .score-card p  { color: var(--muted); margin-bottom: 20px; }
-  .score-stats {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-  .stat-pill {
-    padding: 8px 18px;
-    border-radius: 999px;
-    font-size: 0.88rem;
-    font-weight: 600;
-  }
+  .score-stats { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .stat-pill { padding: 8px 18px; border-radius: 999px; font-size: 0.88rem; font-weight: 600; }
   .stat-correct { background: rgba(67,233,123,0.15); color: var(--green); border: 1px solid rgba(67,233,123,0.3); }
-  .stat-wrong   { background: rgba(255,77,109,0.15);  color: var(--red);   border: 1px solid rgba(255,77,109,0.3); }
+  .stat-wrong   { background: rgba(255,77,109,0.15); color: var(--red); border: 1px solid rgba(255,77,109,0.3); }
   .stat-skip    { background: rgba(139,146,184,0.15); color: var(--muted); border: 1px solid rgba(139,146,184,0.3); }
-
-  /* QUESTION MAP */
-  .q-map {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-  .q-dot {
-    width: 28px; height: 28px;
-    border-radius: 6px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    border: 1.5px solid var(--border);
-    background: var(--card2);
-    color: var(--muted);
-    transition: all 0.15s;
-  }
+  .q-map { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 24px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+  .q-dot { width: 28px; height: 28px; border-radius: 6px; font-size: 0.65rem; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 1.5px solid var(--border); background: var(--card2); color: var(--muted); transition: all 0.15s; }
   .q-dot:hover { border-color: var(--accent); color: var(--accent); }
   .q-dot.current { border-color: var(--accent); background: rgba(108,99,255,0.2); color: var(--text); }
   .q-dot.answered-correct { background: rgba(67,233,123,0.2); border-color: var(--green); color: var(--green); }
-  .q-dot.answered-wrong   { background: rgba(255,77,109,0.2); border-color: var(--red);   color: var(--red); }
+  .q-dot.answered-wrong   { background: rgba(255,77,109,0.2); border-color: var(--red); color: var(--red); }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>📚 Ôn Thi Mạng Máy Tính</h1>
-    <p>Mạng Máy Tính · 45 câu hỏi trắc nghiệm</p>
+    <h1>💻 Ôn Thi C# & .NET</h1>
+    <p>Ngân hàng 245 câu hỏi trắc nghiệm C# & .NET</p>
   </div>
 
   <div class="controls" id="controls">
     <label>Chế độ:</label>
     <select id="modeSelect">
-      <option value="all">Tất cả 45 câu</option>
+      <option value="all">Tất cả 245 câu</option>
       <option value="random">Ngẫu nhiên</option>
     </select>
     <label id="numLabel" style="display:none">Số câu:</label>
-    <input type="number" id="numQ" value="20" min="5" max="45" style="display:none">
+    <input type="number" id="numQ" value="50" min="5" max="245" style="display:none">
     <div class="spacer"></div>
     <button class="btn btn-primary" onclick="startQuiz()">▶ Bắt đầu</button>
     <button class="btn btn-outline" onclick="toggleMap()">🗺 Bản đồ</button>
@@ -313,7 +91,7 @@
   <div class="q-map" id="qMap" style="display:none"></div>
 
   <div class="progress-text" id="progressText" style="display:none">
-    <span id="progressLabel">Câu 1 / 45</span>
+    <span id="progressLabel">Câu 1 / X</span>
     <span id="progressScore">✓ 0 &nbsp; ✗ 0</span>
   </div>
   <div class="progress-bar-wrap" id="progressWrap" style="display:none">
@@ -344,56 +122,243 @@
 
 <script>
 const ALL_QUESTIONS = [
-  {q:`Trong địa chỉ định danh toàn cầu của IPv6 thì phần định tuyến toàn cầu chiếm bao nhiêu bit?`,opts:["128","64","32","48"],ans:3,exp:``},
-  {q:`Bạn thuê đường truyền internet tại phòng trọ có băng thông 20Mbps, vậy để tải một đoạn phim có dung lượng 50Mbyte thì phải mất bao nhiêu thời gian?`,opts:["52s","60s","32s","Tất cả đều sai"],ans:3,exp:``},
-  {q:`Cho sơ đồ như hình vẽ. Hãy xác định số lượng miền broadcast tương ứng trong sơ đồ mạng đã cho và xác định phương án cấp phát địa chỉ IP hợp lệ cho VLAN 2?`, img: "Image/4.jpg", opts:["6 miền broadcast và subnet cấp cho VLAN 2 là 10.0.0.0/26","7 miền broadcast và subnet cấp cho VLAN 2 là 192.168.5.0/24","7 miền broadcast và subnet cấp cho VLAN 2 là 10.0.0.0/26","6 miền broadcast và subnet cấp cho VLAN 2 là 192.168.5.0/24"],ans:1,exp:``},
-  {q:`Kết nối Ethernet giữa RRAS1 và RRAS2 cần nhiều nhất 28 IP. Vậy mạng con nào dưới đây là thích hợp và lãng phí ít IP nhất?`,opts:["192.1.1.224/30","192.1.1.160/28","192.1.1.16/26","192.1.1.196/29","192.1.1.96/27"],ans:4,exp:``},
-  {q:`Khi một frame không có tag đi vào trunk port, switch sẽ thực thi tác vụ nào sau đây?`,opts:["Drop frame","Gán ngẫu nhiên VLAN","Gán frame vào VLAN 1","Gán vào Native VLAN đã cấu hình"],ans:3,exp:``},
-  {q:`Một địa chỉ mạng lớp C (/24) cần chia subnet thoả mãn điều kiện sau. Số lượng subnet cần chia là 6 và tại mỗi subnet có 25 máy trạm. Phương án chia mạng con với các chỉ số N(số bit phần mạng), S(số bit mượn), H(số bit phần host) nào sau đây phù hợp?`,opts:["N = 24, S = 4, H = 4","N = 24, S = 3, H = 5","N = 24, S = 4, H = 5","N = 24, S = 3, H = 6"],ans:1,exp:``},
-  {q:`Định tuyến OSPF được đã được kích hoạt trên B trong sơ đồ sau. Các câu lệnh nào sau đây là đúng khi cấu hình? (Chọn tất cả các đáp án đúng)`,opts:["B(config-router)#network 192.168.5.0 0.0.0.255 area 0","B(config-router)#network 192.168.2.0 0.0.0.255 area 0","B(config-router)#network 192.168.3.0 0.0.0.255 area 0","B(config-router)#default-information originate","B(config-router)#network 192.168.4.0 0.0.0.255 area 0","B(config-router)#network 192.168.1.0 0.0.0.255 area 0"],ans:[1,2,4],exp:``},
-  {q:`Lớp C riêng (x=192; u=16) được phép mượn tối đa bao nhiêu bit cho để phân chia mạng con (subnetting)?`,opts:["14","24","16","8"],ans:0,exp:``},
-  {q:`Dịch vụ mạng SMTP dùng để?`,opts:["Nhận thư điện tử","Tất cả đều đúng","Phân giải tên","Gửi thư điện tử"],ans:3,exp:``},
-  {q:`Trong các địa chỉ nào sau đây, địa chỉ nào là địa chỉ unicast (truyền thông 1 - 1)?`,opts:["192.168.24.56/29","172.31.181.255/20","224.0.0.5","255.255.255.255","FFFF.FFFF.FFFF"],ans:1,exp:``},
-  {q:`Phát biểu nào sau đây là sai về chỉ số tin cậy (Administrative Distance) trong kỹ thuật định tuyến?`,opts:["Chỉ số tin cậy AD chỉ áp dụng cho các thông tin định tuyến động","AD định ra mức độ ưu tiên... AD càng thấp thì ưu tiên càng cao","Giá trị AD mặc định của EIGRP là 90","Giá trị AD mặc định của OSPF là 110"],ans:0,exp:`Phát biểu này sai vì AD áp dụng cho cả định tuyến tĩnh.`},
-  {q:`Chuyên viên quản trị mạng của công ty Banana đang cấu hình dịch vụ DHCP để cấp địa chỉ IP động cho các máy trạm trong mạng con 192.168.1.32/28. Hai địa chỉ IP lớn nhất được gán tĩnh cho 2 máy chủ. Cổng ra vào ngầm định được gán địa chỉ IP thấp nhất. Vậy dải IP nào sau đây nên được cấu hình trên máy chủ DHCP?`,opts:["192.168.1.34 - 192.168.1.61","192.168.1.33 - 192.168.1.60","192.168.1.34 - 192.168.1.46","192.168.1.33 - 192.168.1.43","192.168.1.34 - 192.168.1.44"],ans:4,exp:``},
-  {q:`Mô hình mạng khách/chủ (client/server) có những đặc điểm:`,opts:["Phù hợp với môi trường doanh nghiệp lớn","Máy chủ có cấu hình mạnh, bảo mật cao","Tất cả đều đúng","Phân rõ vai trò máy trạm và máy chủ"],ans:2,exp:``},
-  {q:`Chọn ít nhất 1 câu đúng về giao thức ARP?`,opts:["Giao thức tìm kiếm bằng cách quảng bá để hỏi thông tin trên toàn mạng LAN","Là giao thức xác định địa chỉ IP từ địa chỉ vật lý","Là giao thức xác định địa chỉ vật lý từ địa chỉ IP","Là giao thức xác định địa chỉ IP từ tên miền"],ans:[0,2],exp:``},
-  {q:`Địa chỉ định danh toàn cầu IPv6 cho phép kết nối với:`,opts:["Nhóm làm việc","Mạng cục bộ","Mạng diện rộng","Mạng riêng"],ans:2,exp:``},
-  {q:`Cho sơ đồ như hình vẽ. Biết rằng kết nối WAN giữa router R1 và router R3 chạy trên công nghệ Ethernet cáp quang... Tại router R3, câu lệnh nào sau đây cho phép cấu hình định tuyến tĩnh đến mạng 2001:db8:1:1::/64?`, img: "Image/2.jpg", opts:["R3(config)#ipv6 route 2001:db8:1:1:: g0/1 2001:db8:1:5::1","R3(config)#ipv6 route 2001:db8:1:1::/64 g0/1","R3(config)#ipv6 route 2001:db8:1:1:: 2001:db8:1:5::1","R3(config)#ipv6 route 2001:db8:1:1::/64 g0/1 2001:db8:1:5::1"],ans:3,exp:``},
-  {q:`IPv6 có các loại địa chỉ sau đây: (Chọn 3 đáp án đúng)`,opts:["IPv6 Multicast","IPv6 Forecast","IPv6 Broadcast","IPv6 Unicast","IPv6 Anycast","IPv6 Podcast"],ans:[0,3,4],exp:``},
-  {q:`Công nghệ nào sau đây được sử dụng trong kết nối WAN?`,opts:["Wifi 802.11","USB","HDMI","HDLC"],ans:3,exp:``},
-  {q:`Dạng thập phân của số 10101001 là:`,opts:["163","167","168","169"],ans:3,exp:``},
-  {q:`Các kỹ thuật nào sau đây được dùng để chống lặp định tuyến khi triển khai các giao thức định tuyến ứng dụng thuật toán vector khoảng cách? (Chọn tất cả các đáp án đúng)`,opts:["Split horizon","Shortest path first (SPF)","Spanning Tree Protocol (STP)","Link-state advertisements (LSA)","Triggered Update","Hold-down timers"],ans:[0,4,5],exp:``},
-  {q:`Switch là thiết bị hoạt động tại tầng nào trong mô hình OSI?`,opts:["Tầng liên kết dữ liệu","Tầng vận chuyển","Tầng vật lý","Tầng mạng"],ans:0,exp:``},
-  {q:`Một mạng lớp C (/24) cần chia thành 9 mạng con sử dụng Subnet Mask nào sau đây:`,opts:["255.0.0.255","255.224.255.0","255.255.255.240","255.255.255.224"],ans:2,exp:``},
-  {q:`Phát biểu nào dưới đây là đúng:`,opts:["TCP và HTTP là những giao thức được cài đặt ở tầng giao vận","SMTP và PPP là những giao thức được cài đặt ở tầng vật lý","Telnet, HTTP, SMTP, FTP là những giao thức được cài đặt ở tầng ứng dụng (Application Layer).","IP là giao thức được cài đặt ở tầng liên kết dữ liệu"],ans:2,exp:``},
-  {q:`Hãy chỉ ra địa chỉ IP của host không hợp lệ với Subnet Mask 255.255.255.224`,opts:["222.81.56.30","222.81.55.128","222.81.65.35","222.81.22.104"],ans:1,exp:``},
-  {q:`Cho các mạng có kết nối trực tiếp vào router R1: 192.168.8.0/24, 192.168.9.0/24, 192.168.10.0/24, 192.168.11.0/24. Hãy cho biết địa chỉ mạng tổng hợp nhận được sau khi rút gọn thông tin định tuyến trên Router R1?`,opts:["192.168.8.0/21","192.168.8.0/23","192.168.8.0/22","192.168.8.0/24"],ans:2,exp:``},
-  {q:`Tầng nào trong mô hình OSI có chức năng định tuyến giữa các mạng?`,opts:["Network","Data Link","Physical","Transport"],ans:0,exp:``},
-  {q:`Các giao thức nào cho tầng Transport của OSI (chọn tất cả các phương án đúng)`,opts:["IP","TCP","DNS","UDP"],ans:[1,3],exp:``},
-  {q:`Cho địa chỉ IPv4 172.17.100.0/22. Giả sử địa chỉ này được phân chia theo kỹ thuật FLSM thì có tổng cộng bao nhiêu mạng con (subnet) và số trạm tối đa/mạng con?`,opts:["64 subnet, mỗi subnet có 1022 host","128 subnet, mỗi subnet có 512 host","126 subnet, mỗi subnet có 510 host","62 subnet, mỗi subnet có 1022 host"],ans:0,exp:`Nên chọn D: 62 subnet nếu hệ thống áp dụng giáo trình quá cũ (có quy tắc trừ 2 mạng con đầu cuối).`},
-  {q:`Khả năng định tuyến được thực hiện bởi thiết bị?`,opts:["Hub","Router","NIC","Switch"],ans:1,exp:``},
-  {q:`Giả sử rằng PAT đã được cấu hình trên bộ định tuyến Raleigh. Nếu người quản trị mạng muốn thay đổi mạng riêng từ 192.168.10.0/24 sang 10.0.0.0/8 thì anh ta sẽ thay đổi những gì? (Chọn 2 đáp án đúng)`,opts:["Câu điều kiện trong Access Control List","Cổng NAT đi ra (NAT Outside interface)","Địa chỉ cổng E0","Cổng NAT đi vào (NAT Inside interface)","Địa chỉ cổng S0"],ans:[0,2],exp:``},
-  {q:`Một router NAT có bảng ánh xạ: 192.168.1.10:5000 -> 203.0.11.15:30000. Điều gì xảy ra khi server ngoài Internet gửi gói tin về 203.0.11.15:30000?`,opts:["Gói tin broadcast trong LAN","Gói tin bị drop do router không tìm thấy thông tin mạng đích","(Bị che khuất trên đề)","Gói tin được gửi đến 192.168.1.10"],ans:3,exp:``},
-  {q:`Một IP datagram có kích thước 4000 bytes, host này này gửi file lên đường truyền bằng giao thức TCP có MTU là 1500 bytes. Hỏi có bao nhiêu datagram được tạo ra và kích thước của datagram cuối cùng là bao nhiêu?`,opts:["3/1050","4/1050","4/1040","3/1040"],ans:3,exp:``},
-  {q:`Tổng của hai số nhị phân: 10110101 01000100 và 11101111 00101001. Tổng của hai số 16 bit này là bao nhiêu?`,opts:["...0000","...0001","10100100 01101110","Tất cả sai"],ans:2,exp:``},
-  {q:`Việc triển khai IPv6 có thể được thực hiện bởi các mô hình nào sau đây? (Chọn 3 đáp án đúng)`,opts:["Mô hình lai","Mô hình OSI","Mô hình ngăn xếp đôi","Mô hình 3 lớp của Cisco","Mô hình khối dịch vụ","Mô hình TCP/IP"],ans:[0,2,5],exp:``},
-  {q:`Cho sơ đồ như hình vẽ. Xét tình huống Fred không truy cập được web server. Router B không có route đến mạng 217.110.2.0/24. Gói tin ICMP nào được gửi về Fred?`, img: "Image/1.jpg", opts:["Type 3 (Destination Unreachable), Code 0 (Network unreachable)","Type 11 (Time Exceeded), Code 0 (TTL expired)","Type 8, Code 0","Type 0, Code 0"],ans:0,exp:``},
-  {q:`Khi cấu hình NAT cho bộ định tuyến Tampa dưới đây, câu lệnh nào nên được cấu hình cho cổng S0?`, img: "Image/3.jpg", opts:["ip pat outside","ip pat inside","ip nat outside","ip nat inside"],ans:2,exp:``},
-  {q:`Bộ định tuyến Banana biết được đường đến 1 mạng ở xa từ thông tin được cung cấp bởi RIP, OSPF và 1 tuyến tĩnh. Giả sử rằng tất cả các giao thức định tuyến trên đều sử dụng khoảng cách quản trị ngầm định của chúng, vậy Banana sẽ sử dụng tuyến nào để chuyển dữ liệu đến mạng ở xa?`,opts:["Banana sẽ sử dụng tuyến tĩnh","...","Cân bằng tải và sử dụng tất cả 3 tuyến","Banana sẽ sử dụng tuyến OSPF","Banana sẽ sử dụng tuyến RIP"],ans:0,exp:``},
-  {q:`Công ty Banana có 2 máy chủ nền Windows Server cung ứng dịch vụ cho 69 máy trạm. Phạm vi địa chỉ IP mà DHCP cấp cho các máy trạm được lấy từ các dải địa chỉ IP riêng. Vậy DHCP nên được cấu hình như thế nào? (Chọn các đáp án đúng)`,opts:["Cài đặt dịch vụ DNS...","Cài đặt dịch vụ DHCP trên 1 máy chủ","Cấu hình dải từ 169.254.0.69 - 169.254.69.69/16","Cài đặt DHCP trên 2 máy chủ","Cấu hình phạm vi địa chỉ từ 192.168.69.69 - 192.168.96.96/16","Cài đặt dịch vụ DNS..."],ans:[1,4],exp:`Hoặc chọn "Cài đặt DHCP trên 2 máy chủ" theo thiết kế chuẩn High Availability (HA).`},
-  {q:`Chức năng chính của DHCP Relay là gì?`,opts:["Chuyển tiếp gói DHCP giữa các subnet khác nhau","Giúp client gửi request đến DHCP server trong cùng subnet","Mã hoá gói tin DHCP","Cấp phát địa chỉ IP cho client"],ans:0,exp:``},
-  {q:`Giả sử tại một router có bảng định tuyến được cho như hình vẽ. Hãy cho biết router sẽ xử lý thế nào đối với gói tin có địa chỉ đích là 192.168.50.10 và giá trị TTL = 1?`,opts:["Chuyển gói tin ra cổng E2 và giảm TTL = 0","Chuyển gói tin ra cổng E4 và giảm TTL = 0","Chuyển gói tin ra cổng E3 và giảm TTL = 0","Hủy gói tin và gửi ICMP Time Exceeded"],ans:3,exp:``},
-  {q:`Cho địa chỉ IP của máy A là 172.16.45.190/28. Hãy cho biết máy A thuộc mạng nào sau đây?`,opts:["172.16.45.192","172.16.45.190","172.16.45.176","172.16.45.160"],ans:2,exp:``},
-  {q:`Cho địa chỉ vật lý 00:1A:2B:3C:4D:5E. Địa chỉ link local IPv6 tương ứng được tạo ra theo cơ chế EUI-64 là địa chỉ nào?`,opts:["FD80::021A:2BFF:FF3C:4D5E","FE80::021A:2BFF:FE3C:4D5E","FD80::021A:2BFF:FE3C:4D5E","FE80::021A:2BFF:FF3C:4D5E"],ans:1,exp:``},
-  {q:`Địa chỉ IPv6 2001:6996:0000:0000:0FE8:0000:007C:09A0 có thể được rút gọn như sau:`,opts:["2001:6996::0FE8:0000:007C:09A0","2001:6996::FE8:0:7C:9A0","2001:6996::FE8::7C:9A0","2001:6996:0:0:FE8:0:7C:9A0"],ans:1,exp:``},
-  {q:`Giả sử hệ thống mạng của bạn phải chia thành 8 mạng con (subnet) và sử dụng một địa chỉ lớp B (/16). Mỗi mạng con chứa ít nhất 2500 host. Vậy subnet mask nào sẽ được sử dụng:`,opts:["255.255.224.0","255.255.240.0","255.255.248.0","255.255.252.0"],ans:0,exp:`Hoặc chọn B nếu trường áp dụng quy tắc trừ 2 mạng con.`},
-  {q:`Cần truyền gói tin kích thước 1000 bytes từ Host A đến Host B, trên đường truyền dài 2500 km, tốc độ lan truyền là 2.5 x 10^8 m/s, và tốc độ truyền là 2 Mbps. Thời gian cần để truyền gói tin từ A đến B là:`,opts:["10 sec","10 msec","14 msec","Tất cả đều sai"],ans:2,exp:``}
+  {q:`What will be the output of the following C# code?\nstatic void Main(string[] args) {\n    string s1 = "I love You";\n    string s2 = s1;\n    System.Console.WriteLine((s1 == s2) + " " + s1.Equals(s2));\n    System.Console.ReadKey();\n}`,opts:["true true","true false","false true","false false"],ans:0,exp:`Biến s2 được gán trỏ cùng tới chuỗi của s1. Trong C#, toán tử == khi dùng cho chuỗi sẽ so sánh giá trị của chuỗi, và phương thức .Equals() cũng so sánh giá trị của chuỗi. Kết quả trả về đều là true.`},
+  {q:`You are developing a data-entry application that receives user input in multiple data fields... When a code is entered, a picture of the product appears onscreen. The application also needs to log its operation to a console window... What project should you choose to create such an application?`,opts:["a console application project with the Output type set to Windows Application","a Windows Forms application project","a Windows Forms application project with the Output type set to Console Application","a console application project"],ans:2,exp:`Ứng dụng yêu cầu hiển thị "picture of the product onscreen" (cần giao diện đồ họa - Windows Forms) VÀ "log its operation to a console window" (cần cửa sổ Console). Cách duy nhất trong Visual Studio là tạo WinForms App rồi cấu hình Output type thành Console Application.`},
+  {q:`Which keyword is used to refer base class constructor to subclass constructor?`,opts:["static","this","extend","base"],ans:3,exp:`Từ khóa base trong C# được dùng để truy cập vào các thành viên của lớp cha, bao gồm việc gọi constructor của lớp cha từ lớp con.`},
+  {q:`What will be the output of the following C# code?\nint i = 123;\nobject o = i;\ni = 456;\nSystem.Console.WriteLine("The value-type value = {0}", i);\nSystem.Console.WriteLine("The object-type value = {0}", o);`,opts:["123, 123","456, 123","456, 456","123, 456"],ans:1,exp:`Dòng object o = i; là thao tác Boxing, tạo ra bản sao độc lập của 123 lưu trên bộ nhớ Heap. Do đó, khi i đổi thành 456, bản sao o trên Heap không bị ảnh hưởng, vẫn là 123.`},
+  {q:`By default, code written with the Debug class is stripped out of release builds.`,opts:["Yes","No"],ans:0,exp:`Trình biên dịch C# sử dụng attribute [Conditional("DEBUG")] cho lớp Debug. Khi biên dịch ở chế độ Release, cờ DEBUG không được định nghĩa, nên tất cả lệnh gọi tới lớp Debug sẽ bị loại bỏ.`},
+  {q:`Which property of form to get or set the button control that will be clicked when the user presses the Esc key?`,opts:["AbortButton","AcceptButton","CancelButton","EscButton"],ans:2,exp:`Thuộc tính CancelButton của Windows Form cho phép chỉ định một Button sẽ được kích hoạt tự động khi người dùng nhấn phím Escape (Esc).`},
+  {q:`You need to provide complex multi-way branching in your C# program. You need to make sure that your code is easy to read and understand. Which of the following C# statements should you use?`,opts:["case","if-else","switch","break"],ans:2,exp:`Lệnh switch được thiết kế đặc biệt để xử lý rẽ nhánh đa hướng (multi-way branching) dựa trên một giá trị cụ thể, giúp mã nguồn dễ đọc và bảo trì hơn.`},
+  {q:`Which control provides a prebuilt file dialog for opening files in the file system?`,opts:["TreeView","FileViewer","FileDialog","OpenFileDialog"],ans:3,exp:`OpenFileDialog là một class có sẵn trong .NET (kế thừa từ FileDialog) dùng để hiển thị cửa sổ cho người dùng chọn và mở file.`},
+  {q:`Which of the following statements is correct about constructors in C#.NET?`,opts:["A constructor cannot be overloaded","None of the mentioned","A constructor can be a static constructor","A constructor cannot be declared as private"],ans:2,exp:`C# hoàn toàn cho phép tạo static constructor (constructor tĩnh) để khởi tạo các trường dữ liệu tĩnh (static fields).`},
+  {q:`Which of the following tool is used to manage the GAC?`,opts:["RegSvr.exe","GacSvr32.exe","GacUtil.exe","GacMgr.exe"],ans:2,exp:`GacUtil.exe (Global Assembly Cache Utility) là công cụ dòng lệnh tiêu chuẩn được Microsoft cung cấp để cài đặt, gỡ bỏ và liệt kê các Assembly bên trong GAC.`},
+  {q:`What will be the output of the following C# code?\nstatic void Func1(int var_n) {\n    var_n += 20;\n    Console.Write(var_n);\n}\nstatic void Func2(ref int var_n) {\n    var_n += 20;\n    Console.Write(var_n);\n}\nstatic void Main(string[] args) {\n    int var_n = 1;\n    Func1(var_n);\n    Console.Write(var_n);\n    Func2(ref var_n);\n    Console.Write(var_n);\n}`,opts:["2112121 (hoặc trùng lặp tùy đề)","1121211","2112121","1111"],ans:2,exp:`Func1 truyền tham trị, không thay đổi var_n ở Main (in 21 rồi 1). Func2 truyền tham chiếu (ref), thay đổi var_n ở Main thành 21 (in 21 rồi 21). Ghép lại: 21 1 21 21.`},
+  {q:`Choose effective differences between Boxing and Unboxing.`,opts:["In Boxing we need explicit conversion and in Unboxing we need implicit conversion","Boxing is the process of converting a value type to the reference type and Unboxing is the process of converting reference to value type","Both Boxing and Unboxing we need implicit conversion","Boxing is the process of converting a reference type to value type and Unboxing is the process of converting value type to reference type"],ans:1,exp:`Boxing đóng gói kiểu tham trị (Stack) thành kiểu tham chiếu (Heap). Unboxing làm ngược lại.`},
+  {q:`Which of the following integral type can hold a value of any size?`,opts:["BigInteger","Int32","Double","Long"],ans:0,exp:`Cấu trúc BigInteger (thuộc System.Numerics) không có giới hạn trên hoặc dưới cố định, nó có thể chứa một số nguyên lớn tùy ý.`},
+  {q:`What is the return type of destructor?`,opts:["void","None of the mentioned","float","int"],ans:1,exp:`Destructor (Hàm hủy) trong C# không có kiểu trả về, và cũng không dùng từ khóa void.`},
+  {q:`Garbage collection includes _____ generations.`,opts:["two","one","five","three"],ans:3,exp:`Bộ dọn rác (GC) của .NET chia bộ nhớ Heap thành 3 thế hệ (generations): Gen 0, Gen 1 và Gen 2.`},
+  {q:`Which of the following method notifies garbage collector not to call finalize?`,opts:["GC.Cancel()","GC.Dispose()","GC.SuppressFinalize()","GC.Collect(int)"],ans:2,exp:`GC.SuppressFinalize(this) báo cho Garbage Collector biết không cần đưa object này vào hàng đợi gọi hàm hủy (finalizer) nữa.`},
+  {q:`What will be the output of the following C# code?\nstatic void Func(ref int[] arr) {\n    for (int i = 0; i < arr.Length; i++) {\n        arr[i] = arr[i] + 5;\n        Console.Write(arr[i]);\n    }\n}\nstatic void Main(string[] args) {\n    int[] arr = new int[] { 1, 2, 3, 4, 5 };\n    Func(ref arr);\n}`,opts:["151782920","15178820","Syntax error while passing reference of array variable","678910"],ans:3,exp:`Mảng nhận theo tham chiếu ref, mỗi phần tử được cộng thêm 5 thành (6, 7, 8, 9, 10) và in ra liên tiếp -> 678910.`},
+  {q:`Which keyword is used to declare a base class method while performing overriding of base class methods?`,opts:["virtual","this","extend","override"],ans:0,exp:`Để một phương thức ở lớp cha cho phép lớp con ghi đè lại, nó PHẢI được đánh dấu bằng từ khóa virtual (hoặc abstract).`},
+  {q:`What will be the output of the following C# code?\nclass ClassExam {\n    static int count = 3;\n    static ClassExam() { ClassExam.count = 5; }\n    public ClassExam() { ClassExam.count *= 2; }\n    public int Func() { return ClassExam.count; }\n}\nstatic void Main(string[] args) {\n    ClassExam obj = new ClassExam();\n    Console.WriteLine(obj.Func());\n}`,opts:["6","0","9","10"],ans:3,exp:`(1) Biến static count = 3. (2) Constructor static tự động chạy đầu tiên, đổi count = 5. (3) new ClassExam() chạy constructor của instance, lấy 5 * 2 = 10.`},
+  {q:`You need to create a structured data type named Point... You need to make sure that Point is a value data type so that the value of the variable is directly stored in its assigned memory location. What keyword should you use to define Point?`,opts:["Delegate","Enum","Struct","Class"],ans:2,exp:`struct (Cấu trúc) trong C# là một kiểu tham trị (value type). Dữ liệu được cấp phát tĩnh trên bộ nhớ Stack.`},
+  {q:`What will be the output of the following C# code snippet?\nclass maths {\n    public int fact(int n) {\n        int result;\n        if (n == 2) return 1;\n        result = fact(n - 1) * n;\n        return result;\n    }\n}\nclass Program {\n    static void Main(string[] args) {\n        maths obj = new maths();\n        System.Console.WriteLine(obj.fact(4));\n    }\n}`,opts:["0","12","24","1"],ans:1,exp:`Đệ quy: fact(4) = fact(3)*4. fact(3) = fact(2)*3. fact(2) = 1 (do điều kiện dừng n==2 trả về 1). Tổng: 1 * 3 * 4 = 12.`},
+  {q:`You are C# developer who is developing a Windows application. You need to provide derived classes the ability to share common functionality with base classes but still define their own unique behavior. Which object-oriented programming concept should you use to accomplish this functionality?`,opts:["Polymorphism","Encapsulation","Abstraction","Inheritance"],ans:0,exp:`Chia sẻ tính năng chung nhưng định nghĩa hành vi độc nhất riêng chính là định nghĩa của Tính đa hình (Polymorphism).`},
+  {q:`Which of the following components of the .NET framework provide an extensible set of classes that can be used by any .NET compliant programming language?`,opts:[".NET class libraries","Common Language Infrastructure","Common Language Runtime","Component Object Model"],ans:0,exp:`.NET Class Libraries (thư viện lớp .NET - BCL/FCL) cung cấp hàng ngàn lớp có sẵn cho các ngôn ngữ khác nhau sử dụng chung.`},
+  {q:`You are developing a C# program. You need to write text, followed by a line terminator character, to the standard output stream... Which of the following methods should you use?`,opts:["Console.WriteLine();","StreamWriter.WriteLine();","Console.Write();","StringWriter.WriteLine();"],ans:0,exp:`Console.WriteLine() dùng để in chuỗi ra màn hình giao diện lệnh (standard output) và tự động thêm ký tự xuống dòng.`},
+  {q:`In C#, by default structs are passed how?`,opts:["By reference","By value","By address","By memory"],ans:1,exp:`struct là kiểu dữ liệu tham trị (value type). Do đó, mặc định nó được truyền dưới dạng bản sao (pass by value).`},
+  {q:`Which of the following statements correctly describes ComboBoxes?`,opts:["Only allow data input by textbox","Allow to select one or more objects from ListBox","It displays a text box combined with a ListBox","No drop down list"],ans:2,exp:`ComboBox là một điều khiển kết hợp giữa một TextBox (cho phép gõ văn bản) và một ListBox thả xuống (cho phép chọn).`},
+  {q:`Which of the following properties and methods can be used to find the index of a selected item in a ListBox control?`,opts:["SelectingIndex","IndexOfSelected","SelectedIndex","IndexSelected"],ans:2,exp:`Thuộc tính SelectedIndex lấy ra hoặc thiết lập số thứ tự (chỉ số index) của mục đang được người dùng chọn.`},
+  {q:`IL in .Net stands for _____?`,opts:["Intermediate Local","International Language","Intermediate Language","Interoperate Language"],ans:2,exp:`IL viết tắt của Intermediate Language (hay MSIL / CIL). Trình biên dịch C# dịch code thành ngôn ngữ trung gian này.`},
+  {q:`What is Code Access Security (CAS)?`,opts:["None of the above.","It prevents unauthorized access of source code.","It prevents unauthorized access of resources and operations, and restricts the code to perform particular tasks.","It prevents unauthorized access of dll and exe."],ans:2,exp:`Code Access Security (CAS) là cơ chế trong .NET để ngăn chặn truy cập trái phép vào các tài nguyên nhạy cảm dựa trên mức độ "tin cậy" của mã.`},
+  {q:`SOAP stands for _____ ?`,opts:["Simple Object Access Protocol","Simple Object Application Protocol","Simple Object Access Program","Simple Object Account Protocol"],ans:0,exp:`SOAP (Simple Object Access Protocol) là giao thức chuẩn dùng định dạng XML để trao đổi và gọi các phương thức từ xa.`},
+  {q:`What will be the output of the following C# code?\nstruct abc { public int i; }\nstatic void Main(string[] args) {\n    abc x = new abc(); abc z;\n    x.i = 10; z = x; z.i = 15;\n    System.Console.WriteLine("{0} {1}", x.i, z.i);\n}`,opts:["10 15","15 15","15 10","10 10"],ans:0,exp:`abc là struct (kiểu tham trị). Phép gán z = x tạo ra bản sao độc lập của x. Thay đổi z.i = 15 không ảnh hưởng x.i (vẫn là 10).`},
+  {q:`What keyword use to declare classes of the same name in a project?`,opts:["Virtual","Abstract","Partial","New"],ans:2,exp:`Từ khóa partial cho phép bạn chia nhỏ định nghĩa của một class ra thành nhiều file vật lý khác nhau.`},
+  {q:`Which of the following keyword used to declare fields that value is not known at compile time, but that should never change once established?`,opts:["readonly","constant","static","sealed"],ans:0,exp:`Từ khóa readonly cho phép bạn gán giá trị một lần duy nhất lúc runtime. Sau khi khởi tạo xong, giá trị đó không thể thay đổi.`},
+  {q:`You need to perform file operations (copy/move/delete) efficiently and possibly multiple operations per file. Which class should you choose?`,opts:["FileSystemInfo","FileStream","File","FileInfo"],ans:3,exp:`FileInfo cung cấp các phương thức instance và lưu giữ trạng thái file, tối ưu khi thực hiện nhiều thao tác liên tiếp mà không cần kiểm tra lại bảo mật.`},
+  {q:`What will be the output of the following C# code snippet?\nstring s1 = "olleH"; string s2 = "olleh";\nif (s1 == s2) Console.WriteLine("Equal"); else Console.WriteLine("Unequal");\nif (s1.Equals(s2)) Console.WriteLine("Equal"); else Console.WriteLine("Unequal");`,opts:["Equal Unequal","Equal Equal","Unequal Equal","Unequal Unequal"],ans:3,exp:`C# phân biệt chữ hoa chữ thường. "olleH" và "olleh" khác nhau nên cả == và .Equals() đều trả về false (Unequal).`},
+  {q:`Which of the following is NOT TRUE about the Entity Framework?`,opts:["It automatically generates the classes from the model...","It takes care of database connectivity","It does not provide any mechanism to track changes to the model’s objects","It provides query syntax for querying the model"],ans:2,exp:`C là phát biểu SAI. Entity Framework CÓ cung cấp cơ chế Change Tracking mạnh mẽ để theo dõi thay đổi thực thể.`},
+  {q:`In .NET the operation of reading metadata and using its contents is known as ______?`,opts:["Enumeration","Serialization","Binding","Reflection"],ans:3,exp:`Reflection (Phản chiếu) cho phép code đọc thông tin Metadata của các file .dll hoặc .exe ở thời điểm thực thi (runtime).`},
+  {q:`Which of the following statements is not true about C#?`,opts:["Automatic memory management through garbage collection","Full support for interface-based programming techniques","Support pass parameters by ref and out keyword","Pointer has completely removed in C#"],ans:3,exp:`Con trỏ (Pointer) chưa hề bị loại bỏ hoàn toàn trong C#, lập trình viên vẫn có thể sử dụng con trỏ bọc trong khối unsafe { }.`},
+  {q:`Which method of SqlCommand is used to execute non-query statements into SQL Server?`,opts:["UpdateWithoutQuery()","ExecuteUpdateQuery()","ExecuteNonQuery()","ExecuteWithoutQuery()"],ans:2,exp:`Hàm ExecuteNonQuery() được sử dụng khi thực thi các câu lệnh SQL không trả về bảng dữ liệu như INSERT, UPDATE, DELETE.`},
+  {q:`The technique that allow code to make function calls to .NET applications on other processes and on other machines is _____?`,opts:[".NET RMT",".NET Threading",".NET Remoting","None of the above"],ans:2,exp:`.NET Remoting cho phép giao tiếp và gọi hàm từ xa xuyên qua các domain ứng dụng, tiến trình hay các máy tính khác nhau.`},
+  {q:`int var_x = 6 + 4 * 4 / 2 - 1; What will be the value of the variable var_x?`,opts:["19","13","20","14"],ans:1,exp:`Ưu tiên toán tử: 4 * 4 = 16. 16 / 2 = 8. 6 + 8 = 14. 14 - 1 = 13.`},
+  {q:`What common Windows Forms container control is used to contain other controls but has no inherent functionality?`,opts:["Panel","Groupbox","TabControl","SplitContainer"],ans:0,exp:`Panel là container cơ bản nhất dùng để nhóm các control, không có đường viền hay tiêu đề mặc định như GroupBox.`},
+  {q:`Which of the following is the wrong statement about exception handling in C#.NET?`,opts:["finally clause is used to perform cleanup operations...","The statements in finally will execute whether an exception occurs or not","A program can contain multiple finally clauses","All of the mentioned"],ans:2,exp:`Một khối lệnh try chỉ được phép có duy nhất MỘT khối finally.`},
+  {q:`What are the three main objects of DataSet?`,opts:["DataReader, DataAdapter, and Command","DataTable, DataColumn, and type","DataTable, DataRelation, and DataAdapter","DataTable, DataColumn, and DataRelation"],ans:3,exp:`Cấu trúc của DataSet được hình thành từ 3 đối tượng chính: DataTable, DataColumn và DataRelation.`},
+  {q:`What will be the correct statement in the following C# code?\ninterface abc {\n    string FirstName { get; set; }\n    string LastName  { get; set; }\n    void print();\n    void stock();\n    int fun();\n}`,opts:["Functions should be declared inside an interface","None of the mentioned","It is workable code","Properties cannot be declared inside an interface"],ans:2,exp:`Đoạn mã hoàn toàn hợp lệ (workable code). Một Interface có thể chứa khai báo của Phương thức và Thuộc tính (không có thân hàm).`},
+  {q:`Which method do you invoke on the SqlDataAdapter control to load your generated dataset with data?`,opts:["DataList","DataBind","Load()","Fill()"],ans:3,exp:`Phương thức Fill() của SqlDataAdapter có nhiệm vụ thực thi câu lệnh truy vấn SQL và đổ dữ liệu vào DataSet/DataTable.`},
+  {q:`What will be the output of the following C# code?\nstatic void Func(int var_a, ref int var_b, out int var_c) {\n    var_c = 2;\n    for (int i = var_a; i <= var_b * var_b; i++) var_c *= i;\n    var_b = var_a + var_c;\n}\n// main: int var_a = 4, var_b = 2, var_c = 1; Func(var_a, ref var_b, out var_c);`,opts:["5 13 8","4 11 7","4 12 8","Another Answer"],ans:2,exp:`i chạy từ 4 đến (2*2)=4. var_c = 2 * 4 = 8. var_b = 4 + 8 = 12. var_a không đổi (4). In ra: 4 12 8.`},
+  {q:`Choose the wrong statement about structures in C#.NET?`,opts:["A structure cannot be empty","Structures can implement an interface but they cannot inherit from another structure","Structure members cannot be declared as protected","Structures can be declared within a procedure"],ans:3,exp:`C# KHÔNG cho phép định nghĩa một struct (hay class) ở bên trong thân của một phương thức/hàm (procedure/method).`},
+  {q:`Which ADO.NET class provide disconnected environment?`,opts:["Command","DataSet","DataReader","None of the above"],ans:1,exp:`DataSet đại diện cho Disconnected Architecture (Mô hình ngắt kết nối).`},
+  {q:`What will be the output of the following C# code?\nstatic void Main(string[] args) {\n    int i = 100;\n    for (int a = 0; a < 5; a++) {\n        int i = 200;\n        System.Console.WriteLine(a * i);\n    }\n}`,opts:["Runtime Error","0, 5, 10, 20","Compile Error","5, 10, 15, 20"],ans:2,exp:`C# không cho phép một biến cục bộ ở phạm vi nhỏ (trong vòng lặp) được khai báo trùng tên với biến cục bộ ở phạm vi bao ngoài (Compile Error).`},
+  {q:`CLR is the .NET equivalent of _____?`,opts:["Common Type System","Java Virtual Machine","Common Language Runtime","Common Language Specification"],ans:1,exp:`CLR (Common Language Runtime) là máy ảo của .NET, hoàn toàn tương đương với JVM (Java Virtual Machine) của Java.`},
+  {q:`In C#, all binary operators are ______.`,opts:["Center-associative","Right-associative","Left-associative","Top-associative"],ans:2,exp:`Ngoại trừ toán tử gán và toán tử ba ngôi, tất cả các toán tử nhị phân thông thường trong C# có tính kết hợp từ trái sang phải.`},
+  {q:`Arrays in C# are ______ objects.`,opts:["Reference","Logical","Value","Arithmetic"],ans:0,exp:`Trong C#, tất cả các mảng (Array) đều là kiểu tham chiếu (Reference type) và được cấp phát trên bộ nhớ Heap.`},
+  {q:`Multidimensional arrays are sometimes called _______ Arrays.`,opts:["Square","Triangular","Rectangular","Cube"],ans:2,exp:`Mảng đa chiều thông thường (như int[,]) bắt buộc mỗi hàng phải có cùng số lượng cột, tạo thành một khối hình chữ nhật hoàn hảo.`},
+  {q:`Inheritance is ______ in nature.`,opts:["Commutative","Associative","Transitive","Iterative"],ans:2,exp:`Kế thừa có tính chất bắc cầu (Transitive). Lớp C kế thừa B, B kế thừa A thì C kế thừa các tính chất của A.`},
+  {q:`C# does not support:`,opts:["abstraction","polymorphism","multiple inheritance","inheritance"],ans:2,exp:`Ngôn ngữ C# KHÔNG cho phép kế thừa trực tiếp từ nhiều hơn một lớp cha (Multiple inheritance).`},
+  {q:`You are required to use a datatype that will store only numbers ranging from -32,768 to 32,767. Which of the following datatypes will you use?`,opts:["short","System.Int16","string","a and b"],ans:3,exp:`short thực chất chỉ là một bí danh (alias) được ánh xạ trực tiếp tới cấu trúc System.Int16 của .NET. Cả A và B đều đúng.`},
+  {q:`How does assembly versioning in .NET prevent DLL Hell?`,opts:["The runtime checks to see that only one version of an assembly is on the machine at any one time.","The compiler offers compile time checking for backward compatibility.",".NET allows assemblies to specify the name AND the version of any assemblies they need to run.","It doesn't."],ans:2,exp:`.NET giải quyết DLL Hell bằng cơ chế Side-by-Side Execution, mỗi Assembly ghi nhận cả TÊN và PHIÊN BẢN của DLL mà nó cần.`},
+  {q:`What will be the output of the following C# code?\nclass Baseclass { public Baseclass(int ii) { Console.Write("Base "); } }\nclass Derived : Baseclass { public Derived(int ii) : base(ii) { Console.Write("Derived "); } }\n// Main: Derived d = new Derived(10);`,opts:["The program will report an error in the statement base(ii).","The program will work correctly if we replace base(ii) with base.Baseclass(ii).","The program will output: Base Derived","The program will work correctly only if we implement zero-argument constructors."],ans:2,exp:`Thông qua từ khóa : base(ii), constructor của lớp cha được thực thi trước (in "Base "), sau đó mới tới lớp con (in "Derived ").`},
+  {q:`Web Forms consists of a _______ and a _________.`,opts:["Template, Component","CLR, CTS","HTML Forms, Web services","Windows, desktop"],ans:0,exp:`Web Forms chia thành phần Template (Giao diện HTML/.aspx) và Component (Mã logic Code-Behind/.aspx.cs).`},
+  {q:`Which of the following is the root of the .NET type hierarchy?`,opts:["System.Object","System.Base","System.Root","System.Parent"],ans:0,exp:`System.Object (object) là lớp cơ sở tối thượng (ultimate base class). Mọi kiểu dữ liệu đều kế thừa từ lớp này.`},
+  {q:`Which of the following jobs are NOT performed by Garbage Collector?\n1. Freeing memory on the stack.\n2. Avoiding memory leaks.\n3. Freeing memory occupied by unreferenced objects.\n4. Closing unclosed database collections.\n5. Closing unclosed files.`,opts:["1, 2, 3","1, 4, 5","3, 5","3, 4"],ans:1,exp:`GC không giải phóng bộ nhớ Stack (1) và không tự động đóng các tài nguyên unmanaged như database (4) hay files (5).`},
+  {q:`Choose the wrong statement about the properties used in C#.NET?`,opts:["Each property consists of accessor as get and set","Properties can be used to store and retrieve values to and from the data members of a class","Properties are like actual methods which work like data members","Properties have their own access levels like private, public, protected etc..."],ans:0,exp:`A là câu sai: Một Property không bắt buộc phải có cả get và set (có thể read-only hoặc write-only).`},
+  {q:`Which file contains configuration data for each unique URl resource used in project?`,opts:["web.config","global.asax","webapplication.vsdisco","assemblyinfo.cs"],ans:0,exp:`Tệp web.config lưu trữ các thông tin cấu hình toàn cục (database, security, session) trong ứng dụng ASP.NET.`},
+  {q:`Different ways a method can be overloaded in C#.NET?`,opts:["Different parameter data types","Different order of parameters","Different number of parameters","All of above"],ans:3,exp:`Nạp chồng phương thức phân biệt bởi chữ ký hàm: Kiểu dữ liệu, Thứ tự và Số lượng tham số.`},
+  {q:`Is it possible to change the value of a variable while debugging a C# application?`,opts:["Yes","No"],ans:0,exp:`Môi trường Visual Studio cho phép thay đổi giá trị biến trong lúc gỡ lỗi (Debugging) qua Locals/Watch hoặc Edit and Continue.`},
+  {q:`All methods in an abstract base class must be declared abstract.`,opts:["True","False"],ans:1,exp:`Lớp trừu tượng (Abstract class) cho phép chứa kết hợp cả phương thức abstract (không thân hàm) VÀ phương thức thông thường.`},
+  {q:`Classes declared with the sealed keyword cannot be base class.`,opts:["True","False"],ans:0,exp:`Từ khóa sealed ngăn chặn tính kế thừa. Bất kỳ lớp nào là sealed đều không thể bị kế thừa (không thể làm lớp cơ sở).`},
+  {q:`A ____ block enclose the code that could throw an exception.`,opts:["Try","Catch","Exception","Error"],ans:0,exp:`Khối try được thiết kế để bao bọc các đoạn mã có nguy cơ sinh ra lỗi (throw an exception).`},
+  {q:`Which is keyword used to define variables with a fixed, unalterable value and the value assigned to a constant variable must be known at compile time?`,opts:["ref","out","params","const"],ans:3,exp:`Từ khóa const bắt buộc gán một giá trị cố định, không thể thay đổi, và phải xác định ngay lúc biên dịch (compile time).`},
+  {q:`You need to assign the value in the variable o to an object of Rectangle type... You need to make sure that no exceptions are raised when the value is assigned. Which of the following code should you use?`,opts:["Rectangle r = o is Rectangle;","Rectangle r = (Rectangle) o;","Rectangle r = o as Rectangle;","Rectangle r = o;"],ans:2,exp:`Toán tử 'as' ép kiểu an toàn. Nếu ép kiểu thất bại, nó trả về null thay vì ném ra ngoại lệ.`},
+  {q:`Does C#.NET support partial implementation of interfaces?`,opts:["Can't Say","None of the mentioned","False","True"],ans:2,exp:`Khi một class kế thừa một Interface, nó bắt buộc phải triển khai toàn bộ phương thức, không được triển khai một phần (partial).`},
+  {q:`The expression used in the switch statement can not be one of the following types?`,opts:["byte","class","long","short"],ans:1,exp:`switch cổ điển chỉ hỗ trợ các kiểu nguyên thủy, enum và string. Nó không hỗ trợ kiểm tra kiểu class tham chiếu đối tượng.`},
+  {q:`You are writing a C# program that iterates through a collection... You need to make sure that you process each item in the collection once. You also need to ensure that your code is easy to read and debug. Best solution?`,opts:["while","for","do-while","foreach"],ans:3,exp:`Vòng lặp foreach duyệt qua các tập hợp ngắn gọn, dễ đọc nhất và tránh được lỗi IndexOutOfRangeException.`},
+  {q:`Which of the following assemblies can be stored in Global Assembly Cache?`,opts:["Friend Assemblies","Public Assemblies","Shared Assemblies","Protected Assemblies"],ans:2,exp:`Để đưa một Assembly vào GAC, nó bắt buộc phải là một Shared Assembly (đã được ký bằng Strong Name key).`},
+  {q:`What will be the output of the following C# code?\nint var_x = 0;\nwhile (var_x++ < 5) Console.Write(var_x);\nvar_x = 0;\nwhile (++var_x < 5) Console.Write(var_x);`,opts:["1234512345","1231234","123451234","123412345"],ans:2,exp:`Vòng 1 (var_x++) in 12345. Vòng 2 (++var_x) in 1234. Ghép lại: 123451234.`},
+  {q:`The Default value of Boolean Data Type is?`,opts:["0","1","False","True"],ans:2,exp:`Giá trị mặc định của kiểu bool trong C# khi khởi tạo luôn luôn là False.`},
+  {q:`double p = 4.5; object o1 = p; object o2 = p;\nWhich on the following expressions returns a value of false?`,opts:["o1.Equals(o2)","o1 == o2","(double)o1 == (double)o2","(int)(double)o1 == (int)(double)o2"],ans:1,exp:`Toán tử == khi dùng với object sẽ kiểm tra tham chiếu bộ nhớ (Reference Equality). o1 và o2 lưu ở 2 địa chỉ Heap khác nhau nên trả về false.`},
+  {q:`What will be the output of the following C# code?\nstatic void Main(string[] args) {\n    int i;\n    for (i = 0; i < 5; i++) { }\n    System.Console.WriteLine(i);\n}`,opts:["4","0, 1, 2, 3, 4, 5","0, 1, 2, 3, 4","5"],ans:3,exp:`Lệnh in Console.WriteLine(i) nằm ngoài vòng lặp. Vòng lặp dừng khi i = 5 (điều kiện 5 < 5 False), nên in ra 5.`},
+  {q:`Which among the following is the correct statement: Constructors are used to?`,opts:["none of the mentioned","initialize the objects","construct the data members","initialize the objects & construct the data members"],ans:1,exp:`Mục đích chính của Constructor là khởi tạo trạng thái ban đầu (initialize) cho đối tượng, việc cấp phát vùng nhớ do new thực hiện.`},
+  {q:`What will be the output of the following C# code?\nclass number { int length = 60; public int number1 { get { return length; } } }\nclass Program { public static void Main() { number p = new number(); int l = p.number1 + 40; int k = l * 3 / 4; Console.WriteLine(k); } }`,opts:["30","75","0","80"],ans:1,exp:`l = 60 + 40 = 100. k = 100 * 3 / 4 = 300 / 4 = 75.`},
+  {q:`What will be the output of the following C# code?\nclass Base { public Base(int var_x = 1) { Console.Write(var_x); } public void FuncBase() { Console.Write("2"); } }\nclass Derived : Base { public Derived(int var_x) : base(var_x) { var_x = 3; } public void FuncDerived() { base.FuncBase(); } }\n// Main: Derived obj = new Derived(1); obj.FuncDerived();`,opts:["Another Answer","21","31","12"],ans:3,exp:`new Derived(1) đẩy tham số lên base(1) in ra 1. obj.FuncDerived() gọi base.FuncBase() in ra 2. Kết quả 12.`},
+  {q:`What will be the output of the following C# code?\nint a = 23, b = 0, c; c = z.fun(++b * --a % 2); int d = (z.fun(c-- + --a)); System.Console.Write(c); System.Console.Write(a++); System.Console.Write(d);`,opts:["-1211","0220","Another Answer","-1220"],ans:0,exp:`Biểu thức làm c=-1, a=21 (sau in lên 22), d=1. Ghép lại là -1211. (fun trả về (m++ % 10) trả về nguyên gốc trước khi m tăng).`},
+  {q:`Which information is correct about the reference types?`,opts:["Can be quickly removed from memory once they fall out of the defining scope","Allocated on the managed heap","Allocated on the managed data","Allocated on the stack"],ans:1,exp:`Reference types (class, array, string) được cấp phát bộ nhớ trên Managed Heap và được GC dọn dẹp.`},
+  {q:`In C#, what keyword is used to create the object?`,opts:["create","news","new","object"],ans:2,exp:`Từ khóa new được sử dụng để khởi tạo đối tượng, gọi bộ khởi tạo và xin cấp phát bộ nhớ.`},
+  {q:`You need to make sure that percentValue is accessible only within the CalculateDiscount method. What access modifier should you use when defining the percentValue variable?`,opts:["public","private","protected","internal"],ans:1,exp:`Để một trường dữ liệu chỉ truy cập được bên trong nội bộ các hàm của lớp đó, access modifier chính xác là private.`},
+  {q:`Which of the following features are introduced in .Net 3.5?`,opts:["All of the above","WWF","WCF","WPF"],ans:0,exp:`Windows Workflow Foundation (WWF), Windows Communication Foundation (WCF) và Windows Presentation Foundation (WPF) đi kèm mở rộng ở .NET 3.5.`},
+  {q:`You are writing a method named PrintReport that doesn't return a value to the calling code. Which keyword should you use in your method declaration to indicate this fact?`,opts:["string","int","private","void"],ans:3,exp:`Từ khóa void báo cho trình biên dịch biết hàm KHÔNG trả về bất kỳ kết quả dữ liệu nào.`},
+  {q:`What will be the output of the following C# code?\n// class number với num1=60, num2=20, get property...\nint r = p.anumber * k.anumber1; System.Console.WriteLine(r);`,opts:["Compile Error","120","1200","0"],ans:2,exp:`p.anumber = 60, k.anumber1 = 20. Kết quả 60 * 20 = 1200.`},
+  {q:`What will be the output of the following C# code?\npublic class BaseClass { public BaseClass() { Console.WriteLine("I am a base class"); } }\npublic class ChildClass : BaseClass { public ChildClass() { Console.WriteLine("I am a child class"); } }`,opts:["I am a child class I am a base class","None of the mentioned","I am a base class I am a child class","Compile Error"],ans:2,exp:`Khi khởi tạo lớp con, C# sẽ tự động gọi lên Constructor của lớp cha trước tiên. Nên in base class trước rồi đến child class.`},
+  {q:`What will be the output of the following C# code?\nint i = 30; int j = 25 % 25;\nif (Convert.ToBoolean(Convert.ToInt32(i = j))) Console.WriteLine("In if"); else Console.WriteLine("In else");\nConsole.WriteLine("In main");`,opts:["In if","In else \\n In main","In else","In if \\n In main"],ans:1,exp:`j = 0. Gán i = j (giá trị 0). ToBoolean(0) là false -> Vào else. In "In else", sau đó in "In main".`},
+  {q:`Choose the correct statement among the following?`,opts:["A property can be a static member whereas an indexer is always an instance member","All of the mentioned","A get accessor of a property corresponds to a method with no parameters whereas indexer has parameters","It is an error for indexer to declare a local variable with the same name as indexer parameters"],ans:1,exp:`Tất cả đều đúng. Indexer luôn gắn với instance và có tham số truyền vào.`},
+  {q:`Choose the correct one:\nint[] numbers = { 5, 4, 11, 3, 9, 8, 6, 7, 2, 0 };\nvar nums = numbers.Skip(4);\nforeach (var n in nums) Console.Write(n + " ");`,opts:["5 4 11 3 9 8","5 4 11 3","Another Answer","9 8 6 7 2 0"],ans:3,exp:`Hàm Skip(4) của LINQ bỏ qua 4 phần tử đầu (5,4,11,3) và lấy các phần tử còn lại -> 9 8 6 7 2 0.`},
+  {q:`Which of the following statements is correct about the C# code?\nSqlDataReader reader; reader = cmd.ExecuteNonQuery();`,opts:["The code has a compile error","The code will throw an exception if it is excuted","The code will be executed successfully but nothing will be printed out","The code will be executed successfully and will print"],ans:0,exp:`Lỗi biên dịch. ExecuteNonQuery() trả về int, không thể gán vào biến SqlDataReader.`},
+  {q:`The following code configures _____ relationship between Student and Standard.\nmodelBuilder.Entity<Student>().HasRequired<Standard>(s => s.Standard).WithMany(s => s.Students)`,opts:["One-to-One","One-to-many","One-to-Zero or One","Many-to-Many"],ans:1,exp:`HasRequired (1) kết hợp WithMany (Nhiều) tạo ra mối quan hệ Một-Nhiều (One-to-Many).`},
+  {q:`What will be the output of the given code snippet?\nint[] nums = {1, -2, 3, 0, -4, 5};\nvar posNums = nums.Where(n => n > 0).Select(r => r*2).OrderByDescending(r=>r);`,opts:["code run successfully prints multiple of 2","code run successfully prints nothing","Compile error","Runtime error"],ans:0,exp:`Mã hợp lệ bằng LINQ: lọc số > 0, nhân 2, xếp giảm dần. In ra bội số của 2.`},
+  {q:`Which of the following class provides information about an existing entity in a context?`,opts:["DbSet","DbContext","DbEntityEntry","DbInfo"],ans:2,exp:`DbEntityEntry lưu trữ và cung cấp thông tin quản lý trạng thái (State) của một thực thể cụ thể.`},
+  {q:`Operator used to free the memory when memory is allocated?`,opts:["new","delete","None of the mentioned","free"],ans:1,exp:`Toán tử delete đi theo cặp với new để giải phóng bộ nhớ thủ công (C/C++ legacy question).`},
+  {q:`How many types of db migrations are supported by EF 6 Code-First approach?`,opts:["Code based","Automated","Another Answer","Configuration based"],ans:0,exp:`EF 6 hỗ trợ cả Automated Migrations và Code-based Migrations (Đề này chọn A & B tùy context, thường chọn Automated/Code based).`},
+  {q:`What will be the output of the following C# code?\nstatic int Func(int var_a, int var_b, ref int var_c) { ... }\n// Main: Func(var_a, ref var_b, ref var_c);`,opts:["30, 55","55, 30","Compile Error","0, 0"],ans:2,exp:`Compile Error: Tham số var_b trong định nghĩa hàm không có ref, nhưng khi gọi lại ghi dư chữ ref.`},
+  {q:`What application supports all standard Windows application User Interface elements?`,opts:["DLL Forms","Windows controllers","WinForms","Window boxes"],ans:2,exp:`WinForms (Windows Forms) là nền tảng tạo giao diện đồ họa đi kèm .NET Framework bọc UI của Windows.`},
+  {q:`Which of the following are possible values for the Checked property of a CheckBox control?`,opts:["Checked / Unchecked","Checked / NotChecked","True / False","Indeterminate"],ans:2,exp:`Thuộc tính Checked có kiểu bool, chỉ trả về True hoặc False.`},
+  {q:`Choose the incorrect statement about the delegate?`,opts:["Delegates are used to invoke methods that have the same signatures","Delegates are type safe","Delegates are of reference types","Delegate cannot use with event"],ans:3,exp:`D sai vì Event trong C# được xây dựng dựa trên Delegate.`},
+  {q:`You are reviewing the code of a C# application that handles exceptions. Which of the following statements are correct?`,opts:["A try block must have at least a catch block or a finally block associated with it","A try block must have at least a catch block","A try block must have at least a finally block","A try block must have at least a catch block and a finally block"],ans:0,exp:`Khối try không được đứng một mình, bắt buộc phải kèm ít nhất 1 catch HOẶC 1 finally.`},
+  {q:`Which of the following statement is TRUE? (Về Entity Framework)`,opts:["EF cannot execute raw sql queries to the database","EF can track multiple entities with the same key value","EF builds and executes INSERT, UPDATE or DELETE commands based on the entity state of an entity","Database views cannot be used"],ans:2,exp:`EF sinh lệnh SQL dựa trên State của entity (Added, Modified, Deleted).`},
+  {q:`The correct way to implement the property which reports the error “invalid index” if user attempts to cross bounds of the array`,opts:["A","B","C (có check if(index<5) ở cả get và set)","D"],ans:2,exp:`Để cảnh báo an toàn cho mảng 5 phần tử, Indexer this[int index] cần if(index < 5) trong cả get và set.`},
+  {q:`Which the following are important pieces of information of a delegate type?\n1. Name of method\n2. Arguments\n3. Return value must be object`,opts:["1, 2","2, 3","1, 3","1, 2, 3"],ans:0,exp:`Tên hàm và tham số đầu vào là chữ ký delegate. Kiểu trả về không bắt buộc phải là object.`},
+  {q:`Which of the following interactive event procedures are true?`,opts:["Delegate – User – Event handling – Update GUI","User – Event object – Event handling – Update GUI","User – Event handling – Event object – Update GUI","Event object – Delegate – Event handling – User – Update GUI"],ans:1,exp:`User (thao tác) -> sinh Event object -> gọi Event handling -> Update GUI.`},
+  {q:`When would you typically use an Input parameter? (ADONET)`,opts:["When the command is set to execute a statement with a Where clause","When the parameter is used to send data from the application to the database","Created based on user input","When parameter value is passed to Insert statement"],ans:1,exp:`Dùng để truyền dữ liệu (điều kiện Where hoặc dữ liệu Insert/Update) vào database.`},
+  {q:`Given class sample is inherited by class sample1. Which are the correct statements about construction of object of class sample?`,opts:["Firstly constructor of class sample1 will be called followed by constructor of class sample","Depend on private or public","Firstly sample then sample1","Only sample class will be called"],ans:0,exp:`A là đáp án theo barem: Trình biên dịch nhảy vào Constructor lớp con (sample1) đầu tiên, rồi gọi :base() lên lớp cha.`},
+  {q:`The character pair ?: is a________________available in C#.`,opts:["Unary operator","Ternary operator","Decision operator","Functional operator"],ans:1,exp:`?: là toán tử ba ngôi (Ternary operator).`},
+  {q:`______ parameters are used to pass results back to the calling method.`,opts:["Input","Reference","Value","Output"],ans:3,exp:`Output parameters (out) thiết kế đặc biệt để truyền kết quả từ trong hàm ra ngoài.`},
+  {q:`_______ variables are visible only in the block they are declared.`,opts:["System","Global","Local","Console"],ans:2,exp:`Biến cục bộ (Local variables) chỉ có tầm vực bên trong khối lệnh nó được khai báo.`},
+  {q:`The methods that have the same name, but different parameter lists and different definitions is called______.`,opts:["Method Overloading","Method Overriding","Method Overwriting","Method Overreading"],ans:0,exp:`Định nghĩa nhiều hàm trùng tên khác tham số gọi là Method Overloading.`},
+  {q:`The C# provides special methods known as _____ methods to provide access to data members.`,opts:["Loop","Functions","Methods","Accessor"],ans:3,exp:`Accessor methods (get/set) kiểm soát quyền đọc ghi của Property.`},
+  {q:`The theory of _____ implies that user can control the access to a class, method, or variable.`,opts:["Data hiding","Encapsulation","Information Hiding","Polymorphism"],ans:1,exp:`Encapsulation (Tính đóng gói) cho phép bọc dữ liệu và kiểm soát quyền truy cập.`},
+  {q:`The point at which an exception is thrown is called the _______.`,opts:["Default point","Invoking point","Calling point","Throw point"],ans:3,exp:`Throw point (điểm ném) là dòng mã ứng dụng phát sinh lỗi hoặc gọi từ khóa throw.`},
+  {q:`C# supports a technique known as________, which allows a method to specify explicitly the name of the interface it is implementing.`,opts:["Method Implementaion","Implicit Interface Implementation","Explicit Interface Implementation","Iterative Interface Implementation"],ans:2,exp:`Explicit Interface Implementation là định nghĩa phương thức kèm TÊN interface (vd: void IFace1.Func()).`},
+  {q:`myMobile.Accept(55, inReject: false); Above statement is an example of which new concept of C# 4.0?`,opts:["Named Parameters","Optional Parameters","dynamic","Variance"],ans:0,exp:`Named Parameters cho phép ghi rõ tên biến cần gán (inReject: false) thay vì truyền theo thứ tự.`},
+  {q:`Duck typing is implemented by using_________ keyword.`,opts:["dynamic","object","ref","base"],ans:0,exp:`Từ C# 4.0, Duck typing (kiểm tra kiểu lúc runtime) được thực hiện bằng từ khóa dynamic.`},
+  {q:`An _______ is a symbol that tells the computer to perform certain mathematical or logical manipulations.`,opts:["Operator","Expression","Condition","Logic"],ans:0,exp:`Toán tử (Operator) là ký hiệu ra lệnh thực hiện phép tính.`},
+  {q:`A _____ is any valid C# variable ending with a colon.`,opts:["goto","Label","Logical","Bitwise"],ans:1,exp:`Label (Nhãn) kết thúc bằng dấu hai chấm (:), dùng làm mốc nhảy cho lệnh goto.`},
+  {q:`________causes the loop to continue with the next iteration after skipping any statements in between.`,opts:["Loop","Exit","Break","Continue"],ans:3,exp:`Lệnh continue bỏ qua mã bên dưới và ép vòng lặp chuyển sang lần lặp kế tiếp.`},
+  {q:`The formal-parameter-list is always enclosed in _______.`,opts:["Square","Semicolon","Parenthesis","Colon"],ans:2,exp:`Danh sách tham số hình thức được bọc bởi ngoặc đơn Parenthesis ().`},
+  {q:`A _______ creates an object by copying variables from another object.`,opts:["Copy constructor","Default constructor","Invoking constructor","Calling constructor"],ans:0,exp:`Copy constructor sao chép dữ liệu từ một đối tượng cùng kiểu truyền vào làm tham số.`},
+  {q:`C# treats the multiple catch statements like cases in a _____________ statement.`,opts:["If","Switch","For","While"],ans:1,exp:`Nhiều catch đánh giá từ trên xuống giống hệt cấu trúc rẽ nhánh Switch.`},
+  {q:`The infrastructure that supports these dynamic operations at run time is called the__________.`,opts:["CLR","CTS","CLS","DLR"],ans:3,exp:`DLR (Dynamic Language Runtime) cung cấp hạ tầng xử lý biến dynamic lúc chạy.`},
+  {q:`_______ methods are not supported for dynamic types.`,opts:["Anonymous","Static","Abstract","Extension"],ans:3,exp:`dynamic không gọi được Extension Methods do nó bỏ qua check compile-time.`},
+  {q:`COM Interop is simplified in C#4.0... _______ keyword was essential in parameters of GetDocument() in previous versions of C#.`,opts:["out","named","base","ref"],ans:3,exp:`C# cũ bắt buộc gọi API COM phải dùng ref.`},
+  {q:`_________parameters allows you to give a method parameter a default value...`,opts:["optional","named","out","ref"],ans:0,exp:`Optional parameters (tham số tùy chọn) cung cấp giá trị mặc định sẵn.`},
+  {q:`Select the two types of threads mentioned in the concept of multithreading?`,opts:["Foreground","Background","Only foreground","Both foreground and background"],ans:3,exp:`Có 2 loại luồng: Foreground threads và Background threads.`},
+  {q:`To perform asynchronous data access, what must be added to the connection string?`,opts:["BeginExecute=true","MultiThreaded=true","MultipleActiveResultSets=true","Asynchronous=true"],ans:3,exp:`Cờ Asynchronous=true (hoặc Asynchronous Processing=true) bắt buộc trong Connection String.`},
+  {q:`Can you use a DataView to filter rows in a DataTable?`,opts:["Yes, by setting the Filter property","Yes, by setting the RowFilter property","Yes, by using the SetFilter() method","No"],ans:1,exp:`Dùng thuộc tính RowFilter của DataView để lọc dữ liệu.`},
+  {q:`Which database is the ADO.NET SqlConnection object designed for?`,opts:["Access","Microsoft SQL Server","MySQL","Oracle"],ans:1,exp:`SqlConnection tối ưu dành riêng cho Microsoft SQL Server.`},
+  {q:`What is the fully qualified name of the base class of all server controls?`,opts:["System.Web.UI.Control","System.Web.UI","System.Control","All of the above"],ans:0,exp:`Tất cả Server Controls kế thừa System.Web.UI.Control.`},
+  {q:`The first record in a dataset has a position property of: _____`,opts:["zero","one","any value","All of the above"],ans:0,exp:`Zero-based indexing. Bản ghi đầu tiên có position là 0.`},
+  {q:`What is the name of the Page object’s property that determines if a Web page is being requested without data being submitted to the server?`,opts:["IsCallback","IsReusable","IsValid","IsPostBack"],ans:3,exp:`IsPostBack trả về false khi tải trang lần đầu, true khi submit dữ liệu.`},
+  {q:`How will you specify the Cache Location?`,opts:["Browser settings","Location attribute of the <%@ OutputCache %> directive","QueryString","None"],ans:1,exp:`Dùng thuộc tính Location trong thẻ <%@ OutputCache %>.`},
+  {q:`To create your application on a remote server which option you will choose in ASP.NET?`,opts:["File System","FTP","HTTPS","None of the above"],ans:1,exp:`FTP (File Transfer Protocol) để cấu trúc mã lên máy chủ từ xa.`},
+  {q:`Which is a property of the DataGrid control?`,opts:["DataMember","DataSource","DataQuery","All of the above"],ans:3,exp:`D (Đúng theo barem thi: All of the above).`},
+  {q:`In a connection string _____________ represents name of the database.`,opts:["Data Source","Initial Catalog","Catalog Initial","Database"],ans:1,exp:`Initial Catalog chỉ định tên của cơ sở dữ liệu.`},
+  {q:`When you create a relationship between tables in ADO.NET DataSet:`,opts:["A UniqueConstraint is added to the parent table","A ForeignKeyConstraint is added to the child table by default","Both A and B","None"],ans:2,exp:`Tự động thêm UniqueConstraint cho bảng cha và ForeignKeyConstraint cho bảng con.`},
+  {q:`Which file you should write for the connection string so that you can access it in all the web pages for the same application?`,opts:["In App_Data folder","In Web.config file","In MasterPage file","None of the above"],ans:1,exp:`Lưu trong thẻ <connectionStrings> của tệp Web.config.`},
+  {q:`Which of the following is not a DataReader method?`,opts:["NextResult","GetName","GetValue","GetDataType"],ans:3,exp:`Không có phương thức GetDataType (đúng phải là GetFieldType).`},
+  {q:`Choose the correct option about the Integrated Security property of the connection object.`,opts:["If false then User ID and Password must be specified","If true, then current Windows account credentials are used","Both A and B option are correct","None"],ans:2,exp:`True dùng Windows Auth. False dùng SQL Auth (cần user/pass).`},
+  {q:`The first step of configuring a DataAdapter is to select:`,opts:["An adapter object","A connection object","A database object","A dataset object"],ans:1,exp:`DataAdapter cần Connection object để biết nối đến DB nào.`},
+  {q:`To check the status of the connection, ____ property is useful.`,opts:["ConnectionStatus","Status","State","ConnectionState"],ans:2,exp:`cnn.State == ConnectionState.Open.`},
+  {q:`Which type of object has the Generate Dataset method?`,opts:["Adapter object","Connection object","Database object","Dataset object"],ans:0,exp:`DataAdapter cung cấp lệnh Generate Dataset ở giao diện VS Design.`},
+  {q:`Which object contains the Position property of the current record in a dataset?`,opts:["BindingContext","BindingData","DataBinding","DataBound"],ans:0,exp:`BindingContext cung cấp CurrencyManager để lấy Position.`},
+  {q:`What data type is returned when calling the ExecuteScalar method of a command object?`,opts:["System.Int32","Object","No of affected records","None of the above"],ans:1,exp:`ExecuteScalar lấy giá trị ở dòng 1 cột 1 nên trả về Object bao quát.`},
+  {q:`What are the types of cookies?`,opts:["Session cookies","Persistent cookies","Dummy cookies","Options A and B are correct"],ans:3,exp:`Có Session cookies (tạm) và Persistent cookies (cố định ổ cứng).`},
+  {q:`Which protocol is used for requesting a web page in ASP.NET from the Web Server?`,opts:["HTTP","TCP","SMTP","None of the above"],ans:0,exp:`Giao thức HTTP truyền tải siêu văn bản.`},
+  {q:`How to kill a user session explicitly?`,opts:["Session.Discard()","Session.Close()","Session.Abandon()","Session.kill()"],ans:2,exp:`Session.Abandon() hủy session ngay lập tức.`},
+  {q:`Default Session data is stored in ASP.Net.`,opts:["StateServer","Session Object","InProcess","All of the above"],ans:2,exp:`Mặc định InProcess lưu Session ngay trên RAM của tiến trình web.`},
+  {q:`You can have only one Global.asax file per project.`,opts:["Yes","No"],ans:0,exp:`Chỉ duy nhất 1 file Global.asax cho Application events.`},
+  {q:`How many types of authentication ASP.NET supports?`,opts:["Windows Authentication","Passport Authentication","Forms Authentication","All of the above"],ans:3,exp:`Cả 3 loại đều được hỗ trợ tích hợp.`},
+  {q:`Attribute must be set on a validator control for the validation to work.`,opts:["ControlToValidate","ControlToBind","ValidateControl","Validate"],ans:0,exp:`ControlToValidate bắt buộc chỉ định ID của thẻ cần kiểm tra.`},
+  {q:`Which method copies the structure of the DataSet, including all DataTable schemas, relations, and constraints?`,opts:["EndInit","Clone","Copy","BeginInit"],ans:1,exp:`Clone() sao chép cấu trúc rỗng. Copy() sao chép cả dữ liệu.`},
+  {q:`The DataReader object is an alternative to the?`,opts:["DataSet","DataAdapter","Both A and B","None of the above"],ans:0,exp:`DataReader (Connected) là công cụ thay thế DataSet (Disconnected).`},
+  {q:`Syntax for closing and opening the connection in ADO.net is _______________`,opts:["sqlConn.Open() and sqlConn.close()","sqlConn.open() and sqlConn.Close()","sqlConn.Open() and sqlConn.Close()","None"],ans:2,exp:`Viết hoa Open() và Close() (PascalCase).`},
+  {q:`The default scope for the members of an interface is _____.`,opts:["private","public","protected","internal"],ans:1,exp:`Thành viên interface mặc định là public.`},
+  {q:`Which of the following statements is incorrect about delegate?`,opts:["Delegates are reference types","Delegates are object-oriented","Delegates are type-safe","Only one can be called using a delegate"],ans:3,exp:`Delegate C# mặc định là Multicast (gọi nhiều hàm cùng lúc).`},
+  {q:`Which of the following is incorrect about constructors?`,opts:["Defining of constructors can be implicit or explicit","The calling of constructors is explicit","Implicit constructors can be parameterized or parameterless","Explicit constructors can be parameterized or parameterless"],ans:2,exp:`Implicit constructors (do C# tự sinh) LUÔN KHÔNG CÓ tham số.`},
+  {q:`What is the value returned by function compareTo( ) if the invoking string is less than the string compared?`,opts:["Zero","A value of less than zero","A value greater than zero","None of the mentioned"],ans:1,exp:`Trả về số âm nếu chuỗi xếp trước.`},
+  {q:`What will be the output of the following code snippet?\nint x = 8; int b = 16; int c = 64;\nx /= c /= b;\nConsole.WriteLine(x + " " + b+ " " +c);`,opts:["2 16 4","4 8 16","2 4 8","8 16 64"],ans:0,exp:`Tính phải qua trái: c = 64/16 = 4. x = 8/4 = 2. In 2 16 4.`},
+  {q:`Which of the following statements are correct for C# language?`,opts:["Every derived class does not define its own version of the virtual method","By default, the access mode for all methods in C# is virtual","If a derived class, does not define its own version of the virtual method, then the one present in the base class gets used","All of the above"],ans:2,exp:`Lớp con không override thì dùng hàm gốc của lớp cha.`},
+  {q:`What will be the output of the following code snippet?\nsample s = new sample(4);\nsample t = new sample();`,opts:["constructor 1 called constructor 2 called","constructor 2 called constructor 1 called","constructor 2 called constructor 2 called","error"],ans:1,exp:`(4) gọi constructor 2 trước, () gọi constructor 1.`},
+  {q:`Which of the following is not a namespace in the .NET Framework Class Library?`,opts:["System.Process","System.Security","System.Threading","System.xml"],ans:0,exp:`Lớp Process nằm trong System.Diagnostics, không có namespace System.Process.`},
+  {q:`Which is the correct statement about the namespaces in C#.NET?`,opts:["Nesting of namespaces is permitted, provided all the inner namespaces are declared in the same file","A namespace cannot be tested","There is no limit on the number of levels while nesting namespaces","All of the mentioned"],ans:2,exp:`Không giới hạn cấp độ lồng nhau (nesting).`},
+  {q:`Which among the following is a correct statement about namespace used in C#.NET?`,opts:["Classes must belong to a namespace, whereas structures need not","All elements of the namespace must to belong to one file","If not mentioned, a namespace takes the name of the current project","All of the mentioned"],ans:2,exp:`Mặc định VS lấy tên Project làm Root namespace.`},
+  {q:`Which among the following does not belong to the C#.NET namespace?`,opts:["class","struct","enum","data"],ans:3,exp:`data không phải từ khóa kiểu dữ liệu.`},
+  {q:`Which among the following statements are not correct about a namespace used in C#.NET?`,opts:["Nested namespaces are allowed","Importing outer namespaces imports inner namespace","Nested namespaces are allowed","Importing outer namespace does not import inner namespace"],ans:1,exp:`using System không tự động nạp System.Data.`},
+  {q:`If ListBox is the class of System.Windows.Forms namespace. Then, the correct way to create an object of ListBox class is?`,opts:["using System.Windows.Forms; ListBox I = new ListBox();","System.Windows.Forms.ListBox I = new System.Windows.Forms.ListBox();","using LBControl = System.Windows.Forms.ListBox; LBControl I = new LBControl();","All of the mentioned"],ans:3,exp:`Cả 3 cách: using, gọi trực tiếp tên đầy đủ, và Alias đều hợp lệ.`},
+  {q:`Which among the following is the correct statement about the using statement used in C#.NET?`,opts:["A C#.NET source code file consists of any number of using statement","alias for the namespace but not for the namespace element","It is permitted to define a member at namespace level using alias","Using statement can be placed anywhere"],ans:2,exp:`Alias (Bí danh) được phép dùng để gán gọn tên cho class.`},
+  {q:`What information is specified in the Connection tab of the DataLink window?`,opts:["Database login","Database name","Database type","All of the above"],ans:3,exp:`Thẻ Connection yêu cầu đủ Provider, Auth, Database Name.`},
+  {q:`Which of the following is true for ADO.NET DataSet?`,opts:["Disconnected view","Store multiple tables","Create relationships","All of the above is true"],ans:3,exp:`DataSet hỗ trợ Disconnected, đa bảng, liên kết.`},
+  {q:`You connect to Diploma by using Windows authentication mode...`,opts:["Data Source=Admin\\SQLEXPRESS;Initial Catalog=Diploma;Integrated Security=True","Data Source=Admin/SQLEXPRESS...","Data Source=Admin\\SQLEXPRESS;Initial Catalog=Diploma;Integrated Security=False","All of the Above"],ans:0,exp:`Admin\\SQLEXPRESS (backslash), True cho Windows Auth.`},
+  {q:`Which is not an ADO.NET DataAdapter Object?`,opts:["OleDbDataAdapter","SQLDataAdapter","QueryDataAdapter","All of the above"],ans:2,exp:`QueryDataAdapter không tồn tại.`},
+  {q:`Which of the following illustrates the benefit of ADO.NET?`,opts:["Interoperability","DataSet represent data in memory","Disconnected data access","All of above"],ans:3,exp:`Tương tác XML, DataSet memory, Disconnected mode.`},
+  {q:`What is the proper code to put data into the dataset called EmployDataset using the EmployDataAdapter object?`,opts:["EmployDataset.Fill(EmployDataAdapter)","EmployDataAdapter.Fill(EmployDataset)","EmployDataset.Load(EmployDataAdapter)","EmployDataAdapter.Load(EmployDataset)"],ans:1,exp:`Adapter làm chủ thể: Adapter.Fill(DataSet).`},
+  {q:`What will be the output of the following C# code?\n// Derived class uses internal void Func()`,opts:["Compile Error","Runtime Error","1","12","2"],ans:4,exp:`E (2): internal Func() ẩn method gốc, gọi trực tiếp hàm con.`},
+  {q:`What will be the output of the following C# code?\n// maths in "hello", maths1:base() in "bye"`,opts:["Compile Error","bye 12","12 hello","hello bye"],ans:3,exp:`Lớp cha chạy trước in hello, lớp con in bye.`},
+  {q:`For the given set of C# code, is conversion possible?\nint a = 76; char b; b = (char)a;`,opts:["Compiler will urge for conversion","Conversion is explicit type","None","Runtime error"],ans:1,exp:`(char)a là ép kiểu tường minh explicit type.`},
+  {q:`What will be the output of the following C# code?\n// Explicit Interface Implementation obj.Func()`,opts:["Compile Error","1","2","3"],ans:3,exp:`Gọi trực tiếp từ biến class ưu tiên public method gốc in 3.`},
+  {q:`What will be the output of the following C# code?\n// maths.fun1() -> obj.fun2(20)`,opts:["method 1: method 2: 20 method 1:","method 1: 20 method 2: method 2:","method 2: 20 method 1: method 1:","method 1: 20 method 1: method 2:"],ans:3,exp:`Trace: method1 -> in 20 -> gọi fun2 không tham số in method1, method2.`},
+  {q:`What will be the output of the following C# code?\nvar dayCode = "MTWFS"; // string.Join...`,opts:["Monday, Tuesday, Wednesday, Friday, Saturday, Sunday","Monday Tuesday Wednesday Friday Sunday","Monday Tuesday Wednesday Friday Saturday"],ans:2,exp:`Khớp Dictionary sinh chuỗi cách nhau bởi khoảng trắng.`},
+  {q:`What will be the output of the following C# code?\nmaths m = new maths(20, 40); maths k = new maths(12.0, 12);`,opts:["60 144.0","60144","Compile Error","60144.0"],ans:1,exp:`60 (từ +) liền kề 144 (từ *) -> 60144.`},
+  {q:`What will be the output of the following C# code?\nabstract class A { public int i, j; } class B : A { public int j = 5;... }`,opts:["1, 5","0, 5","1, 0","1, 3"],ans:3,exp:`this.j=3 ghi vào j lớp B. i từ lớp A=1. In 1, 3.`},
+  {q:`Which of the following jobs are done by Common Language Runtime?`,opts:["Only 1 and 2","Only 1, 3 and 4","Only 2, 3 and 4","All of the above"],ans:3,exp:`Quản lý nhớ, Thread, An toàn kiểu, CAS, GC.`},
+  {q:`Next, you refer to an array element by using the expression arr[2, 3].`,opts:["24","47","84","34"],ans:3,exp:`Dòng 3 (index 2), cột 4 (index 3) là 34.`},
+  {q:`The space required for structure variables is allocated on the stack.`,opts:["True","False","Maybe","Can’t say"],ans:0,exp:`struct là Value Type cấp phát trên Stack.`},
+  {q:`Exponential formatting character (‘E’ or ‘e’) converts a given value to string in the form of _______.`,opts:["m.dddd E+xxx","m.dddd","E+xxx","None of the above"],ans:0,exp:`Định dạng khoa học.`},
+  {q:`What is the wild card character in the SQL "like" statement?`,opts:["* (Asterisk)","# (Pound)","% (Percent)","$ (Dollar)"],ans:2,exp:`% là wildcard trong SQL LIKE.`},
+  {q:`Find any errors in the following BankAccount constructor: public int BankAccount() { balance = 0; }`,opts:["Name","Formal parameters","Return type","No errors"],ans:2,exp:`Constructor không được phép có Return type.`},
+  {q:`In the body of a method, C# uses the variable named_____to refer to the current object whose method is being invoked.`,opts:["call","this","do","that"],ans:1,exp:`this trỏ đến đối tượng hiện tại.`},
+  {q:`What will be the output of the following code snippet?\nsample(9, 2.5); ~sample();`,opts:["0 0","11.5 0","Compile-time error","11.5 6.5"],ans:3,exp:`Constructor tính 11.5, Destructor tính 6.5.`},
+  {q:`Is it possible to pass methods as arguments for other methods without modification.`,opts:["True","False"],ans:0,exp:`Delegate cho phép truyền hàm như tham số.`},
+  {q:`Which of the following constitutes the .NET Framework?`,opts:["2, 5","2, 1","2, 3","3, 4"],ans:2,exp:`CLR và FCL (Framework Class Library).`},
+  {q:`A method_____an exception when that method detects that a problem has occured.`,opts:["Trys","Catches","Throws","a and b"],ans:2,exp:`Throws (ném) ngoại lệ.`},
+  {q:`Managed methods will be marked as ------------ in MSIL code.`,opts:["mscorjit","cil","dgclr","None"],ans:1,exp:`cil (Common Intermediate Language).`},
+  {q:`Is it possible to create an entity model without a pre-existing database?`,opts:["No","Yes"],ans:1,exp:`Code-First EF tự động sinh DB từ code.`},
+  {q:`What will be the output of the given code snippet?\nnums.Average()`,opts:["5","Compile error","Runtime error","3"],ans:3,exp:`Trung bình 15 / 5 = 3.`},
+  {q:`What advanced control would you use to enter a Social Security number or telephone number?`,opts:["MaskedTextBox","ListView","OpenTextBox","CheckListBox"],ans:0,exp:`MaskedTextBox ép định dạng.`},
+  {q:`Which method is used to invoke each method maintained by the delegate type in a synchronous manner?`,opts:["Invoke()","EndInvoke()","SynInvoke()","BeginInvoke()"],ans:0,exp:`Invoke() gọi đồng bộ.`},
+  {q:`Which window is used to modify values for various solutions, project forms, and controls?`,opts:["Solution Explorer window","Program.cs","Properties window","Windows Form Designer"],ans:2,exp:`Properties window.`},
+  {q:`Which of the following code snippets would traverse through all result objects?`,opts:["foreach (USER USER in userResults)","None","while (USER USER in userResults)","for (USER USER in userResults)"],ans:0,exp:`Vòng lặp foreach.`},
+  {q:`Which of the following is not a valid data type in .Net?`,opts:["Int16","Double","MIME","Int32"],ans:2,exp:`MIME là chuẩn truyền tải mạng.`},
+  {q:`If no access modifier for a class is specified, then class accessibility is defined as?`,opts:["internal","protected","private","public"],ans:2,exp:`private (Đáp án theo barem của đề bài).`},
+  {q:`Suppose that you defined a class Scenario... You do not want the functionality of this class to be inherited into derived classes. What keyword should you use?`,opts:["sealed","internal","private","abstract"],ans:0,exp:`sealed (niêm phong).`},
+  {q:`What compiler switch creates an xml file from the xml comments in the files in an assembly?`,opts:["/text","/xml","/doc","/help"],ans:2,exp:`/doc.`},
+  {q:`Which Gang of Four design pattern is shown below? (if A==null) A = new A();`,opts:["Abstract Factory","Singleton","Builder","Factory"],ans:1,exp:`Singleton pattern.`},
+  {q:`In the NUnit test framework, which attribute must adorn a test class?`,opts:["TestFixtureAttribute","TestClassAttribute","TestAttribute","NUnitTestClassAttribute"],ans:0,exp:`TestFixtureAttribute.`},
+  {q:`You want to iterate through it using foreach. Which interface should ShopList implement?`,opts:["IEnumerator, IEnumerable","IBindingList","ICollection","IDictionary"],ans:0,exp:`IEnumerable.`},
+  {q:`Difference between Response.Write() and Response.Output.Write() in ASP.NET?`,opts:["buffer output","write formatted output","flush output","stream output"],ans:1,exp:`Output.Write() hỗ trợ formatted string.`},
+  {q:`Match the following List 1 to List 2 a. Web Form, b. Web User Control, c. Web Service`,opts:["a-iii, b-i, c-ii (.aspx, .ascx, .asmx)"],ans:0,exp:`Web Form: .aspx, Control: .ascx, Service: .asmx.`},
+  {q:`Which keyword is meaning access is limited to the current assembly or types derived from the defining class in the current assembly?`,opts:["Private","Internal","Protected internal","public"],ans:2,exp:`Protected internal.`},
+  {q:`The RangeValidator control supports the following data types`,opts:["Integer only","Date, Integer and String","Only string","Date and Integer"],ans:1,exp:`Date, Integer, String.`},
+  {q:`When using DataReader, what do you need to provide for the data?`,opts:["service","constraint","destination","query"],ans:2,exp:`DataReader cần cung cấp destination (biến/mảng chứa).`},
+  {q:`By default, code written with the Debug class is stripped out of release builds.`,opts:["Yes","No"],ans:0,exp:`Release build cắt code Debug.`},
+  {q:`What will be the output of the following C# code?\ns1 = "I love You"; s2 = s1; Console.WriteLine((s1 == s2) + " " + s1.Equals(s2));`,opts:["true false","false true","false false","true true"],ans:3,exp:`true true.`},
+  {q:`Convert vs. Parse methods`,opts:["Convert converts the value, Parse is for parsing","Convert allows null values, Parse cannot","Both are same","None of these"],ans:1,exp:`Convert(null)=0, Parse(null) throw Exception.`},
+  {q:`What is the meaning of dot in .Net Framework?`,opts:["It means OOPS Concept","It means inheritance","It means abstraction","None of the above"],ans:0,exp:`OOPS Concept.`},
+  {q:`How should you design the ProcessOrder application as batch process?`,opts:["Windows service application","Web application","Windows application","Console application"],ans:3,exp:`Console application.`},
+  {q:`What is boxing?`,opts:["Encapsulating a value type in an object.","Encapsulating an object in a value type.","Encapsulating a copy of a value type in an object.","Encapsulating a copy of an object in a value type."],ans:2,exp:`Tạo bản sao lên Heap.`},
+  {q:`Which of the following security features can .NET applications avail?`,opts:["2, 5","2, 3","1, 4, 5","3, 4"],ans:1,exp:`Code Access Security & Role Based Security.`},
+  {q:`Is always a number; Is not greater than 65,535. Which type should you choose?`,opts:["System.UInt16","System.IntPtr","Int","System.String"],ans:0,exp:`System.UInt16.`},
+  {q:`What is a satellite Assembly?`,opts:["peripheral assembly","containing localized resources","alter the appearance","DLL file used by an EXE"],ans:1,exp:`Containing localized resources.`},
+  {q:`What is a delegate?`,opts:["reference to an object","strongly typed function pointer","inter-process message","light weight thread"],ans:1,exp:`A strongly typed function pointer.`},
+  {q:`If a method is marked as protected internal who can access it?`,opts:["Classes within the same assembly, and classes derived from the declaring class."],ans:0,exp:`Classes trong cùng assembly HOẶC kế thừa.`},
+  {q:`Is it possible to invoke Garbage Collector explicitly?`,opts:["Yes","No"],ans:0,exp:`GC.Collect().`},
+  {q:`The uniqueId that gets generated at the start of the Session is stored in:`,opts:["Client computer as a cookie & Server machine"],ans:0,exp:`Lưu ở cả Client và Server.`},
+  {q:`What property is used on the datatable to indicate conflicts after update method is called?`,opts:["HasError"],ans:0,exp:`HasErrors.`}
 ];
 
 let questions = [];
 let currentIdx = 0;
-let answers = {}; // idx -> chosen option index
+let answers = {};
 let mode = 'all';
 let quizStarted = false;
 
@@ -410,7 +375,7 @@ modeSelect.addEventListener('change', () => {
 function startQuiz() {
   mode = modeSelect.value;
   if (mode === 'random') {
-    const n = Math.min(Math.max(parseInt(numQInput.value)||20, 5), 45);
+    const n = Math.min(Math.max(parseInt(numQInput.value)||20, 5), ALL_QUESTIONS.length);
     numQInput.value = n;
     questions = shuffle([...ALL_QUESTIONS]).slice(0, n);
   } else {
@@ -460,10 +425,7 @@ function renderQuestion(idx) {
     </div>`;
   }).join('');
 
-  const expHtml = (disabled && q.exp) ? `<div class="explanation show"><strong>📖 Giải thích:</strong> ${q.exp}</div>` : `<div class="explanation"></div>`;
-  
-  // ĐÂY LÀ ĐOẠN XỬ LÝ ẢNH
-  const imgHtml = q.img ? `<div style="margin: 15px 0; text-align: center;"><img src="${q.img}" alt="Hình ảnh câu hỏi" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border);"></div>` : '';
+  const expHtml = (disabled && q.exp) ? `<div class="explanation show"><strong>📖 Giải thích:</strong>\n${q.exp}</div>` : `<div class="explanation"></div>`;
 
   document.getElementById('questionArea').innerHTML = `
     <div class="question-card">
@@ -471,7 +433,6 @@ function renderQuestion(idx) {
         <div class="q-num">Câu ${idx+1} / ${questions.length}</div>
       </div>
       <div class="q-text">${q.q}</div>
-      ${imgHtml}
       <div class="options">${optsHtml}</div>
       ${expHtml}
     </div>`;
@@ -559,8 +520,8 @@ document.getElementById('navArea').style.display = 'none';
 document.getElementById('questionArea').innerHTML = `
   <div class="question-card" style="text-align:center;padding:48px 28px">
     <div style="font-size:3rem;margin-bottom:16px">📖</div>
-    <h2 style="font-family:'Playfair Display',serif;margin-bottom:8px">Sẵn sàng ôn thi?</h2>
-    <p style="color:var(--muted)">Chọn chế độ và nhấn <strong>Bắt đầu</strong> để làm bài</p>
+    <h2 style="font-family:'Playfair Display',serif;margin-bottom:8px">Sẵn sàng ôn thi C# & .NET?</h2>
+    <p style="color:var(--muted)">Hệ thống tải thành công <strong>Tất cả 245 câu hỏi</strong>. Chọn chế độ và nhấn <strong>Bắt đầu</strong> để làm bài</p>
   </div>`;
 </script>
 </body>
