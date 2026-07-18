@@ -121,445 +121,500 @@
 </div>
 
 <script>
-const ALL_QUESTIONS = [
+const MORE_QUESTIONS = [
   {
-    q: `Kết quả của biểu thức 9 + 4 * 5 là bao nhiêu?`,
-    opts: [`65`, `29`, `45`, `25`],
+    q: `Hàm nào dùng để nhập dữ liệu từ bàn phím trong Python?`,
+    opts: [`print()`, `input()`, `read()`, `scan()`],
     ans: 1,
-    exp: `Phép nhân được thực hiện trước: 4 * 5 = 20, sau đó 9 + 20 = 29.`
+    exp: `input() dùng để nhận dữ liệu người dùng nhập từ bàn phím.`
   },
 
   {
-    q: `Kết quả của biểu thức (20 + 8) / 4 là bao nhiêu?`,
-    opts: [`5.0`, `7.0`, `8.0`, `6.0`],
-    ans: 1,
-    exp: `20 + 8 = 28, sau đó 28 / 4 = 7.0.`
+    q: `Giá trị trả về của hàm input() có kiểu dữ liệu gì?`,
+    opts: [`int`, `float`, `bool`, `str`],
+    ans: 3,
+    exp: `input() luôn trả về chuỗi (str).`
   },
 
   {
-    q: `Kết quả của biểu thức 37 // 8 là bao nhiêu?`,
-    opts: [`4`, `5`, `4.625`, `6`],
-    ans: 0,
-    exp: `37 chia 8 được 4 dư 5 nên phép chia lấy phần nguyên cho kết quả là 4.`
-  },
-
-  {
-    q: `Kết quả của biểu thức 41 % 7 là bao nhiêu?`,
-    opts: [`6`, `5`, `4`, `0`],
-    ans: 1,
-    exp: `41 = 7 * 5 + 6 nên phần dư là 6.`
-  },
-
-  {
-    q: `Kết quả của biểu thức 5 ** 3 là bao nhiêu?`,
-    opts: [`25`, `125`, `15`, `243`],
-    ans: 1,
-    exp: `5 ** 3 nghĩa là 5 mũ 3, bằng 125.`
-  },
-
-  {
-    q: `Giá trị của abs(-17) là bao nhiêu?`,
-    opts: [`17`, `-17`, `0`, `34`],
-    ans: 0,
-    exp: `abs() trả về giá trị tuyệt đối của số.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-a = 12
-a -= 5
-print(a)`,
-    opts: [`17`, `7`, `5`, `12`],
-    ans: 1,
-    exp: `a -= 5 tương đương a = a - 5 nên kết quả là 7.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-b = 9
-b //= 2
-print(b)`,
-    opts: [`4`, `4.5`, `5`, `18`],
-    ans: 0,
-    exp: `9 // 2 = 4 nên giá trị của b là 4.`
-  },
-
-  {
-    q: `Kết quả của phép tính 22 / 8 là bao nhiêu?`,
-    opts: [`2`, `2.75`, `3`, `2.0`],
-    ans: 1,
-    exp: `Toán tử / luôn trả về số thực.`
-  },
-
-  {
-    q: `Kết quả của biểu thức 14 // 4 + 14 % 4 là bao nhiêu?`,
-    opts: [`5`, `4`, `6`, `7`],
-    ans: 0,
-    exp: `14 // 4 = 3 và 14 % 4 = 2 nên tổng là 5.`
-  },
-
-  {
-    q: `Biểu thức nào kiểm tra n có chia hết cho 5 hay không?`,
+    q: `Muốn nhập một số nguyên x từ bàn phím, câu lệnh nào đúng?`,
     opts: [
-      `n / 5 == 0`,
-      `n % 5 == 0`,
-      `n // 5 == 0`,
-      `n % 2 == 0`
+      `x = input()`,
+      `x = int(input())`,
+      `input(x)`,
+      `x = float(input())`
     ],
     ans: 1,
-    exp: `Một số chia hết cho 5 khi phần dư bằng 0.`
+    exp: `int(input()) chuyển chuỗi nhập vào thành số nguyên.`
   },
 
   {
-    q: `Điều kiện nào đúng khi tuổi age từ 18 trở lên?`,
+    q: `Câu lệnh nào in ra dòng chữ Xin chào?`,
     opts: [
-      `age > 18`,
-      `age >= 18`,
-      `age == 18`,
-      `age < 18`
+      `echo("Xin chào")`,
+      `print("Xin chào")`,
+      `cout << "Xin chào"`,
+      `printf("Xin chào")`
     ],
     ans: 1,
-    exp: `>= nghĩa là lớn hơn hoặc bằng.`
+    exp: `Python sử dụng hàm print().`
   },
 
   {
-    q: `Chương trình sau in ra gì?
-x = 0
-if x == 0:
-    print("Zero")
-else:
-    print("Other")`,
+    q: `Đoạn mã sau làm gì?
+name = input()
+print(name)`,
     opts: [
-      `Other`,
-      `0`,
-      `Zero`,
+      `In chữ "name"`,
+      `Nhập và in lại giá trị vừa nhập`,
+      `Báo lỗi`,
       `Không in gì`
     ],
-    ans: 2,
-    exp: `Điều kiện x == 0 đúng nên in "Zero".`
+    ans: 1,
+    exp: `Chương trình nhập một chuỗi rồi in lại chuỗi đó.`
   },
 
   {
-    q: `Chương trình sau in ra gì?
-n = 18
+    q: `Đoạn mã sau thực hiện nhiệm vụ gì?
+a = int(input())
+b = int(input())
+print(a + b)`,
+    opts: [
+      `Tính hiệu`,
+      `Tính tổng`,
+      `Tính tích`,
+      `So sánh hai số`
+    ],
+    ans: 1,
+    exp: `Chương trình nhập hai số rồi in tổng của chúng.`
+  },
+
+  {
+    q: `Câu lệnh nào đúng để kiểm tra a khác b?`,
+    opts: [`a <> b`, `a != b`, `a =! b`, `a ^= b`],
+    ans: 1,
+    exp: `!= là toán tử khác.`
+  },
+
+  {
+    q: `Từ khóa nào dùng để rẽ nhánh trong Python?`,
+    opts: [`case`, `switch`, `if`, `select`],
+    ans: 2,
+    exp: `Python sử dụng if.`
+  },
+
+  {
+    q: `Khối lệnh nào được thực hiện khi điều kiện của if sai?`,
+    opts: [`elif`, `else`, `while`, `for`],
+    ans: 1,
+    exp: `else được thực hiện khi điều kiện if không đúng.`
+  },
+
+  {
+    q: `Điều kiện nào kiểm tra n là số lẻ?`,
+    opts: [
+      `n % 2 == 1`,
+      `n // 2 == 1`,
+      `n / 2 == 1`,
+      `n % 2 == 0`
+    ],
+    ans: 0,
+    exp: `Số lẻ có phần dư khi chia 2 bằng 1.`
+  },
+
+  {
+    q: `Đoạn mã sau thực hiện gì?
+if a > b:
+    print(a)
+else:
+    print(b)`,
+    opts: [
+      `In số nhỏ hơn`,
+      `In số lớn hơn`,
+      `In tổng`,
+      `In hiệu`
+    ],
+    ans: 1,
+    exp: `Chương trình in ra giá trị lớn hơn.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
 if n % 2 == 0:
-    print("Even")
+    print("YES")
 else:
-    print("Odd")`,
+    print("NO")`,
     opts: [
-      `Odd`,
-      `18`,
-      `Even`,
-      `Lỗi`
+      `Kiểm tra số nguyên tố`,
+      `Kiểm tra số chẵn`,
+      `Kiểm tra chia hết cho 3`,
+      `Kiểm tra số âm`
+    ],
+    ans: 1,
+    exp: `n chia hết cho 2 thì là số chẵn.`
+  },
+
+  {
+    q: `Vòng lặp nào thường dùng khi biết trước số lần lặp?`,
+    opts: [`while`, `for`, `if`, `def`],
+    ans: 1,
+    exp: `for phù hợp khi biết số lần lặp.`
+  },
+
+  {
+    q: `range(1,6) sinh ra bao nhiêu giá trị?`,
+    opts: [`4`, `5`, `6`, `7`],
+    ans: 1,
+    exp: `Các giá trị là 1,2,3,4,5.`
+  },
+
+  {
+    q: `Lệnh continue có tác dụng gì?`,
+    opts: [
+      `Kết thúc chương trình`,
+      `Thoát vòng lặp`,
+      `Bỏ qua lần lặp hiện tại`,
+      `Lặp vô hạn`
     ],
     ans: 2,
-    exp: `18 chia hết cho 2 nên là số chẵn.`
+    exp: `continue bỏ qua phần còn lại của lần lặp hiện tại.`
   },
 
   {
-    q: `Chương trình sau in ra kết quả nào?
-a = 7
-b = 13
-if a < b:
-    print(b)
-else:
-    print(a)`,
-    opts: [`7`, `13`, `20`, `6`],
-    ans: 1,
-    exp: `7 nhỏ hơn 13 nên chương trình in b.`
-  },
-
-  {
-    q: `Chương trình sau in gì?
-score = 9
-if score >= 8:
-    print("Giỏi")
-elif score >= 5:
-    print("Khá")
-else:
-    print("Yếu")`,
-    opts: [`Khá`, `Giỏi`, `Yếu`, `9`],
-    ans: 1,
-    exp: `9 >= 8 nên in "Giỏi".`
-  },
-
-  {
-    q: `Kết quả của biểu thức 8 < 5 or 10 > 3 là gì?`,
-    opts: [`False`, `True`, `10`, `8`],
-    ans: 1,
-    exp: `Điều kiện thứ hai đúng nên toàn bộ biểu thức đúng.`
-  },
-
-  {
-    q: `Kết quả của biểu thức 9 > 4 and 2 > 8 là gì?`,
-    opts: [`True`, `False`, `9`, `2`],
-    ans: 1,
-    exp: `Toán tử and yêu cầu cả hai điều kiện đều đúng.`
-  },
-
-  {
-    q: `Vòng lặp for i in range(6): được thực hiện bao nhiêu lần?`,
-    opts: [`5 lần`, `6 lần`, `7 lần`, `Không lần nào`],
-    ans: 1,
-    exp: `range(6) sinh các giá trị từ 0 đến 5 nên có 6 lần lặp.`
-  },
-
-  {
-    q: `Lệnh for i in range(4, 9) tạo ra dãy số nào?`,
+    q: `Lệnh break có tác dụng gì?`,
     opts: [
-      `4, 5, 6, 7, 8`,
-      `4, 5, 6, 7, 8, 9`,
-      `5, 6, 7, 8`,
-      `4, 6, 8`
+      `Thoát khỏi vòng lặp`,
+      `Bỏ qua một lần lặp`,
+      `Kết thúc hàm`,
+      `Không có tác dụng`
     ],
     ans: 0,
-    exp: `range(start, stop) bắt đầu từ start và dừng trước stop.`
-  },
-{
-    q: `Lệnh for i in range(5, 16, 2) tạo ra dãy số nào?`,
-    opts: [
-      `5, 7, 9, 11, 13, 15`,
-      `5, 7, 9, 11, 13, 15, 17`,
-      `6, 8, 10, 12, 14`,
-      `5, 6, 7, 8, 9`
-    ],
-    ans: 0,
-    exp: `range(5, 16, 2) bắt đầu từ 5, tăng 2 mỗi lần và dừng trước 16.`
+    exp: `break kết thúc ngay vòng lặp.`
   },
 
   {
-    q: `Lệnh for i in range(15, 4, -2) tạo ra dãy số nào?`,
-    opts: [
-      `15, 13, 11, 9, 7, 5`,
-      `15, 13, 11, 9, 7, 5, 3`,
-      `5, 7, 9, 11, 13, 15`,
-      `15, 14, 13, 12`
-    ],
-    ans: 0,
-    exp: `Bắt đầu từ 15, giảm 2 mỗi lần và dừng trước 4.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-tong = 0
-for i in range(2, 7):
-    tong += i
-print(tong)`,
-    opts: [`18`, `20`, `15`, `27`],
-    ans: 1,
-    exp: `Các số là 2, 3, 4, 5, 6. Tổng bằng 20.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
+    q: `Đoạn mã sau làm gì?
 s = 0
-for i in range(1, 11):
-    if i % 2 == 0:
-        s += i
-print(s)`,
-    opts: [`25`, `30`, `20`, `15`],
-    ans: 1,
-    exp: `Các số chẵn là 2, 4, 6, 8, 10. Tổng bằng 30.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-s = 0
-for i in range(1, 8):
-    if i % 2 != 0:
-        s += i
-print(s)`,
-    opts: [`16`, `12`, `20`, `28`],
-    ans: 0,
-    exp: `Các số lẻ là 1, 3, 5, 7. Tổng bằng 16.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-p = 1
-for i in range(1, 5):
-    p *= i
-print(p)`,
-    opts: [`24`, `120`, `20`, `10`],
-    ans: 0,
-    exp: `Tích bằng 1 × 2 × 3 × 4 = 24.`
-  },
-
-  {
-    q: `Chương trình sau đếm được bao nhiêu số?
-count = 0
-for i in range(1, 16):
-    if i % 5 == 0:
-        count += 1
-print(count)`,
-    opts: [`2`, `3`, `4`, `5`],
-    ans: 1,
-    exp: `Các số chia hết cho 5 là 5, 10, 15 nên có 3 số.`
-  },
-
-  {
-    q: `Chương trình sau lần lượt in ra gì?
-for i in range(1, 4):
-    if i % 2 == 0:
-        print("Even")
-    else:
-        print("Odd")`,
+for i in range(1,6):
+    s += i`,
     opts: [
-      `Odd, Even, Odd`,
-      `Even, Odd, Even`,
-      `Odd, Odd, Even`,
-      `Even, Even, Odd`
+      `Tính tổng từ 1 đến 5`,
+      `Tính tích từ 1 đến 5`,
+      `Đếm số chẵn`,
+      `Đếm số lẻ`
     ],
     ans: 0,
-    exp: `1 là lẻ, 2 là chẵn, 3 là lẻ.`
+    exp: `s = 1+2+3+4+5 = 15.`
   },
 
   {
-    q: `Chương trình sau in ra các số nào?
-for i in range(3, 9):
-    if i == 7:
-        break
+    q: `Đoạn mã sau làm gì?
+for i in range(5):
     print(i)`,
     opts: [
-      `3, 4, 5, 6`,
-      `3, 4, 5, 6, 7`,
-      `4, 5, 6, 7`,
-      `7, 8`
+      `In các số từ 0 đến 4`,
+      `In từ 1 đến 5`,
+      `In từ 0 đến 5`,
+      `In số 5`
     ],
     ans: 0,
-    exp: `Khi i bằng 7 thì break kết thúc vòng lặp trước khi in.`
+    exp: `range(5) tạo 0..4.`
   },
 
   {
-    q: `Chương trình sau in ra các số nào?
-for i in range(2, 8):
-    if i == 5:
-        continue
+    q: `Biến đếm thường được tăng lên bằng câu lệnh nào?`,
+    opts: [
+      `count -= 1`,
+      `count += 1`,
+      `count *= 1`,
+      `count //= 1`
+    ],
+    ans: 1,
+    exp: `count += 1 tăng biến đếm thêm 1.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
+n = int(input())
+print(n % 10)`,
+    opts: [
+      `In chữ số đầu`,
+      `In chữ số cuối`,
+      `Đảo số`,
+      `Đếm chữ số`
+    ],
+    ans: 1,
+    exp: `n % 10 lấy chữ số cuối.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
+n = int(input())
+print(n // 10)`,
+    opts: [
+      `Xóa chữ số cuối`,
+      `Lấy chữ số cuối`,
+      `Đảo số`,
+      `Đếm chữ số`
+    ],
+    ans: 0,
+    exp: `//10 bỏ chữ số cuối.`
+  },
+
+  {
+    q: `Đoạn mã nào tính tổng hai chữ số của số có hai chữ số n?`,
+    opts: [
+      `n//10+n%10`,
+      `n//100+n%100`,
+      `n%100`,
+      `n//10*n%10`
+    ],
+    ans: 0,
+    exp: `Chữ số hàng chục là n//10, hàng đơn vị là n%10.`
+  },
+
+  {
+    q: `Đoạn mã nào tính tổng các chữ số của n?`,
+    opts: [
+`tong=0
+while n>0:
+    tong+=n%10
+    n//=10`,
+`tong=n`,
+`tong=n%10`,
+`tong=n//10`
+    ],
+    ans: 0,
+    exp: `Mỗi lần lấy chữ số cuối rồi bỏ đi cho đến khi hết.`
+  },
+
+  {
+    q: `Đoạn mã trên có nhiệm vụ gì? (while n>0: tong+=n%10; n//=10)`,
+    opts: [
+      `Đếm chữ số`,
+      `Tính tổng chữ số`,
+      `Đảo số`,
+      `Kiểm tra số chẵn`
+    ],
+    ans: 1,
+    exp: `Đây là thuật toán tính tổng các chữ số.`
+  },
+
+  {
+    q: `Muốn đếm số chữ số của n, cần tăng biến đếm khi nào?`,
+    opts: [
+      `Sau mỗi lần n//=10`,
+      `Sau mỗi lần n*=10`,
+      `Sau mỗi lần n+=10`,
+      `Không cần`
+    ],
+    ans: 0,
+    exp: `Mỗi lần bỏ một chữ số thì tăng biến đếm.`
+  },
+
+  {
+    q: `Đoạn mã nào đếm số chữ số của n?`,
+    opts: [
+`count=0
+while n>0:
+    count+=1
+    n//=10`,
+`count=n`,
+`count=n%10`,
+`count=n//10`
+    ],
+    ans: 0,
+    exp: `Mỗi vòng lặp bỏ đi một chữ số.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
+while n>0:
+    print(n%10)
+    n//=10`,
+    opts: [
+      `In các chữ số từ trái sang phải`,
+      `In các chữ số từ phải sang trái`,
+      `Đếm chữ số`,
+      `Tính tổng`
+    ],
+    ans: 1,
+    exp: `Luôn lấy chữ số cuối trước.`
+  },
+
+  {
+    q: `Biến tong nên được khởi tạo bằng bao nhiêu trước khi tính tổng?`,
+    opts: [`0`, `1`, `-1`, `10`],
+    ans: 0,
+    exp: `Biến cộng dồn luôn bắt đầu từ 0.`
+  },
+
+  {
+    q: `Biến tich nên được khởi tạo bằng bao nhiêu trước khi tính tích?`,
+    opts: [`0`, `1`, `2`, `10`],
+    ans: 1,
+    exp: `Biến nhân dồn phải bắt đầu từ 1.`
+  },
+
+  {
+    q: `Đoạn mã nào in các số chẵn từ 2 đến 20?`,
+    opts: [
+`for i in range(2,21,2):
     print(i)`,
-    opts: [
-      `2, 3, 4, 5, 6, 7`,
-      `2, 3, 4, 6, 7`,
-      `5, 6, 7`,
-      `2, 3, 4`
-    ],
-    ans: 1,
-    exp: `continue bỏ qua lần lặp khi i bằng 5.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-s = 0
-for i in range(1, 9):
-    if i % 2 == 1:
-        continue
-    s += i
-print(s)`,
-    opts: [`20`, `16`, `18`, `12`],
-    ans: 0,
-    exp: `Chỉ cộng các số chẵn 2 + 4 + 6 + 8 = 20.`
-  },
-
-  {
-    q: `Chương trình sau in ra kết quả nào?
-s = 0
-for i in range(1, 11):
-    if i > 7:
-        s += i
-print(s)`,
-    opts: [`24`, `27`, `30`, `18`],
-    ans: 1,
-    exp: `Các số lớn hơn 7 là 8, 9, 10. Tổng bằng 27.`
-  },
-
-  {
-    q: `Biểu thức nào dùng để lấy giá trị nhỏ hơn giữa hai số a và b?`,
-    opts: [
-      `max(a, b)`,
-      `abs(a - b)`,
-      `min(a, b)`,
-      `a + b`
-    ],
-    ans: 2,
-    exp: `Hàm min() trả về giá trị nhỏ nhất.`
-  },
-
-  {
-    q: `Biểu thức nào dùng để lấy giá trị lớn hơn giữa hai số x và y?`,
-    opts: [
-      `max(x, y)`,
-      `min(x, y)`,
-      `abs(x - y)`,
-      `x // y`
+`for i in range(1,20):
+    print(i)`,
+`for i in range(2,20):
+    print(i)`,
+`for i in range(20):
+    print(i)`
     ],
     ans: 0,
-    exp: `Hàm max() trả về giá trị lớn nhất.`
+    exp: `Bước nhảy bằng 2.`
   },
 
   {
-    q: `Một hộp chứa tối đa 8 quả bóng. Có n quả bóng. Công thức nào tính số hộp ít nhất cần dùng?`,
+    q: `Đoạn mã nào tính tổng các số chẵn từ 1 đến n?`,
     opts: [
-      `n // 8`,
-      `(n + 7) // 8`,
-      `n % 8`,
-      `n / 8`
+`for i in range(2,n+1,2):
+    s+=i`,
+`for i in range(1,n):
+    s*=i`,
+`for i in range(n):
+    print(i)`,
+`for i in range(1,n):
+    s-=i`
+    ],
+    ans: 0,
+    exp: `Chỉ duyệt các số chẵn.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
+for i in range(1,n+1):
+    if i%3==0:
+        print(i)`,
+    opts: [
+      `In các số chia hết cho 3`,
+      `In số nguyên tố`,
+      `In số lẻ`,
+      `Đếm số`
+    ],
+    ans: 0,
+    exp: `Điều kiện i%3==0.`
+  },
+
+  {
+    q: `Đoạn mã sau có nhiệm vụ gì?
+mx = a
+if b > mx:
+    mx = b`,
+    opts: [
+      `Tìm số nhỏ hơn`,
+      `Tìm số lớn hơn`,
+      `Đổi chỗ hai số`,
+      `Tính tổng`
     ],
     ans: 1,
-    exp: `Đây là phép chia làm tròn lên với số nguyên dương.`
+    exp: `mx lưu giá trị lớn nhất.`
   },
 
   {
-    q: `Biểu thức nào lấy hai chữ số cuối của số nguyên dương n?`,
+    q: `Đoạn mã sau thực hiện gì?
+mn = a
+if b < mn:
+    mn = b`,
     opts: [
-      `n // 100`,
-      `n % 100`,
-      `n // 10`,
-      `n * 100`
+      `Tìm số nhỏ nhất`,
+      `Tìm số lớn nhất`,
+      `Tính hiệu`,
+      `Đếm số`
     ],
-    ans: 1,
-    exp: `n % 100 luôn trả về hai chữ số cuối của n.`
-  },
-
-  {
-    q: `Cho n = 548. Giá trị của biểu thức n % 10 là bao nhiêu?`,
-    opts: [`5`, `4`, `8`, `54`],
-    ans: 2,
-    exp: `Phần dư khi chia cho 10 chính là chữ số cuối cùng.`
-  },
-
-  {
-    q: `Cho n = 548. Giá trị của biểu thức n // 100 là bao nhiêu?`,
-    opts: [`5`, `48`, `54`, `8`],
     ans: 0,
-    exp: `548 // 100 = 5.`
+    exp: `mn lưu giá trị nhỏ nhất.`
   },
 
   {
-    q: `Chương trình sau in ra kết quả nào?
-n = 83
-tong = n // 10 + n % 10
-print(tong)`,
-    opts: [`11`, `10`, `83`, `8`],
+    q: `Điều kiện nào kiểm tra n nằm trong đoạn [10,99]?`,
+    opts: [
+      `10<=n<=99`,
+      `10<n<99`,
+      `n>99`,
+      `n<10`
+    ],
     ans: 0,
-    exp: `83 // 10 = 8 và 83 % 10 = 3. Tổng bằng 11.`
+    exp: `Bao gồm cả 10 và 99.`
   },
 
   {
-    q: `Chương trình sau in ra kết quả nào?
-n = 91
-if n % 10 > 5:
-    print("Lớn")
+    q: `Đoạn mã sau làm gì?
+if n>=0:
+    print("Duong")
 else:
-    print("Nhỏ")`,
+    print("Am")`,
     opts: [
-      `Lớn`,
-      `Nhỏ`,
-      `91`,
-      `Lỗi`
+      `Kiểm tra số nguyên tố`,
+      `Kiểm tra dấu của số`,
+      `Kiểm tra số chẵn`,
+      `Tính tổng`
     ],
     ans: 1,
-    exp: `Chữ số cuối là 1, không lớn hơn 5 nên in "Nhỏ".`
+    exp: `Phân biệt số không âm và âm.`
+  },
+
+  {
+    q: `Đoạn mã sau làm gì?
+for i in range(10):
+    pass`,
+    opts: [
+      `Không làm gì`,
+      `Báo lỗi`,
+      `In 10 dòng`,
+      `Thoát chương trình`
+    ],
+    ans: 0,
+    exp: `pass là câu lệnh rỗng.`
+  },
+
+  {
+    q: `Đoạn mã nào đúng để nhập số thực x?`,
+    opts: [
+      `x=float(input())`,
+      `x=int(input())`,
+      `x=input(float)`,
+      `float=x(input())`
+    ],
+    ans: 0,
+    exp: `float(input()) dùng để nhập số thực.`
+  },
+
+  {
+    q: `Đoạn mã sau thực hiện gì?
+a = int(input())
+if a % 10 == 0:
+    print("YES")
+else:
+    print("NO")`,
+    opts: [
+      `Kiểm tra chia hết cho 10`,
+      `Kiểm tra số nguyên tố`,
+      `Kiểm tra số âm`,
+      `Kiểm tra chia hết cho 3`
+    ],
+    ans: 0,
+    exp: `Một số chia hết cho 10 khi chữ số cuối bằng 0.`
+  },
+
+  {
+    q: `Muốn chương trình lặp đến khi người dùng nhập số 0, nên dùng cấu trúc nào?`,
+    opts: [
+      `for`,
+      `while`,
+      `if`,
+      `elif`
+    ],
+    ans: 1,
+    exp: `while thích hợp khi chưa biết trước số lần lặp.`
   }
-
 ];let questions = [];
 let currentIdx = 0;
 let answers = {};
