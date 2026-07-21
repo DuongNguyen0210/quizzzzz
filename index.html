@@ -349,18 +349,6 @@ print(p)`,
   },
 
   {
-    q: `Muốn tính tổng S = 1! + 2! + 3! + ... + n!, đoạn mã nào sau đây vừa đúng vừa tối ưu (chỉ dùng 1 vòng lặp)?`,
-    opts: [
-      `s = 0\np = 1\nfor i in range(1, n + 1):\n    p *= i\n    s += p`,
-      `s = 0\nfor i in range(1, n + 1):\n    p = 1\n    p *= i\n    s += p`,
-      `s = 0\np = 0\nfor i in range(1, n + 1):\n    p += i\n    s += p`,
-      `s = 1\np = 1\nfor i in range(1, n + 1):\n    p *= i\n    s *= p`
-    ],
-    ans: 0,
-    exp: `Thay vì tính lại giai thừa từ đầu, ta có thể tận dụng giai thừa trước đó (p = p * i) rồi cộng dồn ngay vào tổng s (s += p).`
-  },
-
-  {
     q: `Cho cấp số nhân có số hạng đầu là u1 và công bội q. Đoạn mã nào tính đúng số hạng thứ n của dãy này? (Biết Un = U1 * q^(n-1))`,
     opts: [
       `un = u1 * (q ** n)`,
