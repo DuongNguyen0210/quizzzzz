@@ -123,497 +123,375 @@
 <script>
 const ALL_QUESTIONS = [
   {
-    q: `Hàm nào dùng để nhập dữ liệu từ bàn phím trong Python?`,
-    opts: [`print()`, `input()`, `read()`, `scan()`],
-    ans: 1,
-    exp: `input() dùng để nhận dữ liệu người dùng nhập từ bàn phím.`
-  },
-
-  {
-    q: `Giá trị trả về của hàm input() có kiểu dữ liệu gì?`,
-    opts: [`int`, `float`, `bool`, `str`],
-    ans: 3,
-    exp: `input() luôn trả về chuỗi (str).`
-  },
-
-  {
-    q: `Muốn nhập một số nguyên x từ bàn phím, câu lệnh nào đúng?`,
+    q: `Đoạn mã sau giải quyết bài toán gì?
+n = int(input())
+mx = -1e9
+for i in range(n):
+    x = int(input())
+    if x > mx:
+        mx = x
+print(mx)`,
     opts: [
-      `x = input()`,
-      `x = int(input())`,
-      `input(x)`,
-      `x = float(input())`
+      `Tìm số lớn nhất trong n số được nhập vào`,
+      `Tìm số nhỏ nhất trong n số được nhập vào`,
+      `Tính tổng n số được nhập vào`,
+      `Đếm số lượng số dương trong n số`
     ],
-    ans: 1,
-    exp: `int(input()) chuyển chuỗi nhập vào thành số nguyên.`
+    ans: 0,
+    exp: `Biến mx được khởi tạo bằng một số rất nhỏ, sau đó liên tục cập nhật nếu tìm thấy x lớn hơn mx. Đây là thuật toán tìm giá trị lớn nhất (max).`
   },
 
   {
-    q: `Câu lệnh nào in ra dòng chữ Xin chào?`,
+    q: `Để tính tổng S = 1 + 2 + 3 + ... + n, đoạn mã nào sau đây là đúng?`,
     opts: [
-      `echo("Xin chào")`,
-      `print("Xin chào")`,
-      `cout << "Xin chào"`,
-      `printf("Xin chào")`
+      `s = 0\nfor i in range(1, n + 1):\n    s += i`,
+      `s = 1\nfor i in range(1, n):\n    s += i`,
+      `s = 0\nfor i in range(n):\n    s = s + n`,
+      `s = 0\nfor i in range(1, n + 1):\n    s *= i`
     ],
-    ans: 1,
-    exp: `Python sử dụng hàm print().`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-name = input()
-print(name)`,
-    opts: [
-      `In chữ "name"`,
-      `Nhập và in lại giá trị vừa nhập`,
-      `Báo lỗi`,
-      `Không in gì`
-    ],
-    ans: 1,
-    exp: `Chương trình nhập một chuỗi rồi in lại chuỗi đó.`
+    ans: 0,
+    exp: `Vòng lặp chạy từ 1 đến n (dùng range(1, n+1)). Biến s khởi tạo bằng 0 và cộng dồn từng giá trị của i.`
   },
 
   {
     q: `Đoạn mã sau thực hiện nhiệm vụ gì?
-a = int(input())
-b = int(input())
-print(a + b)`,
-    opts: [
-      `Tính hiệu`,
-      `Tính tổng`,
-      `Tính tích`,
-      `So sánh hai số`
-    ],
-    ans: 1,
-    exp: `Chương trình nhập hai số rồi in tổng của chúng.`
-  },
-
-  {
-    q: `Câu lệnh nào đúng để kiểm tra a khác b?`,
-    opts: [`a <> b`, `a != b`, `a =! b`, `a ^= b`],
-    ans: 1,
-    exp: `!= là toán tử khác.`
-  },
-
-  {
-    q: `Từ khóa nào dùng để rẽ nhánh trong Python?`,
-    opts: [`case`, `switch`, `if`, `select`],
-    ans: 2,
-    exp: `Python sử dụng if.`
-  },
-
-  {
-    q: `Khối lệnh nào được thực hiện khi điều kiện của if sai?`,
-    opts: [`elif`, `else`, `while`, `for`],
-    ans: 1,
-    exp: `else được thực hiện khi điều kiện if không đúng.`
-  },
-
-  {
-    q: `Điều kiện nào kiểm tra n là số lẻ?`,
-    opts: [
-      `n % 2 == 1`,
-      `n // 2 == 1`,
-      `n / 2 == 1`,
-      `n % 2 == 0`
-    ],
-    ans: 0,
-    exp: `Số lẻ có phần dư khi chia 2 bằng 1.`
-  },
-
-  {
-    q: `Đoạn mã sau thực hiện gì?
-if a > b:
-    print(a)
-else:
-    print(b)`,
-    opts: [
-      `In số nhỏ hơn`,
-      `In số lớn hơn`,
-      `In tổng`,
-      `In hiệu`
-    ],
-    ans: 1,
-    exp: `Chương trình in ra giá trị lớn hơn.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-if n % 2 == 0:
-    print("YES")
-else:
-    print("NO")`,
-    opts: [
-      `Kiểm tra số nguyên tố`,
-      `Kiểm tra số chẵn`,
-      `Kiểm tra chia hết cho 3`,
-      `Kiểm tra số âm`
-    ],
-    ans: 1,
-    exp: `n chia hết cho 2 thì là số chẵn.`
-  },
-
-  {
-    q: `Vòng lặp nào thường dùng khi biết trước số lần lặp?`,
-    opts: [`while`, `for`, `if`, `def`],
-    ans: 1,
-    exp: `for phù hợp khi biết số lần lặp.`
-  },
-
-  {
-    q: `range(1,6) sinh ra bao nhiêu giá trị?`,
-    opts: [`4`, `5`, `6`, `7`],
-    ans: 1,
-    exp: `Các giá trị là 1,2,3,4,5.`
-  },
-
-  {
-    q: `Lệnh continue có tác dụng gì?`,
-    opts: [
-      `Kết thúc chương trình`,
-      `Thoát vòng lặp`,
-      `Bỏ qua lần lặp hiện tại`,
-      `Lặp vô hạn`
-    ],
-    ans: 2,
-    exp: `continue bỏ qua phần còn lại của lần lặp hiện tại.`
-  },
-
-  {
-    q: `Lệnh break có tác dụng gì?`,
-    opts: [
-      `Thoát khỏi vòng lặp`,
-      `Bỏ qua một lần lặp`,
-      `Kết thúc hàm`,
-      `Không có tác dụng`
-    ],
-    ans: 0,
-    exp: `break kết thúc ngay vòng lặp.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
 s = 0
-for i in range(1,6):
-    s += i`,
+for i in range(1, n + 1):
+    if i % 2 == 0:
+        s += i
+print(s)`,
     opts: [
-      `Tính tổng từ 1 đến 5`,
-      `Tính tích từ 1 đến 5`,
-      `Đếm số chẵn`,
-      `Đếm số lẻ`
-    ],
-    ans: 0,
-    exp: `s = 1+2+3+4+5 = 15.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-for i in range(5):
-    print(i)`,
-    opts: [
-      `In các số từ 0 đến 4`,
-      `In từ 1 đến 5`,
-      `In từ 0 đến 5`,
-      `In số 5`
-    ],
-    ans: 0,
-    exp: `range(5) tạo 0..4.`
-  },
-
-  {
-    q: `Biến đếm thường được tăng lên bằng câu lệnh nào?`,
-    opts: [
-      `count -= 1`,
-      `count += 1`,
-      `count *= 1`,
-      `count //= 1`
+      `Tính tổng các số lẻ từ 1 đến n`,
+      `Tính tổng các số chẵn từ 1 đến n`,
+      `Đếm số lượng số chẵn từ 1 đến n`,
+      `In ra các số chẵn từ 1 đến n`
     ],
     ans: 1,
-    exp: `count += 1 tăng biến đếm thêm 1.`
+    exp: `Lệnh if i % 2 == 0 kiểm tra số chẵn, sau đó s += i dùng để cộng dồn các số chẵn đó lại.`
   },
 
   {
-    q: `Đoạn mã sau làm gì?
-n = int(input())
-print(n % 10)`,
+    q: `Đoạn mã nào dưới đây giải quyết bài toán tính tổng dãy phân số: S = 1 + 1/2 + 1/3 + ... + 1/n?`,
     opts: [
-      `In chữ số đầu`,
-      `In chữ số cuối`,
-      `Đảo số`,
-      `Đếm chữ số`
+      `s = 0\nfor i in range(1, n):\n    s += 1 // i`,
+      `s = 1\nfor i in range(1, n + 1):\n    s += i / 1`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += 1 / i`,
+      `s = 0\nfor i in range(n):\n    s += 1 % i`
+    ],
+    ans: 2,
+    exp: `Sử dụng phép chia thực (/) để tính 1/i. Vòng lặp cần chạy từ 1 đến n, nên dùng range(1, n + 1).`
+  },
+
+  {
+    q: `Đoạn mã sau giải quyết bài toán gì?
+mn = 1e9
+for x in arr:
+    if x > 0 and x < mn:
+        mn = x
+print(mn)`,
+    opts: [
+      `Tìm số âm lớn nhất trong danh sách arr`,
+      `Tìm số dương lớn nhất trong danh sách arr`,
+      `Tìm số dương nhỏ nhất trong danh sách arr`,
+      `Đếm số lượng số dương nhỏ hơn 1 tỷ`
+    ],
+    ans: 2,
+    exp: `Điều kiện x > 0 lọc ra các số dương, x < mn giúp cập nhật để tìm ra số dương có giá trị nhỏ nhất (min).`
+  },
+
+  {
+    q: `Cho cấp số cộng có số hạng đầu là u1 và công sai d. Đoạn mã nào tính đúng số hạng thứ n của dãy này? (Biết công thức Un = U1 + (n-1)*d)`,
+    opts: [
+      `un = u1 + n * d`,
+      `un = u1 + (n - 1) * d`,
+      `un = u1 * (n - 1) + d`,
+      `un = (u1 + n) * d - 1`
     ],
     ans: 1,
-    exp: `n % 10 lấy chữ số cuối.`
+    exp: `Chỉ cần chuyển đổi trực tiếp công thức toán học vào Python: u1 + (n - 1) * d.`
   },
 
   {
-    q: `Đoạn mã sau làm gì?
-n = int(input())
-print(n // 10)`,
+    q: `Đoạn mã nào dưới đây tính tổng dãy số đan dấu: S = 1 - 2 + 3 - 4 + ... + ((-1)^(n-1)) * n?`,
     opts: [
-      `Xóa chữ số cuối`,
-      `Lấy chữ số cuối`,
-      `Đảo số`,
-      `Đếm chữ số`
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 == 0:\n        s -= i\n    else:\n        s += i`,
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 != 0:\n        s -= i\n    else:\n        s += i`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += i * (-1)`,
+      `s = 0\nfor i in range(1, n + 1):\n    s -= i`
     ],
     ans: 0,
-    exp: `//10 bỏ chữ số cuối.`
+    exp: `Dãy số có quy luật: số lẻ mang dấu dương (cộng vào), số chẵn mang dấu âm (trừ đi). Do đó ta dùng if i % 2 == 0 để trừ đi số chẵn.`
   },
 
   {
-    q: `Đoạn mã nào tính tổng hai chữ số của số có hai chữ số n?`,
+    q: `Đoạn mã sau giải quyết bài toán gì?
+f1, f2 = 1, 1
+for i in range(3, n + 1):
+    fn = f1 + f2
+    f1 = f2
+    f2 = fn
+print(fn)`,
     opts: [
-      `n//10+n%10`,
-      `n//100+n%100`,
-      `n%100`,
-      `n//10*n%10`
-    ],
-    ans: 0,
-    exp: `Chữ số hàng chục là n//10, hàng đơn vị là n%10.`
-  },
-
-  {
-    q: `Đoạn mã nào tính tổng các chữ số của n?`,
-    opts: [
-`tong=0
-while n>0:
-    tong+=n%10
-    n//=10`,
-`tong=n`,
-`tong=n%10`,
-`tong=n//10`
-    ],
-    ans: 0,
-    exp: `Mỗi lần lấy chữ số cuối rồi bỏ đi cho đến khi hết.`
-  },
-
-  {
-    q: `Đoạn mã trên có nhiệm vụ gì? (while n>0: tong+=n%10; n//=10)`,
-    opts: [
-      `Đếm chữ số`,
-      `Tính tổng chữ số`,
-      `Đảo số`,
-      `Kiểm tra số chẵn`
+      `Tính tổng n số tự nhiên đầu tiên`,
+      `Tìm số hạng thứ n của dãy Fibonacci`,
+      `Kiểm tra n có phải số Fibonacci không`,
+      `Tìm ước chung lớn nhất của f1 và f2`
     ],
     ans: 1,
-    exp: `Đây là thuật toán tính tổng các chữ số.`
+    exp: `Đây là thuật toán sinh số Fibonacci. fn = f1 + f2 tính số tiếp theo, sau đó dịch chuyển f1 và f2 để tính tiếp cho đến số hạng thứ n.`
   },
 
   {
-    q: `Muốn đếm số chữ số của n, cần tăng biến đếm khi nào?`,
+    q: `Bạn cần tính tổng bình phương các số từ 1 đến n (S = 1^2 + 2^2 + ... + n^2). Đoạn code nào sau đây là đúng?`,
     opts: [
-      `Sau mỗi lần n//=10`,
-      `Sau mỗi lần n*=10`,
-      `Sau mỗi lần n+=10`,
-      `Không cần`
-    ],
-    ans: 0,
-    exp: `Mỗi lần bỏ một chữ số thì tăng biến đếm.`
-  },
-
-  {
-    q: `Đoạn mã nào đếm số chữ số của n?`,
-    opts: [
-`count=0
-while n>0:
-    count+=1
-    n//=10`,
-`count=n`,
-`count=n%10`,
-`count=n//10`
-    ],
-    ans: 0,
-    exp: `Mỗi vòng lặp bỏ đi một chữ số.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-while n>0:
-    print(n%10)
-    n//=10`,
-    opts: [
-      `In các chữ số từ trái sang phải`,
-      `In các chữ số từ phải sang trái`,
-      `Đếm chữ số`,
-      `Tính tổng`
+      `s = 0\nfor i in range(1, n + 1):\n    s += i * 2`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += i ** 2`,
+      `s = 0\nfor i in range(1, n + 1):\n    s = i * i`,
+      `s = 1\nfor i in range(1, n + 1):\n    s *= i ** 2`
     ],
     ans: 1,
-    exp: `Luôn lấy chữ số cuối trước.`
+    exp: `Toán tử ** trong Python dùng để tính lũy thừa. i ** 2 là bình phương của i. Biến s dùng để cộng dồn các bình phương này.`
   },
 
   {
-    q: `Biến tong nên được khởi tạo bằng bao nhiêu trước khi tính tổng?`,
-    opts: [`0`, `1`, `-1`, `10`],
-    ans: 0,
-    exp: `Biến cộng dồn luôn bắt đầu từ 0.`
-  },
-
-  {
-    q: `Biến tich nên được khởi tạo bằng bao nhiêu trước khi tính tích?`,
-    opts: [`0`, `1`, `2`, `10`],
-    ans: 1,
-    exp: `Biến nhân dồn phải bắt đầu từ 1.`
-  },
-
-  {
-    q: `Đoạn mã nào in các số chẵn từ 2 đến 20?`,
+    q: `Đoạn mã sau làm nhiệm vụ gì?
+s = 0
+for i in range(1, n + 1):
+    if i % 3 == 0 and i % 5 == 0:
+        s += i
+print(s)`,
     opts: [
-`for i in range(2,21,2):
-    print(i)`,
-`for i in range(1,20):
-    print(i)`,
-`for i in range(2,20):
-    print(i)`,
-`for i in range(20):
-    print(i)`
-    ],
-    ans: 0,
-    exp: `Bước nhảy bằng 2.`
-  },
-
-  {
-    q: `Đoạn mã nào tính tổng các số chẵn từ 1 đến n?`,
-    opts: [
-`for i in range(2,n+1,2):
-    s+=i`,
-`for i in range(1,n):
-    s*=i`,
-`for i in range(n):
-    print(i)`,
-`for i in range(1,n):
-    s-=i`
-    ],
-    ans: 0,
-    exp: `Chỉ duyệt các số chẵn.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-for i in range(1,n+1):
-    if i%3==0:
-        print(i)`,
-    opts: [
-      `In các số chia hết cho 3`,
-      `In số nguyên tố`,
-      `In số lẻ`,
-      `Đếm số`
-    ],
-    ans: 0,
-    exp: `Điều kiện i%3==0.`
-  },
-
-  {
-    q: `Đoạn mã sau có nhiệm vụ gì?
-mx = a
-if b > mx:
-    mx = b`,
-    opts: [
-      `Tìm số nhỏ hơn`,
-      `Tìm số lớn hơn`,
-      `Đổi chỗ hai số`,
-      `Tính tổng`
+      `Tính tổng các số chia hết cho 3 hoặc chia hết cho 5 trong đoạn từ 1 đến n`,
+      `Tính tổng các số chia hết cho 15 (cả 3 và 5) trong đoạn từ 1 đến n`,
+      `Đếm số lượng các số chia hết cho 15 trong đoạn từ 1 đến n`,
+      `In ra các số chia hết cho 3 và 5 trong đoạn từ 1 đến n`
     ],
     ans: 1,
-    exp: `mx lưu giá trị lớn nhất.`
-  },
+    exp: `Điều kiện i % 3 == 0 and i % 5 == 0 nghĩa là số đó phải đồng thời chia hết cho 3 và 5 (tức là chia hết cho 15). s += i là phép tính tổng.`
+  }
 
-  {
-    q: `Đoạn mã sau thực hiện gì?
-mn = a
-if b < mn:
-    mn = b`,
+{
+    q: `Đoạn mã sau giải quyết bài toán gì?
+s = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        s += i
+print(s)`,
     opts: [
-      `Tìm số nhỏ nhất`,
-      `Tìm số lớn nhất`,
-      `Tính hiệu`,
-      `Đếm số`
-    ],
-    ans: 0,
-    exp: `mn lưu giá trị nhỏ nhất.`
-  },
-
-  {
-    q: `Điều kiện nào kiểm tra n nằm trong đoạn [10,99]?`,
-    opts: [
-      `10<=n<=99`,
-      `10<n<99`,
-      `n>99`,
-      `n<10`
-    ],
-    ans: 0,
-    exp: `Bao gồm cả 10 và 99.`
-  },
-
-  {
-    q: `Đoạn mã sau làm gì?
-if n>=0:
-    print("Duong")
-else:
-    print("Am")`,
-    opts: [
-      `Kiểm tra số nguyên tố`,
-      `Kiểm tra dấu của số`,
-      `Kiểm tra số chẵn`,
-      `Tính tổng`
+      `Tính tổng các số từ 1 đến n`,
+      `Tính tổng các ước số của n`,
+      `Đếm số lượng ước số của n`,
+      `Kiểm tra n có phải là số nguyên tố không`
     ],
     ans: 1,
-    exp: `Phân biệt số không âm và âm.`
+    exp: `Điều kiện n % i == 0 dùng để kiểm tra i có phải là ước của n hay không. Biến s += i sẽ cộng dồn các ước số đó lại.`
   },
 
   {
-    q: `Đoạn mã sau làm gì?
-for i in range(10):
-    pass`,
+    q: `Đoạn mã nào dưới đây giải quyết bài toán tìm số chẵn lớn nhất trong n số được nhập vào? (Giả sử các số đều lớn hơn 0)`,
     opts: [
-      `Không làm gì`,
-      `Báo lỗi`,
-      `In 10 dòng`,
-      `Thoát chương trình`
+      `mx = 0\nfor i in range(n):\n    x = int(input())\n    if x % 2 == 0 and x > mx:\n        mx = x`,
+      `mx = 0\nfor i in range(n):\n    x = int(input())\n    if x % 2 != 0 and x > mx:\n        mx = x`,
+      `mx = 1e9\nfor i in range(n):\n    x = int(input())\n    if x % 2 == 0 and x < mx:\n        mx = x`,
+      `mx = 0\nfor i in range(n):\n    x = int(input())\n    if x > mx:\n        mx = x`
     ],
     ans: 0,
-    exp: `pass là câu lệnh rỗng.`
+    exp: `Cần thỏa mãn 2 điều kiện: x phải là số chẵn (x % 2 == 0) và x phải lớn hơn kỉ lục lớn nhất hiện tại (x > mx).`
   },
 
   {
-    q: `Đoạn mã nào đúng để nhập số thực x?`,
+    q: `Đoạn mã sau làm nhiệm vụ gì?
+mx = -1e9
+count = 0
+for x in arr:
+    if x > mx:
+        mx = x
+        count = 1
+    elif x == mx:
+        count += 1
+print(count)`,
     opts: [
-      `x=float(input())`,
-      `x=int(input())`,
-      `x=input(float)`,
-      `float=x(input())`
+      `Tính tổng các số lớn nhất trong mảng`,
+      `Tìm giá trị lớn nhất trong mảng`,
+      `Đếm số lần xuất hiện của giá trị lớn nhất trong mảng`,
+      `Đếm số lượng phần tử dương trong mảng`
+    ],
+    ans: 2,
+    exp: `Khi tìm được một giá trị lớn hơn hẳn mx, biến đếm count được reset về 1. Nếu gặp giá trị bằng mx, biến đếm count tăng thêm 1.`
+  },
+
+  {
+    q: `Để tính tổng S = 1/2 + 2/3 + 3/4 + ... + n/(n+1), đoạn mã nào sau đây là đúng?`,
+    opts: [
+      `s = 0\nfor i in range(1, n + 1):\n    s += i / (i + 1)`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += (i + 1) / i`,
+      `s = 0\nfor i in range(1, n):\n    s += i / (i + 1)`,
+      `s = 1\nfor i in range(1, n + 1):\n    s *= i / (i + 1)`
     ],
     ans: 0,
-    exp: `float(input()) dùng để nhập số thực.`
+    exp: `Mỗi phần tử của dãy có dạng i / (i+1). Vòng lặp chạy từ 1 đến n (tương ứng với tử số) là chính xác.`
   },
 
   {
-    q: `Đoạn mã sau thực hiện gì?
-a = int(input())
-if a % 10 == 0:
+    q: `Đoạn mã sau giải quyết bài toán gì?
+p = 1
+for i in range(1, n + 1):
+    p *= i
+print(p)`,
+    opts: [
+      `Tính tổng các số từ 1 đến n`,
+      `Tính lũy thừa cơ số p bậc n`,
+      `Tính giai thừa của n (n!)`,
+      `Đếm các ước số của n`
+    ],
+    ans: 2,
+    exp: `Biến p được khởi tạo bằng 1, sau đó nhân dồn liên tiếp với i từ 1 đến n. Đây là thuật toán tính n!.`
+  },
+
+  {
+    q: `Muốn tính tổng S = 1! + 2! + 3! + ... + n!, đoạn mã nào sau đây vừa đúng vừa tối ưu (chỉ dùng 1 vòng lặp)?`,
+    opts: [
+      `s = 0\np = 1\nfor i in range(1, n + 1):\n    p *= i\n    s += p`,
+      `s = 0\nfor i in range(1, n + 1):\n    p = 1\n    p *= i\n    s += p`,
+      `s = 0\np = 0\nfor i in range(1, n + 1):\n    p += i\n    s += p`,
+      `s = 1\np = 1\nfor i in range(1, n + 1):\n    p *= i\n    s *= p`
+    ],
+    ans: 0,
+    exp: `Thay vì tính lại giai thừa từ đầu, ta có thể tận dụng giai thừa trước đó (p = p * i) rồi cộng dồn ngay vào tổng s (s += p).`
+  },
+
+  {
+    q: `Cho cấp số nhân có số hạng đầu là u1 và công bội q. Đoạn mã nào tính đúng số hạng thứ n của dãy này? (Biết Un = U1 * q^(n-1))`,
+    opts: [
+      `un = u1 * (q ** n)`,
+      `un = u1 * (q ** (n - 1))`,
+      `un = u1 * q * (n - 1)`,
+      `un = (u1 * q) ** (n - 1)`
+    ],
+    ans: 1,
+    exp: `Phép lũy thừa trong Python là **. Ta cần tính q lũy thừa (n-1) rồi nhân với u1.`
+  },
+
+  {
+    q: `Đoạn mã nào dưới đây tính đúng tổng bình phương các số lẻ từ 1 đến n?`,
+    opts: [
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 == 0:\n        s += i ** 2`,
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 != 0:\n        s += i ** 2`,
+      `s = 0\nfor i in range(1, n + 1, 2):\n    s += i * 2`,
+      `s = 1\nfor i in range(1, n + 1):\n    if i % 2 != 0:\n        s *= i ** 2`
+    ],
+    ans: 1,
+    exp: `Điều kiện i % 2 != 0 giúp lọc ra các số lẻ, sau đó lấy bình phương của chúng (i ** 2) rồi cộng dồn vào s.`
+  },
+
+  {
+    q: `Đoạn mã sau giải quyết bài toán gì?
+mx1 = mx2 = -1e9
+for x in arr:
+    if x > mx1:
+        mx2 = mx1
+        mx1 = x
+    elif x > mx2 and x != mx1:
+        mx2 = x
+print(mx2)`,
+    opts: [
+      `Tìm giá trị nhỏ nhất trong mảng`,
+      `Tìm giá trị lớn nhất trong mảng`,
+      `Tìm giá trị lớn thứ hai (phân biệt) trong mảng`,
+      `Sắp xếp mảng giảm dần`
+    ],
+    ans: 2,
+    exp: `mx1 lưu giá trị lớn nhất, mx2 lưu giá trị lớn thứ hai. Khi tìm thấy phần tử lớn hơn mx1, mx1 đẩy giá trị cũ xuống cho mx2. Đoạn mã đảm bảo tìm được số lớn thứ hai.`
+  },
+
+  {
+    q: `Đoạn mã nào dưới đây tính tổng dãy phân số đan dấu S = 1 - 1/2 + 1/3 - 1/4 + ... + ((-1)^(n-1)) * (1/n)?`,
+    opts: [
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 != 0:\n        s += 1 / i\n    else:\n        s -= 1 / i`,
+      `s = 0\nfor i in range(1, n + 1):\n    if i % 2 == 0:\n        s += 1 / i\n    else:\n        s -= 1 / i`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += 1 / i`,
+      `s = 0\nfor i in range(1, n + 1):\n    s -= 1 / i`
+    ],
+    ans: 0,
+    exp: `Theo quy luật, phần tử thứ i nếu là số lẻ thì mang dấu dương (cộng), nếu i là số chẵn thì mang dấu âm (trừ).`
+  },
+
+  {
+    q: `Đoạn mã nào sau đây tính đúng tích các số chẵn nguyên dương nhỏ hơn hoặc bằng n?`,
+    opts: [
+      `p = 0\nfor i in range(2, n + 1, 2):\n    p *= i`,
+      `p = 1\nfor i in range(2, n + 1, 2):\n    p *= i`,
+      `p = 1\nfor i in range(1, n + 1):\n    p *= i`,
+      `p = 1\nfor i in range(2, n + 1):\n    p += i`
+    ],
+    ans: 1,
+    exp: `Tính tích thì biến khởi tạo phải là 1. range(2, n + 1, 2) tạo ra dãy các số chẵn (2, 4, 6...).`
+  },
+
+  {
+    q: `Bạn muốn tính tổng dãy số S = 1*2 + 2*3 + 3*4 + ... + n*(n+1). Cấu trúc nào dưới đây là đúng?`,
+    opts: [
+      `s = 0\nfor i in range(1, n + 1):\n    s += i * (i + 1)`,
+      `s = 0\nfor i in range(1, n + 1):\n    s += i + (i + 1)`,
+      `s = 0\nfor i in range(1, n + 1):\n    s *= i * (i + 1)`,
+      `s = 0\nfor i in range(1, n):\n    s += i * (i + 1)`
+    ],
+    ans: 0,
+    exp: `Mỗi phần tử của dãy là tích của một số nguyên i với số nguyên ngay sau nó (i+1). Cộng dồn các tích đó vào biến s.`
+  },
+
+  {
+    q: `Đoạn mã sau giải quyết bài toán gì?
+s = 0
+for i in range(1, n):
+    if n % i == 0:
+        s += i
+if s == n:
     print("YES")
 else:
     print("NO")`,
     opts: [
-      `Kiểm tra chia hết cho 10`,
-      `Kiểm tra số nguyên tố`,
-      `Kiểm tra số âm`,
-      `Kiểm tra chia hết cho 3`
+      `Kiểm tra n có phải là số nguyên tố`,
+      `Kiểm tra n có phải là số chính phương`,
+      `Kiểm tra n có phải là số hoàn hảo (tổng các ước thực sự bằng chính nó)`,
+      `Kiểm tra n có phải là số đối xứng`
     ],
-    ans: 0,
-    exp: `Một số chia hết cho 10 khi chữ số cuối bằng 0.`
+    ans: 2,
+    exp: `Vòng lặp tính tổng các ước thực sự của n (nhỏ hơn n). Nếu tổng đó bằng chính n, thì n được gọi là Số hoàn hảo (Perfect Number).`
   },
 
   {
-    q: `Muốn chương trình lặp đến khi người dùng nhập số 0, nên dùng cấu trúc nào?`,
+    q: `Đoạn mã sau giải quyết bài toán gì?
+p = 1
+while n > 0:
+    p *= n % 10
+    n //= 10
+print(p)`,
     opts: [
-      `for`,
-      `while`,
-      `if`,
-      `elif`
+      `Tính tổng các chữ số của n`,
+      `Đếm số lượng chữ số của n`,
+      `Tính tích các chữ số của n`,
+      `Đảo ngược các chữ số của n`
     ],
-    ans: 1,
-    exp: `while thích hợp khi chưa biết trước số lần lặp.`
+    ans: 2,
+    exp: `n % 10 lấy ra chữ số cuối cùng, biến p dùng để nhân dồn các chữ số này lại. Sau đó n //= 10 loại bỏ chữ số cuối.`
+  },
+
+  {
+    q: `Tìm lỗi sai trong thuật toán tìm giá trị nhỏ nhất của dãy n số nguyên dưới đây?
+mn = 0
+for i in range(n):
+    x = int(input())
+    if x < mn:
+        mn = x`,
+    opts: [
+      `Vòng lặp range không đúng`,
+      `Sai điều kiện trong lệnh if`,
+      `Khởi tạo biến mn = 0 là sai nếu dãy chỉ chứa các số nguyên dương (sẽ luôn ra 0)`,
+      `Chưa có lệnh in kết quả`
+    ],
+    ans: 2,
+    exp: `Khi tìm Min, ta phải khởi tạo mn bằng một giá trị rất lớn (ví dụ: mn = 1e9). Nếu khởi tạo mn = 0, nếu dãy chỉ toàn số dương, lệnh if x < mn không bao giờ xảy ra, dẫn đến kết quả sai (luôn bằng 0).`
   }
 ];let questions = [];
 let currentIdx = 0;
