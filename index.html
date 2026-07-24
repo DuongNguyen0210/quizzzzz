@@ -122,99 +122,101 @@
 
 <script>
 const ALL_QUESTIONS = [
-  // ===== NHÓM 1: NHẬP / XUẤT CƠ BẢN (10 câu) =====
+  // ===== NHÓM 1: TOÁN TỬ (10 câu) =====
   {
-    q: `Lệnh nào dùng để in giá trị ra màn hình trong Python?`,
-    opts: [`print()`, `input()`, `read()`, `output()`],
+    q: `Toán tử % trong Python dùng để làm gì?`,
+    opts: [
+      `Lấy phần nguyên của phép chia`,
+      `Lấy phần dư của phép chia`,
+      `Tính lũy thừa`,
+      `Tính căn bậc hai`
+    ],
+    ans: 1,
+    exp: `Toán tử % (modulo) trả về phần dư còn lại sau khi chia hai số nguyên.`
+  },
+  {
+    q: `Toán tử // trong Python dùng để làm gì?`,
+    opts: [
+      `Lấy phần dư của phép chia`,
+      `Chia lấy phần nguyên (làm tròn xuống)`,
+      `Nhân hai số`,
+      `So sánh hai số`
+    ],
+    ans: 1,
+    exp: `Toán tử // thực hiện phép chia và chỉ giữ lại phần nguyên, bỏ phần thập phân (làm tròn xuống).`
+  },
+  {
+    q: `Biểu thức 2 ** 3 trong Python cho kết quả bằng bao nhiêu?`,
+    opts: [`6`, `8`, `9`, `5`],
+    ans: 1,
+    exp: `Toán tử ** dùng để tính lũy thừa. 2 ** 3 nghĩa là 2 mũ 3, bằng 8.`
+  },
+  {
+    q: `Toán tử == trong Python dùng để làm gì?`,
+    opts: [
+      `Gán giá trị cho biến`,
+      `So sánh hai giá trị có bằng nhau không`,
+      `Cộng hai giá trị`,
+      `Kiểm tra kiểu dữ liệu`
+    ],
+    ans: 1,
+    exp: `Dấu = dùng để gán giá trị, còn == dùng để so sánh xem hai giá trị có bằng nhau hay không.`
+  },
+  {
+    q: `Toán tử != có ý nghĩa gì?`,
+    opts: [
+      `Bằng nhau`,
+      `Khác nhau (không bằng)`,
+      `Lớn hơn`,
+      `Nhỏ hơn hoặc bằng`
+    ],
+    ans: 1,
+    exp: `!= là toán tử so sánh "khác", trả về True nếu hai giá trị không bằng nhau.`
+  },
+  {
+    q: `Trong biểu thức (a > 5) and (a < 10), điều kiện đúng khi nào?`,
+    opts: [
+      `Khi a lớn hơn 5 hoặc nhỏ hơn 10`,
+      `Khi a vừa lớn hơn 5 vừa nhỏ hơn 10`,
+      `Khi a bằng 5 hoặc bằng 10`,
+      `Luôn luôn đúng`
+    ],
+    ans: 1,
+    exp: `Toán tử and yêu cầu cả hai điều kiện phải đồng thời đúng thì biểu thức mới đúng.`
+  },
+  {
+    q: `Trong biểu thức (a < 0) or (a > 100), điều kiện đúng khi nào?`,
+    opts: [
+      `Khi a nhỏ hơn 0 và lớn hơn 100 cùng lúc`,
+      `Chỉ cần một trong hai điều kiện đúng (a nhỏ hơn 0 hoặc a lớn hơn 100)`,
+      `Khi a nằm trong khoảng từ 0 đến 100`,
+      `Không bao giờ đúng`
+    ],
+    ans: 1,
+    exp: `Toán tử or chỉ cần một trong hai điều kiện đúng là toàn bộ biểu thức đã đúng.`
+  },
+  {
+    q: `Toán tử not dùng để làm gì?`,
+    opts: [
+      `Đảo ngược giá trị logic (True thành False và ngược lại)`,
+      `Cộng thêm 1`,
+      `So sánh hai chuỗi`,
+      `Lấy phần dư`
+    ],
     ans: 0,
-    exp: `Hàm print() được dùng để hiển thị (xuất) dữ liệu ra màn hình.`
+    exp: `not là toán tử phủ định logic: not True cho kết quả False, và not False cho kết quả True.`
   },
   {
-    q: `Hàm input() dùng để làm gì?`,
-    opts: [
-      `In dữ liệu ra màn hình`,
-      `Nhận dữ liệu người dùng nhập vào từ bàn phím`,
-      `Tính toán biểu thức`,
-      `Xóa màn hình`
-    ],
-    ans: 1,
-    exp: `input() cho phép chương trình nhận dữ liệu do người dùng gõ vào.`
-  },
-  {
-    q: `Dữ liệu trả về từ hàm input() có kiểu gì mặc định?`,
-    opts: [`int`, `float`, `str (chuỗi)`, `bool`],
-    ans: 2,
-    exp: `input() luôn trả về kiểu chuỗi (str), dù người dùng gõ số hay chữ.`
-  },
-  {
-    q: `Muốn nhận một số nguyên từ người dùng để tính toán, ta cần viết như thế nào?`,
-    opts: [
-      `x = input()`,
-      `x = int(input())`,
-      `x = str(input())`,
-      `x = print(input())`
-    ],
-    ans: 1,
-    exp: `Vì input() trả về chuỗi, ta cần dùng int() để chuyển thành số nguyên trước khi tính toán.`
-  },
-  {
-    q: `Đoạn mã sau in ra gì?
-a = int(input())
-print(a + 1)
-(Giả sử người dùng nhập 5)`,
-    opts: [`5`, `6`, `51`, `Lỗi`],
-    ans: 1,
-    exp: `a nhận giá trị 5, sau đó a + 1 = 6 được in ra.`
-  },
-  {
-    q: `Lệnh print("Ket qua la:", 10) sẽ in ra gì?`,
-    opts: [
-      `Ket qua la: 10`,
-      `Ket qua la:10`,
-      `"Ket qua la:" 10`,
-      `Lỗi cú pháp`
-    ],
+    q: `Biểu thức 10 % 3 + 2 * 2 có giá trị bằng bao nhiêu?`,
+    opts: [`5`, `8`, `6`, `4`],
     ans: 0,
-    exp: `print() với nhiều tham số phân cách bằng dấu phẩy sẽ tự động thêm khoảng trắng giữa chúng.`
+    exp: `Theo thứ tự ưu tiên: 10 % 3 = 1, 2 * 2 = 4, sau đó cộng lại: 1 + 4 = 5.`
   },
   {
-    q: `Đoạn mã sau in ra gì nếu người dùng nhập lần lượt 3 và 4?
-a = int(input())
-b = int(input())
-print(a + b)`,
-    opts: [`34`, `7`, `12`, `Lỗi`],
-    ans: 1,
-    exp: `a = 3, b = 4, phép cộng a + b = 7 được in ra.`
-  },
-  {
-    q: `Để in ra một biến kèm chữ giải thích một cách dễ đọc, cú pháp f-string nào là đúng?`,
-    opts: [
-      `print(f"Gia tri: {x}")`,
-      `print("Gia tri: " f{x})`,
-      `print(f"Gia tri: (x)")`,
-      `print(f"Gia tri: [x]")`
-    ],
+    q: `Biểu thức "abc" == "abc" trả về giá trị gì?`,
+    opts: [`True`, `False`, `abc`, `Lỗi`],
     ans: 0,
-    exp: `f-string dùng cú pháp f"..." và đặt biến trong dấu ngoặc nhọn {}.`
-  },
-  {
-    q: `Lệnh print(5, 3, sep="-") sẽ in ra kết quả gì?`,
-    opts: [`5 3`, `5-3`, `53`, `5, 3`],
-    ans: 1,
-    exp: `Tham số sep="-" quy định ký tự phân cách giữa các giá trị được in, thay cho khoảng trắng mặc định.`
-  },
-  {
-    q: `Tại sao đoạn mã sau bị lỗi?
-x = input()
-print(x + 1)`,
-    opts: [
-      `input() không tồn tại`,
-      `Không thể cộng chuỗi (str) với số nguyên (int) trực tiếp`,
-      `print() chỉ nhận 1 tham số`,
-      `Thiếu dấu chấm phẩy`
-    ],
-    ans: 1,
-    exp: `x là kiểu chuỗi (str) do input() trả về, không thể cộng trực tiếp với số nguyên. Cần dùng int(input()) trước.`
+    exp: `Toán tử == so sánh hai chuỗi có giống hệt nhau không. Vì hai chuỗi bằng nhau nên kết quả là True.`
   },
 
   // ===== NHÓM 2: CÂU LỆNH IF - ELSE (10 câu) =====
@@ -337,104 +339,7 @@ else:
     exp: `b = 7 lớn hơn cả a = 4 và c = 2, nên điều kiện elif đúng và in ra "b lon nhat".`
   },
 
-  // ===== NHÓM 3: TOÁN TỬ (10 câu) =====
-  {
-    q: `Toán tử % trong Python dùng để làm gì?`,
-    opts: [
-      `Lấy phần nguyên của phép chia`,
-      `Lấy phần dư của phép chia`,
-      `Tính lũy thừa`,
-      `Tính căn bậc hai`
-    ],
-    ans: 1,
-    exp: `Toán tử % (modulo) trả về phần dư còn lại sau khi chia hai số nguyên.`
-  },
-  {
-    q: `Toán tử // trong Python dùng để làm gì?`,
-    opts: [
-      `Lấy phần dư của phép chia`,
-      `Chia lấy phần nguyên (làm tròn xuống)`,
-      `Nhân hai số`,
-      `So sánh hai số`
-    ],
-    ans: 1,
-    exp: `Toán tử // thực hiện phép chia và chỉ giữ lại phần nguyên, bỏ phần thập phân (làm tròn xuống).`
-  },
-  {
-    q: `Biểu thức 2 ** 3 trong Python cho kết quả bằng bao nhiêu?`,
-    opts: [`6`, `8`, `9`, `5`],
-    ans: 1,
-    exp: `Toán tử ** dùng để tính lũy thừa. 2 ** 3 nghĩa là 2 mũ 3, bằng 8.`
-  },
-  {
-    q: `Toán tử == trong Python dùng để làm gì?`,
-    opts: [
-      `Gán giá trị cho biến`,
-      `So sánh hai giá trị có bằng nhau không`,
-      `Cộng hai giá trị`,
-      `Kiểm tra kiểu dữ liệu`
-    ],
-    ans: 1,
-    exp: `Dấu = dùng để gán giá trị, còn == dùng để so sánh xem hai giá trị có bằng nhau hay không.`
-  },
-  {
-    q: `Toán tử != có ý nghĩa gì?`,
-    opts: [
-      `Bằng nhau`,
-      `Khác nhau (không bằng)`,
-      `Lớn hơn`,
-      `Nhỏ hơn hoặc bằng`
-    ],
-    ans: 1,
-    exp: `!= là toán tử so sánh "khác", trả về True nếu hai giá trị không bằng nhau.`
-  },
-  {
-    q: `Trong biểu thức (a > 5) and (a < 10), điều kiện đúng khi nào?`,
-    opts: [
-      `Khi a lớn hơn 5 hoặc nhỏ hơn 10`,
-      `Khi a vừa lớn hơn 5 vừa nhỏ hơn 10`,
-      `Khi a bằng 5 hoặc bằng 10`,
-      `Luôn luôn đúng`
-    ],
-    ans: 1,
-    exp: `Toán tử and yêu cầu cả hai điều kiện phải đồng thời đúng thì biểu thức mới đúng.`
-  },
-  {
-    q: `Trong biểu thức (a < 0) or (a > 100), điều kiện đúng khi nào?`,
-    opts: [
-      `Khi a nhỏ hơn 0 và lớn hơn 100 cùng lúc`,
-      `Chỉ cần một trong hai điều kiện đúng (a nhỏ hơn 0 hoặc a lớn hơn 100)`,
-      `Khi a nằm trong khoảng từ 0 đến 100`,
-      `Không bao giờ đúng`
-    ],
-    ans: 1,
-    exp: `Toán tử or chỉ cần một trong hai điều kiện đúng là toàn bộ biểu thức đã đúng.`
-  },
-  {
-    q: `Toán tử not dùng để làm gì?`,
-    opts: [
-      `Đảo ngược giá trị logic (True thành False và ngược lại)`,
-      `Cộng thêm 1`,
-      `So sánh hai chuỗi`,
-      `Lấy phần dư`
-    ],
-    ans: 0,
-    exp: `not là toán tử phủ định logic: not True cho kết quả False, và not False cho kết quả True.`
-  },
-  {
-    q: `Biểu thức 10 % 3 + 2 * 2 có giá trị bằng bao nhiêu?`,
-    opts: [`5`, `8`, `6`, `4`],
-    ans: 0,
-    exp: `Theo thứ tự ưu tiên: 10 % 3 = 1, 2 * 2 = 4, sau đó cộng lại: 1 + 4 = 5.`
-  },
-  {
-    q: `Biểu thức "abc" == "abc" trả về giá trị gì?`,
-    opts: [`True`, `False`, `abc`, `Lỗi`],
-    ans: 0,
-    exp: `Toán tử == so sánh hai chuỗi có giống hệt nhau không. Vì hai chuỗi bằng nhau nên kết quả là True.`
-  },
-
-  // ===== NHÓM 4: VÒNG LẶP VÀ ƯỚC SỐ CƠ BẢN (10 câu) =====
+  // ===== NHÓM 3: VÒNG LẶP (FOR / WHILE) VÀ ƯỚC SỐ (10 câu) =====
   {
     q: `Vòng lặp for i in range(5): chạy bao nhiêu lần?`,
     opts: [`4 lần`, `5 lần`, `6 lần`, `Không chạy lần nào`],
