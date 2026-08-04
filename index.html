@@ -122,503 +122,512 @@
 
 <script>
 const ALL_QUESTIONS = [
-  // ===== TÍNH TỔNG (10 câu) =====
+  // ===== CHU VI & DIỆN TÍCH: DẠNG 1 - CHO ĐỀ BÀI CHỌN CODE ĐÚNG (10 câu) =====
   {
-    q: `Đoạn mã nào tính đúng tổng các số từ 1 đến n bằng vòng while?`,
+    q: `Đoạn mã nào tính đúng chu vi (P) và diện tích (S) của hình chữ nhật có chiều dài a và chiều rộng b?`,
     opts: [
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i`,
-      `s = 0\ni = 0\nwhile i < n:\n    s += i`,
-      `s = 0\ni = 1\nwhile i < n:\n    s += i\n    i += 1`
+      `P = a + b * 2\nS = a * b`,
+      `P = (a + b) * 2\nS = a + b`,
+      `P = a * b\nS = (a + b) * 2`,
+      `P = (a + b) * 2\nS = a * b`
+    ],
+    ans: 3,
+    exp: `Chu vi hình chữ nhật bằng (chiều dài + chiều rộng) * 2, diện tích bằng chiều dài * chiều rộng.`
+  },
+  {
+    q: `Đoạn mã nào tính đúng chu vi (C) và diện tích (S) của hình tròn bán kính r (lấy pi = 3.14)?`,
+    opts: [
+      `C = 2 * 3.14 * r\nS = 3.14 * r ** 2`,
+      `C = r * r * 3.14\nS = 2 * 3.14 * r`,
+      `C = 3.14 * r\nS = 3.14 * r * 2`,
+      `C = 2 * 3.14 * r ** 2\nS = 3.14 * r`
     ],
     ans: 0,
-    exp: `Phải khởi tạo i = 1, cộng dồn s += i, và tăng i += 1 mỗi vòng, điều kiện i <= n để tính đủ từ 1 đến n.`
+    exp: `Chu vi C = 2 * pi * r, diện tích S = pi * r^2 (trong Python biểu diễn là 3.14 * r ** 2).`
   },
   {
-    q: `Đoạn mã sau tính tổng các số chẵn từ 1 đến n. Điền đúng vào chỗ if:
-s = 0
-i = 1
-while i <= n:
-    ____:
-        s += i
-    i += 1`,
+    q: `Đoạn mã nào nhập cạnh a của hình vuông và in ra chu vi (P), diện tích (S)?`,
     opts: [
-      `if i % 2 == 0`,
-      `if i % 2 != 0`,
-      `if i / 2 == 0`,
-      `if i == 2`
+      `a = float(input())\nP = a * 2\nS = a * a`,
+      `a = float(input())\nP = a * 4\nS = a + a`,
+      `a = float(input())\nP = a * 4\nS = a ** 2\nprint(P, S)`,
+      `a = float(input())\nP = a ** 2\nS = a * 4\nprint(P, S)`
+    ],
+    ans: 2,
+    exp: `Hình vuông có chu vi P = a * 4 và diện tích S = a ** 2 (hoặc a * a).`
+  },
+  {
+    q: `Đoạn mã nào tính đúng diện tích S của tam giác khi biết độ dài đáy a và chiều cao h tương ứng?`,
+    opts: [
+      `S = (a * h) / 2`,
+      `S = a * h`,
+      `S = (a + h) / 2`,
+      `S = a * h / 4`
     ],
     ans: 0,
-    exp: `Số chẵn có phần dư bằng 0 khi chia cho 2, nên điều kiện đúng là i % 2 == 0.`
+    exp: `Diện tích tam giác bằng 1/2 độ dài đáy nhân với chiều cao tương ứng: S = (a * h) / 2.`
   },
   {
-    q: `Đoạn mã sau tính gì?
-s = 0
-i = 1
-while i <= n:
-    if i % 2 != 0:
-        s += i
-    i += 1
-print(s)`,
+    q: `Đoạn mã nào tính đúng diện tích hình thang có 2 đáy a, b và chiều cao h?`,
     opts: [
-      `Tổng các số lẻ từ 1 đến n`,
-      `Tổng các số chẵn từ 1 đến n`,
-      `Đếm số lượng số lẻ từ 1 đến n`,
-      `Tổng tất cả các số từ 1 đến n`
+      `S = a + b * h / 2`,
+      `S = (a * b) * h / 2`,
+      `S = (a + b + h) / 2`,
+      `S = (a + b) * h / 2`
     ],
-    ans: 0,
-    exp: `i % 2 != 0 là điều kiện của số lẻ, mỗi khi gặp số lẻ thì cộng dồn vào s, nên đây là tổng các số lẻ.`
+    ans: 3,
+    exp: `Diện tích hình thang bằng tổng hai đáy nhân chiều cao rồi chia 2: S = (a + b) * h / 2.`
   },
   {
-    q: `Đoạn mã nào tính đúng tổng bình phương các số từ 1 đến n bằng while?`,
+    q: `Đoạn mã nào tính diện tích S và cạnh huyền c của tam giác vuông có 2 cạnh góc vuông a và b?`,
     opts: [
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i * i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i\n    i += 1`,
-      `s = 1\ni = 1\nwhile i <= n:\n    s *= i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i ** 2`
+      `S = a * b / 2\nc = (a + b) ** 0.5`,
+      `S = a * b\nc = (a**2 + b**2) ** 0.5`,
+      `S = (a * b) / 2\nc = (a**2 + b**2) ** 0.5`,
+      `S = a * b / 2\nc = a**2 + b**2`
     ],
-    ans: 0,
-    exp: `Bình phương của i là i * i, cần cộng dồn s += i * i, và không quên tăng i += 1 để vòng lặp dừng đúng lúc.`
+    ans: 2,
+    exp: `Diện tích tam giác vuông S = (a * b) / 2, cạnh huyền c = sqrt(a^2 + b^2) hay (a**2 + b**2)**0.5 theo định lý Pythagoras.`
   },
   {
-    q: `Đoạn mã sau in ra gì nếu n = 5?
-s = 0
-i = 1
-while i <= n:
-    s += i
-    i += 1
-print(s)`,
-    opts: [`15`, `10`, `5`, `Lỗi vòng lặp vô hạn`],
-    ans: 0,
-    exp: `s cộng dồn 1 + 2 + 3 + 4 + 5 = 15.`
-  },
-  {
-    q: `Đoạn mã nào tính đúng giai thừa của n (n!) bằng vòng while?`,
+    q: `Đoạn mã nào kiểm tra 3 cạnh a, b, c có tạo thành tam giác không, nếu có thì tính chu vi P?`,
     opts: [
-      `gt = 1\ni = 1\nwhile i <= n:\n    gt *= i\n    i += 1`,
-      `gt = 0\ni = 1\nwhile i <= n:\n    gt *= i\n    i += 1`,
-      `gt = 1\ni = 1\nwhile i <= n:\n    gt += i\n    i += 1`,
-      `gt = 1\ni = 0\nwhile i <= n:\n    gt *= i\n    i += 1`
+      `if a + b > c:\n    P = a + b + c`,
+      `if a + b > c or a + c > b or b + c > a:\n    P = a + b + c`,
+      `if a + b > c and a + c > b and b + c > a:\n    P = a + b + c`,
+      `if a * b > c:\n    P = a + b + c`
     ],
-    ans: 0,
-    exp: `Giai thừa dùng phép nhân dồn (gt *= i), giá trị khởi tạo phải là 1 (vì 0 sẽ làm mọi phép nhân tiếp theo bằng 0), i bắt đầu từ 1.`
+    ans: 2,
+    exp: `Ba số a, b, c tạo thành tam giác khi tổng 2 cạnh bất kỳ lớn hơn cạnh còn lại (kết hợp bằng toán tử and).`
   },
   {
-    q: `Đoạn mã sau tính tổng các số từ n về 1 (đếm ngược). Đoạn nào đúng?`,
+    q: `Đoạn mã nào tính đúng diện tích S của hình thoi có độ dài 2 đường chéo d1 và d2?`,
     opts: [
-      `s = 0\ni = n\nwhile i >= 1:\n    s += i\n    i -= 1`,
-      `s = 0\ni = n\nwhile i >= 1:\n    s += i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i >= n:\n    s += i\n    i -= 1`,
-      `s = 0\ni = n\nwhile i > 1:\n    s += i\n    i -= 1`
+      `S = d1 * d2`,
+      `S = (d1 + d2) / 2`,
+      `S = (d1 * d2) * 2`,
+      `S = (d1 * d2) / 2`
     ],
-    ans: 0,
-    exp: `i bắt đầu từ n rồi giảm dần (i -= 1) cho đến khi nhỏ hơn 1, cộng dồn s += i mỗi vòng để có tổng đúng từ n về 1.`
+    ans: 3,
+    exp: `Diện tích hình thoi bằng nửa tích hai đường chéo: S = (d1 * d2) / 2.`
   },
   {
-    q: `Đoạn mã nào tính đúng tổng các chữ số của một số nguyên dương n bằng vòng while?`,
+    q: `Đoạn mã nào tính chu vi P và diện tích S của hình bình hành có 2 cạnh kế a, b và chiều cao h ứng với cạnh a?`,
     opts: [
-      `s = 0\nwhile n > 0:\n    s += n % 10\n    n = n // 10`,
-      `s = 0\nwhile n > 0:\n    s += n % 10`,
-      `s = 0\nwhile n > 0:\n    s += n\n    n = n // 10`,
-      `s = 0\nwhile n > 0:\n    s += n // 10\n    n = n % 10`
+      `P = a + b * 2\nS = a * b * h`,
+      `P = a * b\nS = a * h / 2`,
+      `P = (a + h) * 2\nS = b * h`,
+      `P = (a + b) * 2\nS = a * h`
     ],
-    ans: 0,
-    exp: `n % 10 lấy ra chữ số cuối cùng để cộng dồn, sau đó n = n // 10 để bỏ chữ số cuối, lặp lại cho đến khi n bằng 0.`
+    ans: 3,
+    exp: `Chu vi hình bình hành P = 2 * (a + b), diện tích S = a * h (cạnh đáy nhân chiều cao tương ứng).`
   },
   {
-    q: `Đoạn mã sau tính tổng các số từ 1 đến n mà chia hết cho 3. Chọn dòng if đúng:
-s = 0
-i = 1
-while i <= n:
-    ____:
-        s += i
-    i += 1`,
+    q: `Đoạn mã nào dùng công thức Heron tính diện tích tam giác khi biết 3 cạnh a, b, c?`,
     opts: [
-      `if i % 3 == 0`,
-      `if i % 3 != 0`,
-      `if 3 % i == 0`,
-      `if i / 3 == 0`
+      `p = a + b + c\nS = (p * (p - a) * (p - b) * (p - c)) ** 0.5`,
+      `p = (a + b + c) / 2\nS = (p * (p - a) * (p - b) * (p - c)) ** 0.5`,
+      `p = (a + b + c) / 2\nS = p * (p - a) * (p - b) * (p - c)`,
+      `p = (a + b + c) / 2\nS = (p - a) * (p - b) * (p - c)`
     ],
-    ans: 0,
-    exp: `Số chia hết cho 3 có phần dư bằng 0 khi chia cho 3, tức i % 3 == 0.`
-  },
-  {
-    q: `Đoạn mã sau in ra gì nếu n = 4?
-s = 1
-i = 1
-while i <= n:
-    s *= i
-    i += 1
-print(s)`,
-    opts: [`24`, `10`, `4`, `1`],
-    ans: 0,
-    exp: `s = 1*1*2*3*4 = 24, đây chính là 4! (giai thừa của 4).`
+    ans: 1,
+    exp: `Công thức Heron: Nửa chu vi p = (a + b + c) / 2, diện tích S = sqrt(p * (p - a) * (p - b) * (p - c)).`
   },
 
-  // ===== CHIA HẾT (10 câu) =====
+  // ===== CHU VI & DIỆN TÍCH: DẠNG 2 - CHO CODE HỎI CÔNG DỤNG / KẾT QUẢ (15 câu) =====
   {
-    q: `Đoạn mã nào kiểm tra và in ra "Chia het" nếu a chia hết cho b, dùng vòng while chỉ để minh họa vòng lặp không cần thiết ở đây — chọn đoạn logic đúng nhất kiểm tra chia hết bằng while (giả sử phải trừ dần a cho b đến khi a nhỏ hơn b):`,
+    q: `Đoạn mã sau dùng để làm gì?
+a = float(input())
+b = float(input())
+res = (a + b) * 2
+print(res)`,
     opts: [
-      `while a >= b:\n    a -= b\nif a == 0:\n    print("Chia het")\nelse:\n    print("Khong chia het")`,
-      `while a >= b:\n    a -= b\nif a != 0:\n    print("Chia het")`,
-      `while a > b:\n    a -= b\nif a == 0:\n    print("Chia het")`,
-      `while a >= b:\n    a += b\nif a == 0:\n    print("Chia het")`
+      `Tính chu vi hình chữ nhật`,
+      `Tính diện tích hình chữ nhật`,
+      `Tính chu vi hình vuông`,
+      `Tính diện tích hình bình hành`
     ],
     ans: 0,
-    exp: `Trừ dần a cho b cho đến khi a nhỏ hơn b (mô phỏng phép chia lấy dư). Nếu phần còn lại a bằng 0 thì a chia hết cho b.`
+    exp: `Công thức (a + b) * 2 dùng để tính chu vi hình chữ nhật với chiều dài a và chiều rộng b.`
   },
   {
-    q: `Đoạn mã nào in ra tất cả các số từ 1 đến n chia hết cho 5, dùng vòng while?`,
+    q: `Đoạn mã sau tính đại lượng nào của hình tròn?
+r = float(input())
+val = 3.14 * r * r
+print(val)`,
     opts: [
-      `i = 1\nwhile i <= n:\n    if i % 5 == 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 5 == 0:\n        print(i)`,
-      `i = 0\nwhile i <= n:\n    if i / 5 == 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if 5 % i == 0:\n        print(i)\n    i += 1`
+      `Chu vi hình tròn`,
+      `Đường kính hình tròn`,
+      `Bán kính hình tròn`,
+      `Diện tích hình tròn`
+    ],
+    ans: 3,
+    exp: `Công thức pi * r * r (hay pi * r^2) tính diện tích hình tròn bán kính r.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì với r = 5?
+r = 5
+c = 2 * 3.14 * r
+print(c)`,
+    opts: [`31.4`, `78.5`, `15.7`, `10.0`],
+    ans: 0,
+    exp: `c = 2 * 3.14 * 5 = 31.4, đây là chu vi hình tròn bán kính 5.`
+  },
+  {
+    q: `Đoạn mã sau dùng để làm gì?
+a = float(input())
+print(a ** 2)`,
+    opts: [
+      `Tính chu vi hình vuông cạnh a`,
+      `Tính diện tích hình vuông cạnh a`,
+      `Tính đường chéo hình vuông cạnh a`,
+      `Tính gấp đôi độ dài cạnh a`
+    ],
+    ans: 1,
+    exp: `a ** 2 là bình phương của a, chính là diện tích hình vuông có cạnh độ dài a.`
+  },
+  {
+    q: `Đoạn mã sau tính chu vi của hình nào?
+a = float(input())
+p = a * 3
+print(p)`,
+    opts: [
+      `Hình tam giác cân`,
+      `Hình tam giác vuông`,
+      `Hình tam giác đều cạnh a`,
+      `Hình vuông cạnh a`
+    ],
+    ans: 2,
+    exp: `Tam giác đều có 3 cạnh bằng nhau dài a, nên chu vi P = a * 3.`
+  },
+  {
+    q: `Đoạn mã sau dùng để tính diện tích của hình nào?
+a = float(input("Đáy lớn: "))
+b = float(input("Đáy nhỏ: "))
+h = float(input("Chiều cao: "))
+S = (a + b) * h / 2
+print(S)`,
+    opts: [
+      `Hình tam giác`,
+      `Hình thoi`,
+      `Hình chữ nhật`,
+      `Hình thang`
+    ],
+    ans: 3,
+    exp: `Công thức (đáy lớn + đáy nhỏ) * chiều cao / 2 dùng để tính diện tích hình thang.`
+  },
+  {
+    q: `Đoạn mã sau thực hiện phép toán gì?
+C = float(input("Nhập chu vi hình tròn: "))
+r = C / (2 * 3.14)
+print(r)`,
+    opts: [
+      `Tính bán kính hình tròn từ chu vi C`,
+      `Tính diện tích hình tròn từ chu vi C`,
+      `Tính đường kính hình tròn từ chu vi C`,
+      `Tính chu vi hình tròn từ bán kính r`
     ],
     ans: 0,
-    exp: `Cần vòng lặp có tăng biến đếm (i += 1) để tránh lặp vô hạn, và điều kiện chia hết cho 5 là i % 5 == 0.`
+    exp: `Từ công thức C = 2 * pi * r, suy ra r = C / (2 * pi). Đoạn mã tìm bán kính khi biết chu vi.`
   },
   {
-    q: `Đoạn mã sau đếm số lượng các số từ 1 đến n chia hết cho cả 2 và 3. Chọn if đúng:
-dem = 0
-i = 1
-while i <= n:
-    ____:
-        dem += 1
-    i += 1`,
+    q: `Đoạn mã nào tính độ dài cạnh a của hình vuông khi biết diện tích S?`,
     opts: [
-      `if i % 2 == 0 and i % 3 == 0`,
-      `if i % 2 == 0 or i % 3 == 0`,
-      `if i % 6 != 0`,
-      `if i % 2 == 0 and i % 3 != 0`
+      `S = float(input())\na = S / 4`,
+      `S = float(input())\na = S ** 0.5`,
+      `S = float(input())\na = S * 2`,
+      `S = float(input())\na = S / 2`
+    ],
+    ans: 1,
+    exp: `Diện tích hình vuông S = a^2 => Cạnh a = sqrt(S) = S ** 0.5.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì khi a = 6, b = 8?
+a = 6
+b = 8
+S = (a * b) / 2
+print(S)`,
+    opts: [`48.0`, `14.0`, `24.0`, `28.0`],
+    ans: 2,
+    exp: `Diện tích tam giác vuông S = (6 * 8) / 2 = 48 / 2 = 24.0.`
+  },
+  {
+    q: `Đoạn mã sau làm nhiệm vụ gì?
+a = float(input("Cạnh hình vuông: "))
+d = float(input("Chiều dài HCN: "))
+r = float(input("Chiều rộng HCN: "))
+if a * a > d * r:
+    print("HV lớn hơn")
+else:
+    print("HCN lớn hơn hoặc bằng")`,
+    opts: [
+      `So sánh chu vi hình vuông và hình chữ nhật`,
+      `So sánh diện tích hình vuông và hình chữ nhật`,
+      `Tính tổng diện tích hình vuông và hình chữ nhật`,
+      `Kiểm tra hình vuông có nằm trong hình chữ nhật không`
+    ],
+    ans: 1,
+    exp: `a * a là diện tích hình vuông, d * r là diện tích hình chữ nhật. Đoạn mã so sánh diện tích hai hình này.`
+  },
+  {
+    q: `Nếu chiều dài a và chiều rộng b của hình chữ nhật cùng tăng lên 2 lần, diện tích mới S_moi được tính bằng đoạn mã nào?`,
+    opts: [
+      `S_moi = a * b * 2`,
+      `S_moi = (a * 2) + (b * 2)`,
+      `S_moi = (a * 2) * (b * 2)`,
+      `S_moi = (a + b) * 4`
+    ],
+    ans: 2,
+    exp: `Chiều dài mới là a * 2, chiều rộng mới là b * 2, vậy diện tích mới S_moi = (a * 2) * (b * 2) = 4 * a * b.`
+  },
+  {
+    q: `Đoạn mã sau tính chu vi của hình nào khi biết độ dài cạnh a?
+a = float(input())
+P = 4 * a
+print(P)`,
+    opts: [
+      `Hình vuông hoặc hình thoi`,
+      `Chỉ tính được hình chữ nhật`,
+      `Hình tam giác đều`,
+      `Hình bình hành`
     ],
     ans: 0,
-    exp: `Muốn số vừa chia hết cho 2 vừa chia hết cho 3, cần cả hai điều kiện đúng đồng thời nên dùng and.`
+    exp: `Cả hình vuông và hình thoi đều có 4 cạnh bằng nhau có độ dài a, nên chu vi bằng 4 * a.`
   },
   {
-    q: `Đoạn mã sau in ra gì nếu n = 10?
-i = 1
-while i <= n:
-    if i % 4 == 0:
-        print(i)
-    i += 1`,
-    opts: [`4 8`, `4 8 12`, `1 2 3 4`, `Không in gì`],
-    ans: 0,
-    exp: `Các số từ 1 đến 10 chia hết cho 4 là 4 và 8, vì 12 vượt quá n = 10 nên không được in.`
-  },
-  {
-    q: `Đoạn mã nào đếm số lượng các số từ 1 đến n KHÔNG chia hết cho 3 bằng vòng while?`,
+    q: `Đoạn mã nào tính bán kính r của hình tròn khi biết diện tích S (lấy pi = 3.14)?`,
     opts: [
-      `dem = 0\ni = 1\nwhile i <= n:\n    if i % 3 != 0:\n        dem += 1\n    i += 1`,
-      `dem = 0\ni = 1\nwhile i <= n:\n    if i % 3 == 0:\n        dem += 1\n    i += 1`,
-      `dem = 0\ni = 1\nwhile i <= n:\n    if i / 3 != 0:\n        dem += 1`,
-      `dem = 0\ni = 1\nwhile i < n:\n    if i % 3 != 0:\n        dem += 1`
+      `r = S / (2 * 3.14)`,
+      `r = (S * 3.14) ** 0.5`,
+      `r = S / 3.14`,
+      `r = (S / 3.14) ** 0.5`
     ],
-    ans: 0,
-    exp: `Điều kiện không chia hết cho 3 là phần dư khác 0, tức i % 3 != 0, và cần tăng i để vòng lặp kết thúc.`
+    ans: 3,
+    exp: `Từ S = pi * r^2 => r^2 = S / pi => r = sqrt(S / pi) = (S / 3.14) ** 0.5.`
   },
   {
-    q: `Đoạn mã sau kiểm tra n có chia hết cho 7 hay không bằng vòng while (trừ dần). Chọn đoạn đúng:`,
+    q: `Đoạn mã sau dùng để làm gì?
+a = float(input("Đáy 1: "))
+b = float(input("Đáy 2: "))
+c = float(input("Cạnh bên: "))
+P = a + b + 2 * c
+print(P)`,
     opts: [
-      `x = n\nwhile x >= 7:\n    x -= 7\nif x == 0:\n    print("Chia het cho 7")\nelse:\n    print("Khong chia het")`,
-      `x = n\nwhile x > 7:\n    x -= 7\nif x == 0:\n    print("Chia het cho 7")`,
-      `x = n\nwhile x >= 7:\n    x -= 7\nif x != 0:\n    print("Chia het cho 7")`,
-      `x = n\nwhile x <= 7:\n    x -= 7\nif x == 0:\n    print("Chia het cho 7")`
+      `Tính diện tích hình thang cân`,
+      `Tính chu vi hình thang cân`,
+      `Tính chu vi hình bình hành`,
+      `Tính chu vi tam giác`
     ],
-    ans: 0,
-    exp: `Trừ dần x cho 7 chừng nào x còn lớn hơn hoặc bằng 7, phần dư cuối cùng bằng 0 nghĩa là n chia hết cho 7.`
+    ans: 1,
+    exp: `Hình thang cân có 2 đáy a, b và 2 cạnh bên bằng nhau dài c, nên chu vi P = a + b + 2 * c.`
   },
   {
-    q: `Đoạn mã sau in ra các số từ 1 đến 20 chia hết cho 3 hoặc chia hết cho 5. Chọn if đúng:
-i = 1
-while i <= 20:
-    ____:
-        print(i)
-    i += 1`,
+    q: `Một mảnh đất hình chữ nhật kích thước A x B, người ta đào một cái ao hình tròn bán kính R bên trong. Đoạn mã nào tính diện tích đất còn lại?`,
     opts: [
-      `if i % 3 == 0 or i % 5 == 0`,
-      `if i % 3 == 0 and i % 5 == 0`,
-      `if i % 15 == 0`,
-      `if i % 3 != 0 or i % 5 != 0`
+      `S = (A + B) * 2 - (2 * 3.14 * R)`,
+      `S = (A * B) - (2 * 3.14 * R)`,
+      `S = (A * B) + (3.14 * R ** 2)`,
+      `S = (A * B) - (3.14 * R ** 2)`
     ],
-    ans: 0,
-    exp: `Muốn số thỏa mãn ít nhất một trong hai điều kiện chia hết cho 3 hoặc cho 5, cần dùng toán tử or.`
-  },
-  {
-    q: `Đoạn mã sau đếm số lượng số chẵn từ 1 đến n mà không chia hết cho 4 bằng vòng while. Chọn if đúng:
-dem = 0
-i = 1
-while i <= n:
-    ____:
-        dem += 1
-    i += 1`,
-    opts: [
-      `if i % 2 == 0 and i % 4 != 0`,
-      `if i % 2 == 0 or i % 4 != 0`,
-      `if i % 4 == 0`,
-      `if i % 2 != 0 and i % 4 == 0`
-    ],
-    ans: 0,
-    exp: `Cần vừa là số chẵn (i % 2 == 0) vừa không chia hết cho 4 (i % 4 != 0), kết hợp bằng and.`
-  },
-  {
-    q: `Đoạn mã sau in ra gì?
-i = 1
-while i <= 15:
-    if i % 5 == 0:
-        print(i)
-    i += 1`,
-    opts: [`5 10 15`, `5 10`, `1 5 10 15`, `15`],
-    ans: 0,
-    exp: `Các số từ 1 đến 15 chia hết cho 5 lần lượt là 5, 10 và 15.`
-  },
-  {
-    q: `Đoạn mã nào in ra "Le" cho mỗi số lẻ và "Chan" cho mỗi số chẵn, từ 1 đến n, dùng vòng while?`,
-    opts: [
-      `i = 1\nwhile i <= n:\n    if i % 2 == 0:\n        print("Chan")\n    else:\n        print("Le")\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 2 == 0:\n        print("Le")\n    else:\n        print("Chan")\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i / 2 == 0:\n        print("Chan")\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 2 == 0:\n        print("Chan")`
-    ],
-    ans: 0,
-    exp: `i % 2 == 0 xác định số chẵn nên in "Chan", ngược lại là số lẻ nên in "Le"; cần tăng i để vòng lặp tiến triển.`
+    ans: 3,
+    exp: `Diện tích đất còn lại bằng diện tích hình chữ nhật (A * B) trừ đi diện tích ao tròn (3.14 * R ** 2).`
   },
 
-  // ===== ƯỚC SỐ (10 câu) =====
+  // ===== BÀI TẬP VỀ ƯỚC SỐ (10 câu) =====
   {
-    q: `Đoạn mã nào in ra tất cả các ước số của n bằng vòng while?`,
+    q: `Đoạn mã sau dùng để làm gì?
+i = 1
+while i <= n:
+    if n % i == 0:
+        print(i)
+    i += 1`,
     opts: [
-      `i = 1\nwhile i <= n:\n    if n % i == 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % n == 0:\n        print(i)\n    i += 1`,
-      `i = 0\nwhile i <= n:\n    if n % i == 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i < n:\n    if n % i == 0:\n        print(i)`
+      `In ra các bội số của n`,
+      `In ra các số chia hết cho n`,
+      `In ra tất cả các ước số của n`,
+      `Đếm số lượng ước số của n`
     ],
-    ans: 0,
-    exp: `i là ước của n nếu n chia hết cho i (n % i == 0). Vòng lặp phải chạy i từ 1 đến n và tăng dần i mỗi vòng.`
+    ans: 2,
+    exp: `Điều kiện n % i == 0 kiểm tra i có phải là ước của n không. Vòng lặp in ra tất cả ước số từ 1 đến n.`
   },
   {
-    q: `Đoạn mã sau đếm số lượng ước số của n bằng vòng while. Đoạn nào đúng?`,
+    q: `Đoạn mã nào đếm đúng số lượng ước số của số nguyên dương n bằng vòng while?`,
     opts: [
       `dem = 0\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        dem += 1\n    i += 1`,
       `dem = 0\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        dem += i\n    i += 1`,
       `dem = 0\ni = 1\nwhile i <= n:\n    dem += 1\n    i += 1`,
-      `dem = 1\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        dem += 1`
+      `dem = 0\ni = 1\nwhile i < n:\n    if n % i == 0:\n        dem += 1`
     ],
     ans: 0,
-    exp: `Chỉ tăng dem thêm 1 mỗi khi i là ước số thực sự của n (n % i == 0), không phải mỗi vòng lặp.`
+    exp: `Chỉ tăng dem += 1 khi i là ước thực sự của n (n % i == 0) và tăng i += 1 để duyệt hết các số từ 1 đến n.`
   },
   {
-    q: `Đoạn mã sau tính tổng các ước số của n bằng vòng while. Đoạn nào đúng?`,
-    opts: [
-      `s = 0\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        s += i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        s += 1\n    i += 1`,
-      `s = 1\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        s *= i\n    i += 1`,
-      `s = 0\ni = 1\nwhile i <= n:\n    s += i\n    i += 1`
-    ],
-    ans: 0,
-    exp: `Cần cộng dồn chính giá trị của ước số i (s += i), chỉ khi i thực sự là ước của n.`
-  },
-  {
-    q: `Số nguyên tố là số chỉ có đúng 2 ước là 1 và chính nó. Đoạn mã sau (dùng vòng while đếm ước ở trên với biến dem) kiểm tra n có phải số nguyên tố không. Chọn đúng:`,
-    opts: [
-      `if dem == 2:\n    print("So nguyen to")\nelse:\n    print("Khong phai")`,
-      `if dem == 1:\n    print("So nguyen to")`,
-      `if dem > 2:\n    print("So nguyen to")`,
-      `if dem == n:\n    print("So nguyen to")`
-    ],
-    ans: 0,
-    exp: `Định nghĩa số nguyên tố là có đúng 2 ước số nên điều kiện kiểm tra chính xác là dem == 2.`
-  },
-  {
-    q: `Đoạn mã nào tìm đúng ước số nhỏ nhất lớn hơn 1 của n bằng vòng while?`,
-    opts: [
-      `i = 2\nwhile n % i != 0:\n    i += 1\nprint(i)`,
-      `i = 2\nwhile n % i == 0:\n    i += 1\nprint(i)`,
-      `i = 1\nwhile n % i != 0:\n    i += 1\nprint(i)`,
-      `i = 2\nwhile i < n:\n    i += 1\nprint(i)`
-    ],
-    ans: 0,
-    exp: `Vòng lặp tăng dần i từ 2, dừng lại ngay khi n % i == 0 (tức i là ước), khi đó i chính là ước nhỏ nhất lớn hơn 1.`
-  },
-  {
-    q: `Đoạn mã sau in ra gì nếu n = 12?
+    q: `Đoạn mã sau tính tổng các ước số của n. Hãy chọn dòng if đúng điền vào chỗ trống:
+s = 0
 i = 1
 while i <= n:
-    if n % i == 0:
-        print(i)
+    ____:
+        s += i
     i += 1`,
-    opts: [`1 2 3 4 6 12`, `1 2 3 4 5 6`, `2 3 4 6`, `12`],
-    ans: 0,
-    exp: `Các ước số của 12 là 1, 2, 3, 4, 6 và 12.`
+    opts: [
+      `if i % n == 0`,
+      `if n % i == 0`,
+      `if n / i == 0`,
+      `if n % i != 0`
+    ],
+    ans: 1,
+    exp: `i là ước số của n khi n chia hết cho i, tức n % i == 0.`
   },
   {
-    q: `Đoạn mã nào tìm đúng ước số chung lớn nhất (ƯCLN) của a và b bằng vòng while (thuật toán trừ dần)?`,
+    q: `Đoạn mã sau kiểm tra n có phải là số nguyên tố hay không dựa vào số lượng ước `dem`. Điều kiện if nào đúng?`,
     opts: [
-      `while a != b:\n    if a > b:\n        a -= b\n    else:\n        b -= a\nprint(a)`,
-      `while a != b:\n    if a > b:\n        a += b\n    else:\n        b += a\nprint(a)`,
-      `while a == b:\n    a -= b\nprint(a)`,
+      `if dem == 1: print("Nguyên tố")`,
+      `if dem > 2: print("Nguyên tố")`,
+      `if dem == 2: print("Nguyên tố")`,
+      `if dem == n: print("Nguyên tố")`
+    ],
+    ans: 2,
+    exp: `Số nguyên tố là số nguyên lớn hơn 1 và có đúng 2 ước số phân biệt (1 và chính nó).`
+  },
+  {
+    q: `Số hoàn hảo là số có tổng các ước thực sự (không tính chính nó) bằng chính nó. Đoạn mã nào tính đúng tổng ước thực sự của n?`,
+    opts: [
+      `s = 0\ni = 1\nwhile i <= n:\n    if n % i == 0:\n        s += i\n    i += 1`,
+      `s = 0\ni = 1\nwhile i < n:\n    s += i\n    i += 1`,
+      `s = 1\ni = 1\nwhile i < n:\n    if n % i == 0:\n        s *= i\n    i += 1`,
+      `s = 0\ni = 1\nwhile i < n:\n    if n % i == 0:\n        s += i\n    i += 1`
+    ],
+    ans: 3,
+    exp: `Vòng while với điều kiện i < n sẽ không duyệt n, do đó chỉ cộng dồn các ước nhỏ hơn n.`
+  },
+  {
+    q: `Đoạn mã nào tìm ƯCLN của 2 số a và b theo thuật toán trừ dần?`,
+    opts: [
+      `while a == b:\n    if a > b: a -= b\n    else: b -= a\nprint(a)`,
+      `while a != b:\n    a += b\nprint(a)`,
+      `while a != b:\n    if a > b: a -= b\n    else: b -= a\nprint(a)`,
       `while a > b:\n    a -= b\nprint(b)`
     ],
-    ans: 0,
-    exp: `Thuật toán Euclid dạng trừ: khi a khác b thì trừ số lớn hơn cho số nhỏ hơn, lặp lại đến khi a bằng b, đó là ƯCLN.`
+    ans: 2,
+    exp: `Thuật toán Euclid dạng trừ lặp lại khi a != b, lấy số lớn hơn trừ đi số nhỏ hơn cho đến khi 2 số bằng nhau.`
   },
   {
-    q: `Đoạn mã nào tìm đúng ƯCLN của a và b bằng vòng while dùng phép chia lấy dư (thuật toán Euclid)?`,
-    opts: [
-      `while b != 0:\n    a, b = b, a % b\nprint(a)`,
-      `while b != 0:\n    a, b = a % b, b\nprint(a)`,
-      `while a != 0:\n    a, b = b, a % b\nprint(b)`,
-      `while b == 0:\n    a, b = b, a % b\nprint(a)`
-    ],
-    ans: 0,
-    exp: `Thuật toán Euclid: lặp lại việc gán a = b và b = a % b cho đến khi b bằng 0, giá trị a lúc đó là ƯCLN.`
-  },
-  {
-    q: `Đoạn mã sau đếm số lượng ước số chẵn của n bằng vòng while. Chọn if đúng:
+    q: `Đoạn mã sau in ra kết quả bao nhiêu khi n = 6?
 dem = 0
 i = 1
 while i <= n:
-    ____:
+    if n % i == 0:
         dem += 1
-    i += 1`,
-    opts: [
-      `if n % i == 0 and i % 2 == 0`,
-      `if n % i == 0 or i % 2 == 0`,
-      `if i % 2 == 0`,
-      `if n % i == 0 and i % 2 != 0`
-    ],
-    ans: 0,
-    exp: `Cần i vừa là ước của n (n % i == 0) vừa là số chẵn (i % 2 == 0), kết hợp bằng and.`
+    i += 1
+print(dem)`,
+    opts: [`2`, `3`, `4`, `6`],
+    ans: 2,
+    exp: `Các ước của 6 là 1, 2, 3, 6. Có tổng cộng 4 ước nên biến dem = 4.`
   },
   {
-    q: `Đoạn mã sau in ra gì nếu n = 7 (n là số nguyên tố)?
+    q: `Đoạn mã sau dùng để làm gì?
 i = 1
 while i <= n:
-    if n % i == 0:
+    if n % i == 0 and i % 2 != 0:
         print(i)
     i += 1`,
-    opts: [`1 7`, `1 2 3 4 5 6 7`, `7`, `1`],
+    opts: [
+      `In ra các ước số lẻ của n`,
+      `In ra các ước số chẵn của n`,
+      `In ra các số lẻ từ 1 đến n`,
+      `In ra các bội số lẻ của n`
+    ],
     ans: 0,
-    exp: `Vì 7 là số nguyên tố nên chỉ có đúng 2 ước số là 1 và chính nó (7).`
+    exp: `n % i == 0 (là ước của n) kết hợp với i % 2 != 0 (là số lẻ) dùng để in ra các ước số lẻ của n.`
+  },
+  {
+    q: `Đoạn mã sau in ra các số nào khi n = 12?
+i = 1
+while i <= n:
+    if n % i == 0 and i % 2 == 0:
+        print(i, end=" ")
+    i += 1`,
+    opts: [
+      `1 3`,
+      `2 4 6 12`,
+      `1 2 3 4 6 12`,
+      `2 4 6 8 10 12`
+    ],
+    ans: 1,
+    exp: `Các ước của 12 là 1, 2, 3, 4, 6, 12. Các ước chẵn là 2, 4, 6, 12.`
+  },
+  {
+    q: `Đoạn mã nào tìm đúng ước số lớn nhất của n mà khác n?`,
+    opts: [
+      `i = 1\nwhile i < n:\n    if n % i == 0:\n        print(i)\n        break\n    i += 1`,
+      `i = n\nwhile i >= 1:\n    if n % i == 0:\n        print(i)\n        break\n    i -= 1`,
+      `i = n - 1\nwhile i >= 1:\n    if n % i != 0:\n        print(i)\n        break\n    i -= 1`,
+      `i = n - 1\nwhile i >= 1:\n    if n % i == 0:\n        print(i)\n        break\n    i -= 1`
+    ],
+    ans: 3,
+    exp: `Duyệt lùi i từ n - 1 về 1, gặp ước đầu tiên (n % i == 0) thì in ra và break ngay, đó chính là ước lớn nhất nhỏ hơn n.`
   },
 
-  // ===== IN SỐ THỎA ĐIỀU KIỆN (10 câu) =====
+  // ===== BÀI TẬP VỀ TỔNG CHỮ SỐ (5 câu) =====
   {
-    q: `Đoạn mã nào in ra các số từ 1 đến n là bội của 3 nhưng không phải bội của 9, dùng while?`,
+    q: `Đoạn mã nào tính đúng tổng các chữ số của số nguyên dương n bằng vòng while?`,
     opts: [
-      `i = 1\nwhile i <= n:\n    if i % 3 == 0 and i % 9 != 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 3 == 0 or i % 9 != 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 9 == 0:\n        print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 3 != 0 and i % 9 == 0:\n        print(i)\n    i += 1`
+      `s = 0\nwhile n > 0:\n    s += n // 10\n    n = n % 10`,
+      `s = 0\nwhile n > 0:\n    s += n % 10\n    n = n // 10`,
+      `s = 0\nwhile n > 0:\n    s += n % 10`,
+      `s = 0\nwhile n > 0:\n    s += n\n    n = n // 10`
     ],
-    ans: 0,
-    exp: `Cần i chia hết cho 3 (i % 3 == 0) nhưng không chia hết cho 9 (i % 9 != 0), kết hợp bằng and.`
+    ans: 1,
+    exp: `n % 10 lấy chữ số hàng đơn vị cộng dồn vào s, sau đó n // 10 bỏ chữ số hàng đơn vị đó đi.`
   },
   {
-    q: `Đoạn mã sau in ra các số từ 1 đến n cho đến khi gặp số đầu tiên chia hết cho 7 thì dừng hẳn. Chọn đúng:`,
+    q: `Đoạn mã sau dùng để làm gì?
+count = 0
+while n > 0:
+    count += 1
+    n = n // 10
+print(count)`,
     opts: [
-      `i = 1\nwhile i <= n:\n    if i % 7 == 0:\n        break\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 7 == 0:\n        continue\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    print(i)\n    if i % 7 == 0:\n        break\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 7 != 0:\n        break\n    print(i)\n    i += 1`
+      `Tính tổng các chữ số của n`,
+      `Đếm số lượng chữ số của số n`,
+      `Tìm chữ số lớn nhất của n`,
+      `Đảo ngược số n`
     ],
-    ans: 0,
-    exp: `Ngay khi gặp số chia hết cho 7, lệnh break sẽ thoát khỏi vòng lặp trước khi in số đó ra, đúng như yêu cầu "cho đến khi gặp thì dừng".`
+    ans: 1,
+    exp: `Mỗi vòng lặp loại bỏ 1 chữ số của n (n // 10) và tăng count thêm 1, giúp đếm số lượng chữ số của n.`
   },
   {
-    q: `Đoạn mã sau in ra các số từ 1 đến n, bỏ qua các số chia hết cho 4 (không in các số đó nhưng vẫn tiếp tục). Chọn đúng:`,
-    opts: [
-      `i = 1\nwhile i <= n:\n    if i % 4 == 0:\n        i += 1\n        continue\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 4 == 0:\n        continue\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i % 4 == 0:\n        break\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    print(i)\n    if i % 4 == 0:\n        continue\n    i += 1`
-    ],
+    q: `Đoạn mã sau in ra kết quả gì khi n = 1234?
+s = 0
+while n > 0:
+    s += n % 10
+    n = n // 10
+print(s)`,
+    opts: [`10`, `24`, `4321`, `4`],
     ans: 0,
-    exp: `continue bỏ qua phần in số nhưng vòng lặp vẫn tiếp tục; lưu ý phải tăng i trước continue để tránh lặp vô hạn ở đây vì i += 1 nằm sau lệnh print bị bỏ qua.`
+    exp: `Tổng các chữ số s = 4 + 3 + 2 + 1 = 10.`
   },
   {
-    q: `Đoạn mã sau in ra số nguyên tố đầu tiên lớn hơn n. Ý tưởng: tăng dần x từ n + 1, với mỗi x đếm số ước, nếu đếm được 2 ước thì dừng và in x. Đoạn nào thể hiện đúng vòng while bên ngoài?`,
+    q: `Đoạn mã nào tính đúng tổng các chữ số CHẴN của số n?`,
     opts: [
-      `x = n + 1\nla_nguyen_to = False\nwhile not la_nguyen_to:\n    # đếm ước của x, cập nhật la_nguyen_to\n    x += 1`,
-      `x = n + 1\nwhile la_nguyen_to:\n    x += 1`,
-      `x = n\nwhile not la_nguyen_to:\n    x += 1`,
-      `x = n + 1\nwhile la_nguyen_to == False:\n    x -= 1`
+      `s = 0\nwhile n > 0:\n    digit = n % 10\n    if digit % 2 == 0:\n        s += digit\n    n = n // 10`,
+      `s = 0\nwhile n > 0:\n    digit = n % 10\n    if digit % 2 != 0:\n        s += digit\n    n = n // 10`,
+      `s = 0\nwhile n > 0:\n    if n % 2 == 0:\n        s += n % 10\n    n = n // 10`,
+      `s = 0\nwhile n > 0:\n    s += n % 2\n    n = n // 10`
     ],
     ans: 0,
-    exp: `Vòng while lặp chừng nào chưa tìm được số nguyên tố (not la_nguyen_to là True), mỗi vòng tăng x lên 1 để thử số tiếp theo.`
+    exp: `Lấy chữ số hàng đơn vị digit = n % 10, nếu digit chia hết cho 2 (chẵn) thì cộng vào s, sau đó bỏ chữ số cuối bằng n // 10.`
   },
   {
-    q: `Đoạn mã sau in ra gì?
-i = 1
-while i <= 10:
-    if i % 3 == 0:
-        i += 1
-        continue
-    print(i)
-    i += 1`,
-    opts: [`1 2 4 5 7 8 10`, `1 2 3 4 5 6 7 8 9 10`, `3 6 9`, `1 2 4 5 7 8`],
-    ans: 0,
-    exp: `Các số chia hết cho 3 (3, 6, 9) bị continue bỏ qua phần in, các số còn lại từ 1 đến 10 được in ra bình thường.`
-  },
-  {
-    q: `Đoạn mã nào in ra các số Fibonacci nhỏ hơn n bằng vòng while?`,
+    q: `Đoạn mã nào tính TÍCH các chữ số của số nguyên dương n?`,
     opts: [
-      `a, b = 0, 1\nwhile a < n:\n    print(a)\n    a, b = b, a + b`,
-      `a, b = 0, 1\nwhile a < n:\n    print(a)\n    a, b = a + b, b`,
-      `a, b = 1, 1\nwhile a < n:\n    print(a)`,
-      `a, b = 0, 1\nwhile a < n:\n    a, b = b, a + b\n    print(a)`
+      `p = 0\nwhile n > 0:\n    p *= n % 10\n    n = n // 10`,
+      `p = 1\nwhile n > 0:\n    p += n % 10\n    n = n // 10`,
+      `p = 1\nwhile n > 0:\n    p *= n % 10\n    n = n // 10`,
+      `p = 1\nwhile n > 0:\n    p *= n // 10\n    n = n % 10`
     ],
-    ans: 0,
-    exp: `Mỗi vòng in giá trị a hiện tại rồi cập nhật cặp (a, b) thành (b, a + b) để sinh ra số Fibonacci tiếp theo.`
-  },
-  {
-    q: `Đoạn mã sau in ra các số chính phương (số là bình phương của một số nguyên) từ 1 đến n bằng vòng while. Chọn if đúng:
-i = 1
-while i <= n:
-    ____:
-        print(i)
-    i += 1`,
-    opts: [
-      `if int(i ** 0.5) ** 2 == i`,
-      `if i % 2 == 0`,
-      `if i ** 2 <= n`,
-      `if i == i * i`
-    ],
-    ans: 0,
-    exp: `Một số i là số chính phương nếu căn bậc hai của nó (làm tròn xuống) khi bình phương lại đúng bằng i.`
-  },
-  {
-    q: `Đoạn mã sau đảo ngược một số nguyên n bằng vòng while (ví dụ n = 123 thành 321). Đoạn nào đúng?`,
-    opts: [
-      `dao = 0\nwhile n > 0:\n    dao = dao * 10 + n % 10\n    n = n // 10\nprint(dao)`,
-      `dao = 0\nwhile n > 0:\n    dao += n % 10\n    n = n // 10`,
-      `dao = 0\nwhile n > 0:\n    dao = dao * 10 + n // 10\n    n = n % 10`,
-      `dao = 0\nwhile n > 0:\n    dao = n % 10 * 10 + dao\n    n = n // 10`
-    ],
-    ans: 0,
-    exp: `Mỗi vòng lấy chữ số cuối n % 10, dịch dao sang trái một chữ số (dao * 10) rồi cộng chữ số đó vào, sau đó bỏ chữ số cuối của n bằng n // 10.`
-  },
-  {
-    q: `Đoạn mã sau in ra các số từ 1 đến n, chỉ dừng lại (không in tiếp) ngay khi gặp số đầu tiên lớn hơn 50. Chọn đúng:`,
-    opts: [
-      `i = 1\nwhile i <= n:\n    if i > 50:\n        break\n    print(i)\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    print(i)\n    if i > 50:\n        break\n    i += 1`,
-      `i = 1\nwhile i <= n and i <= 50:\n    i += 1`,
-      `i = 1\nwhile i <= n:\n    if i <= 50:\n        break\n    print(i)\n    i += 1`
-    ],
-    ans: 0,
-    exp: `Kiểm tra điều kiện i > 50 trước khi in; nếu đúng thì break ngay để không in số đó và các số sau, đúng yêu cầu "không in tiếp ngay khi gặp".`
-  },
-  {
-    q: `Đoạn mã sau in ra số hoàn hảo đầu tiên lớn hơn 1 nhỏ hơn hoặc bằng n (số hoàn hảo là số bằng tổng các ước số thực sự của nó, ví dụ 6 = 1 + 2 + 3). Đoạn nào thể hiện đúng ý tưởng vòng while bên ngoài để duyệt từng số x từ 2 đến n?`,
-    opts: [
-      `x = 2\nwhile x <= n:\n    # tính tổng ước thực sự của x, so sánh với x\n    x += 1`,
-      `x = 2\nwhile x <= n:\n    x += 1\n    # tính tổng ước thực sự của x`,
-      `x = 1\nwhile x < n:\n    x += 1`,
-      `x = 2\nwhile x >= n:\n    x += 1`
-    ],
-    ans: 0,
-    exp: `Vòng while duyệt lần lượt từng số x từ 2 đến n, với mỗi x tính tổng các ước thực sự rồi so sánh với x trước khi tăng x lên 1.`
+    ans: 2,
+    exp: `Tính tích dồn thì khởi tạo p = 1 (vì nhân với 0 sẽ bằng 0), mỗi vòng p *= (n % 10) và n = n // 10.`
   }
 ];
 let questions = [];
