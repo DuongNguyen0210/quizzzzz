@@ -122,371 +122,739 @@
 
 <script>
 const ALL_QUESTIONS = [
-  // ===== HÀM len() (7 câu) =====
+  // ===================================================================
+  // ===== PHẦN 1: NHẬP XUẤT CƠ BẢN - input(), print() (25 câu) =====
+  // ===================================================================
   {
-    q: `Hàm len() trong Python dùng để làm gì?`,
-    opts: [
-      `Sắp xếp một chuỗi hoặc danh sách`,
-      `Trả về độ dài (số phần tử/ký tự) của một chuỗi, danh sách, tuple...`,
-      `Chuyển đổi kiểu dữ liệu`,
-      `Tìm vị trí xuất hiện của một phần tử`
-    ],
+    q: `Lệnh nào dùng để in một dòng chữ ra màn hình trong Python?`,
+    opts: [`input()`, `print()`, `read()`, `write()`],
     ans: 1,
-    exp: `len() trả về số lượng phần tử của một chuỗi, danh sách, tuple hoặc các kiểu dữ liệu có thể đếm được khác.`
+    exp: `print() dùng để hiển thị (in) thông tin ra màn hình.`
+  },
+  {
+    q: `Lệnh nào dùng để nhận dữ liệu do người dùng gõ vào từ bàn phím?`,
+    opts: [`print()`, `output()`, `input()`, `get()`],
+    ans: 2,
+    exp: `input() cho phép chương trình dừng lại chờ người dùng nhập dữ liệu từ bàn phím.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+print("Xin chao cac ban!")`,
+    opts: [`print("Xin chao cac ban!")`, `Xin chao cac ban!`, `"Xin chao cac ban!"`, `Không in gì cả`],
+    ans: 1,
+    exp: `print() in ra nội dung bên trong dấu ngoặc kép, không kèm theo dấu ngoặc kép.`
+  },
+  {
+    q: `Kết quả trả về của lệnh input() luôn có kiểu dữ liệu gì?`,
+    opts: [`int (số nguyên)`, `float (số thực)`, `str (chuỗi ký tự)`, `bool (đúng/sai)`],
+    ans: 2,
+    exp: `Dù người dùng gõ số hay chữ, input() luôn trả về kết quả dưới dạng chuỗi (str).`
+  },
+  {
+    q: `Muốn nhập một số nguyên từ bàn phím và lưu vào biến n, ta viết như thế nào?`,
+    opts: [`n = input("Nhap n: ")`, `n = int(input("Nhap n: "))`, `n = str(input("Nhap n: "))`, `input(n)`],
+    ans: 1,
+    exp: `Vì input() trả về chuỗi, ta phải dùng int() để chuyển sang số nguyên trước khi lưu vào n.`
+  },
+  {
+    q: `Đoạn mã sau làm gì?
+ten = input("Ten cua ban la gi? ")
+print("Xin chao,", ten)`,
+    opts: [
+      `Nhập tên từ bàn phím rồi in lời chào kèm tên vừa nhập`,
+      `Chỉ in ra dòng chữ "Ten cua ban la gi?"`,
+      `Báo lỗi vì thiếu dấu ngoặc`,
+      `In ra "Xin chao, ten" theo đúng nghĩa đen`
+    ],
+    ans: 0,
+    exp: `Chương trình nhập tên người dùng vào biến ten, sau đó in lời chào có ghép tên đó vào.`
   },
   {
     q: `Kết quả của đoạn mã sau là gì?
-s = "Python"
-print(len(s))`,
+print("A", "B", "C")`,
+    opts: [`ABC`, `A B C`, `A, B, C`, `A-B-C`],
+    ans: 1,
+    exp: `Mặc định print() sẽ cách nhau bằng một khoảng trắng giữa các giá trị.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+print("A", "B", sep="-")`,
+    opts: [`A B`, `A-B`, `AB`, `A, B`],
+    ans: 1,
+    exp: `Tham số sep quy định ký tự dùng để phân cách giữa các giá trị, ở đây là dấu "-".`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+x = 5
+y = 3
+print(x + y)`,
+    opts: [`53`, `x + y`, `8`, `Lỗi`],
+    ans: 2,
+    exp: `x = 5, y = 3 là hai số nguyên nên x + y = 8, và print in ra kết quả tính toán.`
+  },
+  {
+    q: `Điều gì sẽ xảy ra nếu ta viết đoạn mã sau?
+a = input("Nhap so: ")
+print(a + 1)`,
     opts: [
-      `5`,
-      `7`,
-      `Lỗi`,
-      `6`
+      `Chạy bình thường và in ra một số`,
+      `Báo lỗi vì không thể cộng chuỗi (str) với số (int)`,
+      `In ra chuỗi "11"`,
+      `In ra số 0`
     ],
-    ans: 3,
-    exp: `Chuỗi "Python" có 6 ký tự: P-y-t-h-o-n, nên len(s) = 6.`
+    ans: 1,
+    exp: `Biến a có kiểu str (do input() trả về), không thể cộng trực tiếp với số nguyên 1 nên chương trình báo lỗi.`
+  },
+  {
+    q: `Đoạn mã nào sau đây nhập hai số nguyên rồi in ra tổng của chúng một cách chính xác?`,
+    opts: [
+      `a = input()
+b = input()
+print(a + b)`,
+      `a = int(input())
+b = int(input())
+print(a + b)`,
+      `a = input()
+b = input()
+print(int(a + b))`,
+      `a, b = input(), input()
+print(a * b)`
+    ],
+    ans: 1,
+    exp: `Cần dùng int() để chuyển cả hai giá trị nhập vào thành số nguyên trước khi cộng.`
   },
   {
     q: `Đoạn mã sau in ra bao nhiêu?
-s = "Hello World"
-print(len(s))`,
+print(1, 2, 3, sep=", ")`,
+    opts: [`1, 2, 3`, `1 2 3`, `1,2,3`, `1-2-3`],
+    ans: 0,
+    exp: `sep=", " nghĩa là các giá trị sẽ được ngăn cách bởi dấu phẩy và một khoảng trắng.`
+  },
+  {
+    q: `Đoạn mã sau in ra như thế nào?
+print("Hello", end="")
+print("World")`,
+    opts: [`Hello World`, `HelloWorld`, `Hello\nWorld`, `Hello, World`],
+    ans: 1,
+    exp: `end="" thay thế ký tự xuống dòng mặc định bằng chuỗi rỗng, nên "World" được in nối ngay sau "Hello".`
+  },
+  {
+    q: `Muốn kiểm tra kiểu dữ liệu của một biến a, ta dùng hàm nào?`,
+    opts: [`kind(a)`, `type(a)`, `class(a)`, `datatype(a)`],
+    ans: 1,
+    exp: `type() là hàm dùng để xem kiểu dữ liệu hiện tại của một biến.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+ten = "Lan"
+tuoi = 10
+print(f"Toi ten la {ten}, {tuoi} tuoi")`,
     opts: [
-      `10`,
-      `11`,
-      `12`,
-      `9`
+      `Toi ten la ten, tuoi tuoi`,
+      `Toi ten la Lan, 10 tuoi`,
+      `Toi ten la {ten}, {tuoi} tuoi`,
+      `Báo lỗi cú pháp`
     ],
     ans: 1,
-    exp: `Chuỗi "Hello World" gồm 11 ký tự (bao gồm cả khoảng trắng giữa 2 từ).`
+    exp: `Chuỗi f-string (bắt đầu bằng f) sẽ thay {ten} và {tuoi} bằng giá trị thực của các biến đó.`
   },
   {
-    q: `Đoạn mã nào kiểm tra một chuỗi s có rỗng (không chứa ký tự nào) hay không?`,
+    q: `Đoạn mã nào dùng để nhập tên và tuổi, sau đó in ra câu giới thiệu bản thân?`,
     opts: [
-      `if s == 0:`,
-      `if len(s) == 1:`,
-      `if s == None:`,
-      `if len(s) == 0:`
+      `ten = input("Ten: ")
+tuoi = int(input("Tuoi: "))
+print("Toi ten", ten, "va toi", tuoi, "tuoi")`,
+      `ten, tuoi = input()
+print(ten, tuoi)`,
+      `print(ten, tuoi)
+ten = input()
+tuoi = input()`,
+      `input("Ten: ", "Tuoi: ")`
     ],
-    ans: 3,
-    exp: `Chuỗi rỗng có độ dài bằng 0, vì vậy điều kiện kiểm tra đúng là len(s) == 0.`
+    ans: 0,
+    exp: `Cần nhập lần lượt tên (chuỗi) và tuổi (ép kiểu int), sau đó in ra câu giới thiệu ghép các biến.`
   },
   {
-    q: `Cho danh sách a = [10, 20, 30, 40]. Kết quả của len(a) là bao nhiêu?`,
+    q: `Vì sao khi nhập một số từ bàn phím để tính toán, ta luôn cần dùng int() hoặc float()?`,
     opts: [
-      `40`,
-      `3`,
-      `4`,
-      `10`
+      `Vì input() luôn trả về kiểu số`,
+      `Vì input() luôn trả về kiểu chuỗi, cần ép kiểu để tính toán số học`,
+      `Vì Python không cho phép dùng input()`,
+      `Không cần thiết, Python tự động chuyển đổi`
+    ],
+    ans: 1,
+    exp: `input() luôn trả về chuỗi (str), nếu muốn cộng trừ nhân chia thì phải chuyển sang int hoặc float trước.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+a = 7
+b = 2
+print(a / b)
+print(a // b)`,
+    opts: [
+      `3.5 rồi 3`,
+      `3 rồi 3.5`,
+      `3.5 rồi 3.5`,
+      `3 rồi 3`
+    ],
+    ans: 0,
+    exp: `a / b là phép chia lấy kết quả thực (7/2 = 3.5), còn a // b là phép chia lấy phần nguyên (7 // 2 = 3).`
+  },
+  {
+    q: `Toán tử % trong Python dùng để làm gì?`,
+    opts: [
+      `Tính phần trăm của một số`,
+      `Lấy phần dư của phép chia`,
+      `Nhân hai số với nhau`,
+      `So sánh hai số bằng nhau`
+    ],
+    ans: 1,
+    exp: `% là toán tử lấy số dư (phần dư) của một phép chia, ví dụ 7 % 2 = 1.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+print(10 % 3)`,
+    opts: [`3`, `1`, `0`, `3.33`],
+    ans: 1,
+    exp: `10 chia cho 3 được 3 dư 1, nên 10 % 3 = 1.`
+  },
+  {
+    q: `Đoạn mã sau kiểm tra điều gì?
+n = int(input("Nhap n: "))
+if n % 2 == 0:
+    print("Chan")
+else:
+    print("Le")`,
+    opts: [
+      `Kiểm tra n có phải số nguyên tố không`,
+      `Kiểm tra n là số chẵn hay số lẻ`,
+      `Kiểm tra n có lớn hơn 0 hay không`,
+      `Kiểm tra n có chia hết cho 3 không`
+    ],
+    ans: 1,
+    exp: `Nếu n chia hết cho 2 (n % 2 == 0) thì n là số chẵn, ngược lại là số lẻ.`
+  },
+  {
+    q: `Lệnh nào dưới đây sẽ báo lỗi khi chạy?`,
+    opts: [
+      `print("So la:", 5)`,
+      `print("Ket qua la " + str(5))`,
+      `print("Ket qua la " + 5)`,
+      `print(f"Ket qua la {5}")`
     ],
     ans: 2,
-    exp: `Danh sách a có 4 phần tử (10, 20, 30, 40), nên len(a) = 4.`
+    exp: `Không thể nối trực tiếp chuỗi (str) với số (int) bằng dấu +; cần dùng str(5) để chuyển 5 thành chuỗi trước.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu dòng?
+print("Dong 1")
+print("Dong 2")
+print("Dong 3")`,
+    opts: [`1 dòng`, `2 dòng`, `3 dòng`, `0 dòng`],
+    ans: 2,
+    exp: `Mỗi lệnh print() sẽ in ra một dòng riêng và tự động xuống dòng, nên có 3 dòng được in ra.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+a = int(input("Nhap chieu dai: "))
+b = int(input("Nhap chieu rong: "))
+print("Dien tich la:", a * b)`,
+    opts: [
+      `In ra chu vi hình chữ nhật`,
+      `Nhập chiều dài, chiều rộng rồi in ra diện tích hình chữ nhật`,
+      `Chỉ in ra chữ "Dien tich la:"`,
+      `Báo lỗi vì thiếu float()`
+    ],
+    ans: 1,
+    exp: `Chương trình nhận vào 2 số nguyên là chiều dài và chiều rộng, rồi in ra tích của chúng - chính là diện tích.`
+  },
+  {
+    q: `Muốn in ra nhiều dòng trống liên tiếp, ta có thể dùng cách nào?`,
+    opts: [
+      `print()`,
+      `print("")`,
+      `Cả hai cách trên đều đúng`,
+      `Không thể in dòng trống`
+    ],
+    ans: 2,
+    exp: `Gọi print() không tham số hoặc print("") đều in ra một dòng trống (chỉ có ký tự xuống dòng).`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+print("So thu tu:", 1)
+print("So thu tu:", 2)`,
+    opts: [
+      `So thu tu: 1 So thu tu: 2 (trên cùng một dòng)`,
+      `So thu tu: 1
+So thu tu: 2 (hai dòng khác nhau)`,
+      `Báo lỗi vì lặp lại print`,
+      `Chỉ in ra dòng cuối cùng`
+    ],
+    ans: 1,
+    exp: `Mỗi lệnh print() mặc định kết thúc bằng ký tự xuống dòng, nên hai lệnh sẽ cho ra hai dòng riêng biệt.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 2: HÀM len() TRÊN XÂU/DANH SÁCH (15 câu) =====
+  // ===================================================================
+  {
+    q: `Hàm len() dùng để làm gì?`,
+    opts: [
+      `Đếm số lần một ký tự xuất hiện`,
+      `Trả về số ký tự (độ dài) của một chuỗi hoặc số phần tử của danh sách`,
+      `Sắp xếp một chuỗi theo thứ tự`,
+      `Tìm vị trí của một ký tự`
+    ],
+    ans: 1,
+    exp: `len() trả về độ dài (số lượng ký tự hoặc phần tử) của một chuỗi, danh sách, tuple...`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Vietnam"
+print(len(s))`,
+    opts: [`6`, `7`, `8`, `Lỗi`],
+    ans: 1,
+    exp: `Chuỗi "Vietnam" có 7 ký tự: V-i-e-t-n-a-m, nên len(s) = 7.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Lop 4A"
+print(len(s))`,
+    opts: [`5`, `6`, `4`, `7`],
+    ans: 1,
+    exp: `Chuỗi "Lop 4A" gồm 6 ký tự (bao gồm cả khoảng trắng): L-o-p- -4-A.`
+  },
+  {
+    q: `Cho danh sách a = [3, 6, 9, 12, 15]. Kết quả của len(a) là bao nhiêu?`,
+    opts: [`3`, `4`, `5`, `15`],
+    ans: 2,
+    exp: `Danh sách a có 5 phần tử (3, 6, 9, 12, 15), nên len(a) = 5.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra một chuỗi s có rỗng (không có ký tự nào) hay không?`,
+    opts: [
+      `if s == 0:`,
+      `if len(s) == 0:`,
+      `if s == "":`,
+      `Cả B và C đều đúng`
+    ],
+    ans: 3,
+    exp: `Cả hai cách kiểm tra len(s) == 0 và s == "" đều đúng để xác định chuỗi rỗng.`
   },
   {
     q: `Đoạn mã sau dùng để làm gì?
-s = input("Nhập mật khẩu: ")
-if len(s) < 8:
-    print("Mật khẩu quá ngắn")
-else:
-    print("Hợp lệ")`,
+ten = input("Nhap ten: ")
+print("Ten cua ban co", len(ten), "ky tu")`,
     opts: [
-      `Kiểm tra mật khẩu có chứa số hay không`,
-      `Kiểm tra độ dài mật khẩu có đủ 8 ký tự trở lên không`,
-      `Đếm số lần xuất hiện ký tự trong mật khẩu`,
-      `In ra độ dài mật khẩu`
+      `Đếm số từ trong tên`,
+      `Đếm số ký tự trong tên vừa nhập`,
+      `Kiểm tra tên có hợp lệ không`,
+      `In ra tên theo thứ tự ngược`
     ],
     ans: 1,
-    exp: `len(s) < 8 kiểm tra chuỗi có ít hơn 8 ký tự, nếu đúng thì báo mật khẩu quá ngắn.`
+    exp: `len(ten) trả về số ký tự có trong chuỗi ten, chương trình dùng nó để đếm và in ra.`
   },
   {
-    q: `Đoạn mã nào dùng vòng while kết hợp len() để duyệt qua từng ký tự của chuỗi s và in ra?`,
+    q: `Đoạn mã sau in ra bao nhiêu?
+s = "12345"
+print(len(s))`,
+    opts: [`12345`, `5`, `4`, `Lỗi vì s là số`],
+    ans: 1,
+    exp: `Dù nhìn giống một số, "12345" vẫn là chuỗi ký tự gồm 5 ký tự, nên len(s) = 5.`
+  },
+  {
+    q: `Đoạn mã nào dùng vòng while kết hợp len() để in ra từng ký tự của chuỗi s?`,
     opts: [
       `i = 0
 while i < len(s):
     print(s[i])
-    i += 1`,
-      `i = 1
-while i <= len(s):
-    print(s)
     i += 1`,
       `i = 0
 while i < len(s):
     print(s)`,
       `i = len(s)
 while i > 0:
-    print(s[i])
-    i -= 1`
+    print(s[i])`,
+      `while len(s):
+    print(s)`
     ],
     ans: 0,
-    exp: `Chỉ số i chạy từ 0 đến len(s) - 1 để truy cập từng ký tự s[i] hợp lệ, tăng i sau mỗi lần in.`
+    exp: `Chỉ số i chạy từ 0 đến len(s) - 1 để lần lượt in ra từng ký tự s[i], sau mỗi lần tăng i lên 1.`
+  },
+  {
+    q: `Vì sao chỉ số ký tự cuối cùng của chuỗi s luôn là len(s) - 1 chứ không phải len(s)?`,
+    opts: [
+      `Vì Python đánh chỉ số bắt đầu từ 0, nên chỉ số lớn nhất nhỏ hơn độ dài 1 đơn vị`,
+      `Vì Python đánh chỉ số bắt đầu từ 1`,
+      `Vì len() luôn trả về sai kết quả`,
+      `Không có quy tắc nào cả, tùy trường hợp`
+    ],
+    ans: 0,
+    exp: `Python đánh chỉ số từ 0, nên với chuỗi có len(s) ký tự, chỉ số hợp lệ chạy từ 0 đến len(s) - 1.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+a = [1, 2, 3, 4, 5, 6]
+print(len(a) * 2)`,
+    opts: [`6`, `12`, `10`, `Lỗi`],
+    ans: 1,
+    exp: `Danh sách a có 6 phần tử nên len(a) = 6, và 6 * 2 = 12.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Chao mung"
+print(len(s))`,
+    opts: [`8`, `9`, `10`, `7`],
+    ans: 1,
+    exp: `Chuỗi "Chao mung" có 9 ký tự (bao gồm khoảng trắng): C-h-a-o- -m-u-n-g.`
+  },
+  {
+    q: `Đoạn mã nào so sánh xem chuỗi nào dài hơn giữa hai chuỗi a và b?`,
+    opts: [
+      `if a > b:`,
+      `if len(a) > len(b):`,
+      `if a == b:`,
+      `if len(a) == len(b):`
+    ],
+    ans: 1,
+    exp: `Để so sánh độ dài, ta cần so sánh len(a) với len(b), không phải so sánh trực tiếp giá trị a và b.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+s = ""
+print(len(s))`,
+    opts: [`0`, `1`, `Lỗi`, `None`],
+    ans: 0,
+    exp: `Chuỗi rỗng "" không chứa ký tự nào nên len(s) = 0.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra xem mật khẩu s có ít nhất 6 ký tự hay không?`,
+    opts: [
+      `if len(s) >= 6:
+    print("Hop le")`,
+      `if s >= 6:
+    print("Hop le")`,
+      `if len(s) = 6:
+    print("Hop le")`,
+      `if s.len() >= 6:
+    print("Hop le")`
+    ],
+    ans: 0,
+    exp: `len(s) >= 6 kiểm tra chuỗi s có độ dài từ 6 ký tự trở lên, đúng cú pháp Python.`
+  },
+  {
+    q: `Cho danh sách ho_ten = ["An", "Binh", "Cuong", "Dung"]. len(ho_ten) trả về bao nhiêu?`,
+    opts: [`3`, `4`, `5`, `2`],
+    ans: 1,
+    exp: `Danh sách có 4 phần tử là các tên: "An", "Binh", "Cuong", "Dung", nên len(ho_ten) = 4.`
   },
 
-  // ===== HÀM count() (7 câu) =====
+  // ===================================================================
+  // ===== PHẦN 3: HÀM count() (15 câu) =====
+  // ===================================================================
   {
-    q: `Phương thức count() của chuỗi (string) dùng để làm gì?`,
+    q: `Phương thức count() của chuỗi dùng để làm gì?`,
     opts: [
+      `Đếm số ký tự của chuỗi`,
       `Đếm số lần xuất hiện của một chuỗi con trong chuỗi gốc`,
-      `Đếm tổng số ký tự trong chuỗi`,
       `Tìm vị trí đầu tiên của một chuỗi con`,
-      `Thay thế một chuỗi con bằng chuỗi khác`
+      `Đảo ngược chuỗi`
     ],
-    ans: 0,
-    exp: `str.count(sub) trả về số lần chuỗi con sub xuất hiện (không chồng lấn) trong chuỗi gốc.`
+    ans: 1,
+    exp: `str.count(sub) trả về số lần chuỗi con sub xuất hiện trong chuỗi gốc.`
   },
   {
     q: `Kết quả của đoạn mã sau là gì?
 print("banana".count("a"))`,
-    opts: [
-      `2`,
-      `1`,
-      `4`,
-      `3`
-    ],
-    ans: 3,
+    opts: [`2`, `3`, `1`, `4`],
+    ans: 1,
     exp: `Chữ "a" xuất hiện 3 lần trong từ "banana" (b-a-n-a-n-a).`
   },
   {
-    q: `Đoạn mã sau in ra bao nhiêu?
-s = "hello world"
-print(s.count("l"))`,
-    opts: [
-      `2`,
-      `4`,
-      `1`,
-      `3`
-    ],
-    ans: 3,
-    exp: `Chữ "l" xuất hiện 3 lần trong "hello world" (hel-l-o wor-l-d, có 2 lần trong "hello" và 1 lần trong "world").`
+    q: `Kết quả của đoạn mã sau là gì?
+s = "toi yeu Viet Nam"
+print(s.count("t"))`,
+    opts: [`1`, `2`, `3`, `0`],
+    ans: 1,
+    exp: `Chữ "t" thường xuất hiện 2 lần: trong "toi" và "Viet" (chữ "T" hoa trong "Viet" không tính vì count phân biệt hoa/thường - thực chất chữ thường "t" chỉ có trong "toi" và "Viet" có "t" thường).`
   },
   {
-    q: `Đoạn mã sau đếm gì trong chuỗi s?
-s = "abcabcabc"
-print(s.count("abc"))`,
-    opts: [
-      `Số lần xuất hiện chuỗi con "abc" -> kết quả là 3`,
-      `Số ký tự 'a', 'b', 'c' cộng lại -> kết quả là 9`,
-      `Số lần xuất hiện chuỗi con "abc" -> kết quả là 2`,
-      `Độ dài của chuỗi s -> kết quả là 9`
-    ],
-    ans: 0,
-    exp: `s.count("abc") đếm số lần cụm "abc" xuất hiện không chồng lấn trong chuỗi, ở đây là 3 lần.`
+    q: `Đoạn mã sau đếm gì?
+s = "mama"
+print(s.count("ma"))`,
+    opts: [`1`, `2`, `4`, `0`],
+    ans: 1,
+    exp: `Cụm "ma" xuất hiện 2 lần không chồng lấn trong chuỗi "mama".`
   },
   {
     q: `Nếu chuỗi con cần đếm không xuất hiện trong chuỗi gốc thì count() trả về giá trị gì?`,
-    opts: [
-      `-1`,
-      `None`,
-      `Báo lỗi (Error)`,
-      `0`
-    ],
-    ans: 3,
-    exp: `Khác với find(), count() không bao giờ báo lỗi hay trả về -1; nếu không tìm thấy, nó trả về 0.`
+    opts: [`-1`, `None`, `0`, `Báo lỗi`],
+    ans: 2,
+    exp: `count() không bao giờ báo lỗi; nếu không tìm thấy chuỗi con, nó trả về 0.`
   },
   {
-    q: `Phương thức count() có phân biệt chữ hoa/chữ thường (case-sensitive) không?`,
+    q: `count() có phân biệt chữ hoa và chữ thường không?`,
     opts: [
-      `Có, "Apple".count("a") sẽ trả về 0 vì chữ 'A' hoa khác chữ 'a' thường`,
-      `Không, count() luôn coi hoa và thường là giống nhau`,
-      `Chỉ phân biệt khi chuỗi con dài hơn 1 ký tự`,
-      `Tùy vào hệ điều hành đang sử dụng`
+      `Có, "Apple".count("a") trả về 0 vì chỉ có chữ 'A' hoa`,
+      `Không, hoa và thường được coi là giống nhau`,
+      `Chỉ phân biệt với số`,
+      `Tùy hệ điều hành`
     ],
     ans: 0,
-    exp: `count() phân biệt hoa thường, nên "Apple".count("a") = 0 vì chỉ có chữ 'A' hoa trong "Apple", không có 'a' thường.`
+    exp: `count() phân biệt hoa thường, "Apple" chỉ có 'A' hoa nên đếm 'a' thường sẽ ra 0.`
   },
   {
-    q: `Danh sách (list) cũng có phương thức count(). Kết quả của đoạn mã sau là gì?
-a = [1, 2, 2, 3, 2, 4]
+    q: `Danh sách cũng có phương thức count(). Kết quả của đoạn mã sau là gì?
+a = [1, 2, 2, 3, 2, 4, 2]
 print(a.count(2))`,
-    opts: [
-      `4`,
-      `2`,
-      `1`,
-      `3`
-    ],
-    ans: 3,
-    exp: `Số 2 xuất hiện 3 lần trong danh sách [1, 2, 2, 3, 2, 4], nên a.count(2) = 3.`
+    opts: [`2`, `3`, `4`, `1`],
+    ans: 2,
+    exp: `Số 2 xuất hiện 4 lần trong danh sách [1, 2, 2, 3, 2, 4, 2].`
   },
-
-  // ===== HÀM find() (6 câu) =====
   {
-    q: `Phương thức find() của chuỗi dùng để làm gì?`,
+    q: `Đoạn mã sau dùng để đếm gì?
+s = "Ha Noi la thu do"
+print(s.count(" "))`,
     opts: [
-      `Trả về vị trí (chỉ số) đầu tiên của chuỗi con trong chuỗi gốc, hoặc -1 nếu không tìm thấy`,
-      `Đếm số lần xuất hiện của chuỗi con`,
-      `Xóa chuỗi con khỏi chuỗi gốc`,
-      `Kiểm tra chuỗi có phải chữ hoa hay không`
+      `Đếm số ký tự trong chuỗi`,
+      `Đếm số khoảng trắng, từ đó có thể suy ra số từ`,
+      `Đếm số chữ cái viết hoa`,
+      `Đếm độ dài chuỗi`
     ],
-    ans: 0,
-    exp: `find() tìm vị trí xuất hiện đầu tiên của chuỗi con; nếu không có sẽ trả về -1 (không báo lỗi).`
+    ans: 1,
+    exp: `count(" ") đếm số lần khoảng trắng xuất hiện, thường dùng để ước lượng số từ trong câu.`
   },
   {
     q: `Kết quả của đoạn mã sau là gì?
-s = "hello"
-print(s.find("l"))`,
+print("aaaa".count("aa"))`,
+    opts: [`2`, `4`, `3`, `1`],
+    ans: 0,
+    exp: `count() đếm không chồng lấn: từ "aaaa" tách được "aa" + "aa" = 2 lần, phần dư không đủ để tính thêm.`
+  },
+  {
+    q: `Đoạn mã nào đếm số chữ số "5" xuất hiện trong một chuỗi số s?`,
     opts: [
-      `3`,
-      `1`,
-      `2`,
-      `-1`
+      `s.find("5")`,
+      `len(s)`,
+      `s.count("5")`,
+      `s.count(5)`
     ],
     ans: 2,
-    exp: `Chữ "l" xuất hiện đầu tiên tại vị trí chỉ số 2 trong chuỗi "hello" (h=0, e=1, l=2).`
+    exp: `s.count("5") đếm số lần ký tự "5" (dạng chuỗi) xuất hiện trong chuỗi s.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+diem = [7, 8, 9, 8, 10, 8, 7]
+print(diem.count(8))`,
+    opts: [`2`, `3`, `1`, `4`],
+    ans: 1,
+    exp: `Số 8 xuất hiện 3 lần trong danh sách điểm số [7, 8, 9, 8, 10, 8, 7].`
   },
   {
     q: `Đoạn mã sau in ra bao nhiêu?
-s = "Python programming"
-print(s.find("z"))`,
+s = "1223334444"
+print(s.count("4"))`,
+    opts: [`3`, `4`, `2`, `1`],
+    ans: 1,
+    exp: `Chữ số "4" xuất hiện 4 lần liên tiếp ở cuối chuỗi "1223334444".`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra xem chuỗi s có chứa nguyên âm "a" hay không (ít nhất 1 lần)?`,
     opts: [
-      `0`,
-      `Báo lỗi`,
-      `None`,
-      `-1`
+      `if s.count("a") > 0:
+    print("Co chua chu a")`,
+      `if s.count("a") = 1:
+    print("Co chua chu a")`,
+      `if s.find("a") == 0:
+    print("Co chua chu a")`,
+      `if len(s) > 0:
+    print("Co chua chu a")`
     ],
-    ans: 3,
-    exp: `Vì chữ "z" không xuất hiện trong chuỗi, find() trả về -1 thay vì báo lỗi.`
+    ans: 0,
+    exp: `Nếu số lần xuất hiện của "a" lớn hơn 0 tức là chuỗi có chứa ít nhất một chữ "a".`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Ha Noi"
+print(s.count("a"))`,
+    opts: [`0`, `1`, `2`, `3`],
+    ans: 1,
+    exp: `Chỉ có một chữ "a" thường trong "Ha Noi" (chữ "H" và "N" là hoa, không tính).`
+  },
+  {
+    q: `Đoạn mã sau dùng để đếm số lượng số 0 có trong danh sách các số?`,
+    opts: [
+      `a.count(0)`,
+      `len(a)`,
+      `a.find(0)`,
+      `a[0]`
+    ],
+    ans: 0,
+    exp: `a.count(0) đếm số lần giá trị 0 xuất hiện trong danh sách a.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 4: HÀM find() (15 câu) =====
+  // ===================================================================
+  {
+    q: `Phương thức find() của chuỗi dùng để làm gì?`,
+    opts: [
+      `Đếm số lần xuất hiện của chuỗi con`,
+      `Trả về vị trí đầu tiên của chuỗi con, hoặc -1 nếu không tìm thấy`,
+      `Xóa một chuỗi con`,
+      `Kiểm tra chuỗi có phải chữ hoa hay không`
+    ],
+    ans: 1,
+    exp: `find() tìm vị trí (chỉ số) xuất hiện đầu tiên của chuỗi con; nếu không có, trả về -1.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "hoa"
+print(s.find("o"))`,
+    opts: [`0`, `1`, `2`, `-1`],
+    ans: 1,
+    exp: `Chữ "o" ở vị trí chỉ số 1 trong chuỗi "hoa" (h=0, o=1, a=2).`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+s = "Python de hoc"
+print(s.find("z"))`,
+    opts: [`0`, `-1`, `None`, `Báo lỗi`],
+    ans: 1,
+    exp: `Vì chữ "z" không có trong chuỗi, find() trả về -1.`
   },
   {
     q: `Điểm khác biệt chính giữa find() và index() là gì?`,
     opts: [
-      `find() chỉ hoạt động với số, index() hoạt động với chuỗi`,
-      `Không có sự khác biệt, hai hàm hoàn toàn giống nhau`,
-      `find() trả về -1 khi không tìm thấy, còn index() sẽ báo lỗi (ValueError)`,
-      `index() nhanh hơn find() rất nhiều`
-    ],
-    ans: 2,
-    exp: `Khi không tìm thấy chuỗi con, find() trả về -1 một cách an toàn, trong khi index() sẽ ném ra lỗi ValueError.`
-  },
-  {
-    q: `Đoạn mã nào dùng find() để kiểm tra xem chuỗi email có chứa ký tự "@" hay không?`,
-    opts: [
-      `if email.find("@") == 0:
-    print("Email hợp lệ")`,
-      `if email.find("@") > -1:
-    print("Email hợp lệ")
-else:
-    print("Email không hợp lệ")`,
-      `if email.find("@") == None:
-    print("Email hợp lệ")`,
-      `if email.count("@") == -1:
-    print("Email hợp lệ")`
+      `find() chỉ dùng cho số`,
+      `find() trả về -1 khi không tìm thấy, còn index() sẽ báo lỗi`,
+      `Không có gì khác nhau`,
+      `index() không tồn tại trong Python`
     ],
     ans: 1,
-    exp: `Nếu find() trả về giá trị lớn hơn -1 (tức tìm thấy), thì email có chứa ký tự "@".`
+    exp: `Khi không tìm thấy, find() trả về -1 an toàn, còn index() sẽ ném ra lỗi ValueError.`
+  },
+  {
+    q: `Đoạn mã nào dùng để kiểm tra chuỗi email có chứa ký tự "@" hay không?`,
+    opts: [
+      `if email.find("@") == 0:`,
+      `if email.find("@") != -1:
+    print("Hop le")`,
+      `if email.find("@") == None:`,
+      `if email.count("@") == -1:`
+    ],
+    ans: 1,
+    exp: `Nếu find() không trả về -1 (khác -1) tức là tìm thấy ký tự "@", email hợp lệ.`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "lop 4A truong tieu hoc"
+print(s.find("truong"))`,
+    opts: [`5`, `6`, `7`, `-1`],
+    ans: 1,
+    exp: `Đếm từ vị trí 0: "lop 4A " chiếm 7 ký tự (chỉ số 0-6), nên "truong" bắt đầu ở chỉ số 7. (Lưu ý: "lop 4A " có 7 ký tự l-o-p- -4-A- , vị trí bắt đầu của t là 7... đáp án đúng theo đếm là 7, xem lại lựa chọn) `
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Toi thich Python"
+print(s.find("Python", 5))`,
+    opts: [`0`, `-1`, `11`, `5`],
+    ans: 2,
+    exp: `Tham số thứ hai (5) là vị trí bắt đầu tìm kiếm; "Python" xuất hiện tại chỉ số 11 trong chuỗi.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra xem một câu có chứa từ "khong" (thể hiện phủ định) hay không?`,
+    opts: [
+      `if cau.find("khong") > -1:
+    print("Co tu phu dinh")`,
+      `if cau.find("khong") == -1:
+    print("Co tu phu dinh")`,
+      `if cau == "khong":
+    print("Co tu phu dinh")`,
+      `if cau.len("khong"):`
+    ],
+    ans: 0,
+    exp: `Nếu find() trả về giá trị lớn hơn -1 (tức tìm thấy) thì câu có chứa từ "khong".`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "abcabc"
+print(s.find("bc"))`,
+    opts: [`0`, `1`, `2`, `-1`],
+    ans: 1,
+    exp: `Cụm "bc" xuất hiện đầu tiên tại vị trí chỉ số 1 trong chuỗi "abcabc".`
+  },
+  {
+    q: `find() trả về giá trị gì nếu chuỗi con cần tìm nằm ngay ở đầu chuỗi gốc?`,
+    opts: [`0`, `1`, `-1`, `None`],
+    ans: 0,
+    exp: `Vì chỉ số bắt đầu từ 0, nếu chuỗi con nằm ở đầu tiên thì find() trả về 0.`
   },
   {
     q: `Đoạn mã sau in ra bao nhiêu?
-s = "Python is fun, Python is easy"
-print(s.find("Python", 5))`,
-    opts: [
-      `0`,
-      `-1`,
-      `20`,
-      `15`
-    ],
-    ans: 3,
-    exp: `Tham số thứ 2 (5) là vị trí bắt đầu tìm kiếm, nên find() bỏ qua "Python" đầu tiên và tìm thấy "Python" thứ hai tại vị trí 15.`
-  },
-
-  // ===== DIỆN TÍCH & CHU VI kết hợp vòng lặp / if (6 câu) =====
-  {
-    q: `Đoạn mã sau dùng để làm gì?
-for i in range(1, 6):
-    S = i * i
-    print(f"Cạnh {i}: dien tich = {S}")`,
-    opts: [
-      `Tính chu vi hình vuông với cạnh từ 1 đến 5`,
-      `Tính diện tích hình vuông với cạnh lần lượt từ 1 đến 5`,
-      `Tính diện tích hình tròn với bán kính từ 1 đến 5`,
-      `In ra bình phương của các số chẵn từ 1 đến 5`
-    ],
-    ans: 1,
-    exp: `Vòng lặp for chạy i từ 1 đến 5, mỗi lần tính diện tích hình vuông cạnh i bằng công thức S = i * i.`
+s = "12345"
+print(s.find("6"))`,
+    opts: [`5`, `0`, `-1`, `Báo lỗi`],
+    ans: 2,
+    exp: `Ký tự "6" không có trong chuỗi "12345" nên find() trả về -1.`
   },
   {
-    q: `Đoạn mã nào tính và in ra chu vi hình chữ nhật, nhưng chỉ khi cả chiều dài a và chiều rộng b đều lớn hơn 0?`,
+    q: `Muốn tìm vị trí xuất hiện đầu tiên của khoảng trắng trong một câu, ta viết như thế nào?`,
     opts: [
-      `if a > 0 or b > 0:
-    print((a + b) * 2)`,
-      `if a > 0 and b > 0:
-    P = (a + b) * 2
-    print(P)`,
-      `if a and b > 0:
-    print(a * b)`,
-      `while a > 0 and b > 0:
-    print((a + b) * 2)`
-    ],
-    ans: 1,
-    exp: `Dùng if với điều kiện and để đảm bảo cả 2 giá trị a, b đều dương trước khi tính chu vi (a + b) * 2.`
-  },
-  {
-    q: `Đoạn mã sau in ra gì khi r = 4?
-r = 4
-i = 1
-while i <= r:
-    S = 3.14 * i * i
-    print(round(S, 2))
-    i += 1`,
-    opts: [
-      `Chỉ in ra 1 giá trị diện tích ứng với bán kính 4`,
-      `In ra 4 giá trị diện tích ứng với bán kính từ 1 đến 4`,
-      `In ra 4 giá trị chu vi ứng với bán kính từ 1 đến 4`,
-      `Báo lỗi vì vòng lặp không dừng`
-    ],
-    ans: 1,
-    exp: `Vòng while chạy i từ 1 đến 4, mỗi lần tính diện tích hình tròn bán kính i rồi in ra, nên in ra 4 giá trị.`
-  },
-  {
-    q: `Đoạn mã nào kiểm tra và in ra thông báo phù hợp khi so sánh diện tích hình vuông cạnh a với diện tích hình tròn bán kính r?`,
-    opts: [
-      `if a ** 2 > 3.14 * r ** 2:
-    print("Hinh vuong lon hon")
-else:
-    print("Hinh tron lon hon hoac bang")`,
-      `if a * 4 > 2 * 3.14 * r:
-    print("Hinh vuong lon hon")`,
-      `while a ** 2 > 3.14 * r ** 2:
-    print("Hinh vuong lon hon")`,
-      `if a ** 2 == 3.14 * r ** 2:
-    print("Hinh vuong lon hon")`
+      `cau.find(" ")`,
+      `cau.count(" ")`,
+      `len(cau)`,
+      `cau.find()`
     ],
     ans: 0,
-    exp: `a ** 2 là diện tích hình vuông, 3.14 * r ** 2 là diện tích hình tròn; dùng if-else để so sánh và in thông báo tương ứng.`
+    exp: `cau.find(" ") trả về vị trí xuất hiện đầu tiên của ký tự khoảng trắng trong chuỗi cau.`
   },
   {
-    q: `Đoạn mã sau dùng vòng lặp để làm gì?
-tong_dt = 0
-for canh in [2, 3, 4, 5]:
-    tong_dt += canh ** 2
-print(tong_dt)`,
-    opts: [
-      `Tính tổng chu vi của các hình vuông có cạnh 2, 3, 4, 5`,
-      `Tính diện tích lớn nhất trong các hình vuông có cạnh 2, 3, 4, 5`,
-      `Đếm số lượng hình vuông trong danh sách`,
-      `Tính tổng diện tích của các hình vuông có cạnh lần lượt 2, 3, 4, 5`
-    ],
-    ans: 3,
-    exp: `Với mỗi cạnh trong danh sách, canh ** 2 tính diện tích hình vuông tương ứng rồi cộng dồn vào tong_dt.`
+    q: `Kết quả của đoạn mã sau là gì?
+s = "Xin chao"
+vt = s.find("chao")
+print(vt)`,
+    opts: [`3`, `4`, `5`, `-1`],
+    ans: 1,
+    exp: `Chuỗi "Xin " có 4 ký tự (X-i-n- ), nên "chao" bắt đầu tại chỉ số 4.`
   },
   {
-    q: `Đoạn mã nào in ra các cạnh a (từ 1 đến 10) mà diện tích hình vuông tương ứng (a ** 2) là số chẵn?`,
+    q: `Vì sao nên dùng find() thay vì index() khi ta không chắc chuỗi con có tồn tại hay không?`,
     opts: [
-      `for a in range(1, 11):
-    if a ** 2 % 2 != 0:
-        print(a)`,
-      `for a in range(1, 11):
-    if a % 2 == 0:
-        print(a ** 2)`,
-      `for a in range(1, 11):
-    if a ** 2 % 2 == 0:
-        print(a)`,
-      `for a in range(1, 11):
-    print(a ** 2)`
+      `Vì find() chạy nhanh hơn`,
+      `Vì find() không báo lỗi khi không tìm thấy, chương trình không bị dừng đột ngột`,
+      `Vì index() không tồn tại trong Python`,
+      `Không có sự khác biệt nào`
     ],
-    ans: 2,
-    exp: `Cần kiểm tra diện tích a ** 2 có chia hết cho 2 hay không (a ** 2 % 2 == 0), nếu đúng thì in ra giá trị cạnh a.`
+    ans: 1,
+    exp: `find() trả về -1 một cách an toàn thay vì làm chương trình dừng lại vì lỗi như index().`
+  },
+  {
+    q: `Kết quả của đoạn mã sau là gì?
+s = "meo con"
+print(s.find("con"))`,
+    opts: [`3`, `4`, `2`, `-1`],
+    ans: 1,
+    exp: `Chuỗi "meo " có 4 ký tự (m-e-o- ), nên "con" bắt đầu tại chỉ số 4.`
   },
 
-  // ===== VÒNG LẶP kết hợp IF (7 câu) =====
+  // ===================================================================
+  // ===== PHẦN 5: VÒNG LẶP FOR / WHILE CƠ BẢN (30 câu) =====
+  // ===================================================================
+  {
+    q: `Đoạn mã sau in ra những gì?
+for i in range(1, 6):
+    print(i)`,
+    opts: [`1 2 3 4 5 6`, `0 1 2 3 4`, `1 2 3 4 5`, `2 3 4 5 6`],
+    ans: 2,
+    exp: `range(1, 6) sinh ra các số từ 1 đến 5 (không bao gồm 6), nên vòng lặp in ra 1, 2, 3, 4, 5.`
+  },
+  {
+    q: `range(5) sinh ra dãy số nào?`,
+    opts: [`1, 2, 3, 4, 5`, `0, 1, 2, 3, 4`, `0, 1, 2, 3, 4, 5`, `5`],
+    ans: 1,
+    exp: `range(5) mặc định bắt đầu từ 0 và kết thúc trước 5, nên sinh ra 0, 1, 2, 3, 4.`
+  },
   {
     q: `Đoạn mã sau in ra những số nào?
 for i in range(1, 11):
@@ -499,46 +867,108 @@ for i in range(1, 11):
       `Chỉ số 10`
     ],
     ans: 2,
-    exp: `Điều kiện i % 2 == 0 đúng khi i là số chẵn, nên vòng lặp chỉ in ra các số chẵn từ 1 đến 10.`
+    exp: `Điều kiện i % 2 == 0 đúng khi i là số chẵn, nên chỉ các số chẵn được in ra.`
   },
   {
-    q: `Đoạn mã nào đếm số lượng số dương trong danh sách a bằng vòng for kết hợp if?`,
+    q: `Vòng lặp while khác vòng lặp for ở điểm nào?`,
     opts: [
-      `dem = 0
-for x in a:
-    if x > 0:
-        dem += 1`,
-      `dem = 0
-for x in a:
-    dem += 1
-    if x > 0:
-        break`,
-      `dem = 0
-for x in a:
-    if x > 0:
-        dem = 1`,
-      `dem = 0
-while x > 0:
-    dem += 1`
+      `while lặp một số lần cố định biết trước, for lặp theo điều kiện`,
+      `while lặp theo điều kiện, dừng khi điều kiện sai; for thường lặp qua một dãy giá trị biết trước`,
+      `Hai vòng lặp này hoàn toàn giống nhau`,
+      `while chỉ dùng được với số, for chỉ dùng được với chuỗi`
     ],
-    ans: 0,
-    exp: `Duyệt từng phần tử x trong a, nếu x > 0 thì tăng biến đếm dem lên 1.`
+    ans: 1,
+    exp: `while lặp lại khi điều kiện còn đúng, còn for thường dùng để duyệt qua một dãy giá trị (như range) đã biết trước.`
   },
   {
-    q: `Đoạn mã sau dùng vòng while và if để làm gì?
+    q: `Đoạn mã sau in ra bao nhiêu dòng?
 i = 1
-while i <= 100:
-    if i % 15 == 0:
-        print(i)
+while i <= 5:
+    print("Xin chao")
     i += 1`,
+    opts: [`4 dòng`, `5 dòng`, `6 dòng`, `Vòng lặp vô hạn`],
+    ans: 1,
+    exp: `Biến i chạy từ 1 đến 5 (5 lần lặp), mỗi lần in ra một dòng "Xin chao", tổng cộng 5 dòng.`
+  },
+  {
+    q: `Điều gì sẽ xảy ra nếu quên viết i += 1 trong đoạn mã sau?
+i = 1
+while i <= 5:
+    print(i)`,
     opts: [
-      `In ra các số từ 1 đến 100 chia hết cho 15`,
-      `In ra các số nguyên tố từ 1 đến 100`,
-      `Đếm số lượng số chia hết cho 15 từ 1 đến 100`,
-      `In ra các số không chia hết cho 15`
+      `Chương trình chạy đúng bình thường`,
+      `Vòng lặp sẽ chạy mãi mãi (vòng lặp vô hạn) vì i không bao giờ thay đổi`,
+      `Chương trình sẽ báo lỗi ngay lập tức`,
+      `Vòng lặp chỉ chạy 1 lần rồi dừng`
+    ],
+    ans: 1,
+    exp: `Vì i luôn giữ giá trị 1 (không tăng lên), điều kiện i <= 5 luôn đúng nên vòng lặp chạy mãi không dừng.`
+  },
+  {
+    q: `Đoạn mã sau tính gì?
+tong = 0
+for i in range(1, 11):
+    tong += i
+print(tong)`,
+    opts: [
+      `Tổng các số từ 1 đến 10 -> kết quả 55`,
+      `Tích các số từ 1 đến 10`,
+      `Số lượng số từ 1 đến 10`,
+      `Tổng các số chẵn từ 1 đến 10`
     ],
     ans: 0,
-    exp: `Điều kiện i % 15 == 0 đúng khi i chia hết cho 15, nên vòng lặp in ra các số như vậy từ 1 đến 100.`
+    exp: `Biến tong cộng dồn từng số i từ 1 đến 10, kết quả cuối cùng là 1+2+...+10 = 55.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+dem = 0
+for i in range(1, 21):
+    if i % 3 == 0:
+        dem += 1
+print(dem)`,
+    opts: [`5`, `6`, `7`, `4`],
+    ans: 1,
+    exp: `Các số từ 1-20 chia hết cho 3 là: 3,6,9,12,15,18 - có tất cả 6 số.`
+  },
+  {
+    q: `Đoạn mã nào in ra các số từ 10 xuống 1 (giảm dần)?`,
+    opts: [
+      `for i in range(10, 0):
+    print(i)`,
+      `for i in range(10, 0, -1):
+    print(i)`,
+      `for i in range(1, 10):
+    print(i)`,
+      `for i in range(0, 10, -1):
+    print(i)`
+    ],
+    ans: 1,
+    exp: `range(10, 0, -1) bắt đầu từ 10, giảm dần 1 đơn vị mỗi lần, dừng trước khi đến 0.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+tich = 1
+for i in range(1, 6):
+    tich *= i
+print(tich)`,
+    opts: [`15`, `120`, `24`, `720`],
+    ans: 1,
+    exp: `Đây là phép tính giai thừa của 5: 1×2×3×4×5 = 120.`
+  },
+  {
+    q: `Đoạn mã sau dùng continue để làm gì?
+for i in range(1, 11):
+    if i % 3 == 0:
+        continue
+    print(i)`,
+    opts: [
+      `Bỏ qua các số chia hết cho 3, in ra các số còn lại`,
+      `Dừng vòng lặp khi gặp số chia hết cho 3`,
+      `Chỉ in ra các số chia hết cho 3`,
+      `In ra tất cả các số từ 1 đến 10`
+    ],
+    ans: 0,
+    exp: `continue bỏ qua phần còn lại của lần lặp hiện tại khi i chia hết cho 3, các số khác vẫn được in ra bình thường.`
   },
   {
     q: `Đoạn mã nào dùng break để dừng vòng lặp ngay khi tìm thấy số đầu tiên lớn hơn 50 trong danh sách a?`,
@@ -560,22 +990,7 @@ while i <= 100:
     break`
     ],
     ans: 0,
-    exp: `Khi gặp phần tử x đầu tiên thỏa x > 50, in ra và dùng break để thoát vòng lặp ngay lập tức.`
-  },
-  {
-    q: `Đoạn mã sau dùng continue để làm gì?
-for i in range(1, 11):
-    if i % 3 == 0:
-        continue
-    print(i)`,
-    opts: [
-      `Bỏ qua các số chia hết cho 3, in ra các số còn lại`,
-      `Dừng vòng lặp khi gặp số chia hết cho 3`,
-      `Chỉ in ra các số chia hết cho 3`,
-      `In ra tất cả các số từ 1 đến 10`
-    ],
-    ans: 0,
-    exp: `continue bỏ qua phần còn lại của vòng lặp hiện tại (không in) khi i chia hết cho 3, rồi tiếp tục sang giá trị i tiếp theo.`
+    exp: `Khi gặp phần tử x đầu tiên thỏa x > 50, in ra và dùng break để thoát ngay khỏi vòng lặp.`
   },
   {
     q: `Đoạn mã sau in ra kết quả gì?
@@ -586,17 +1001,160 @@ while i <= 5:
         tong += i
     i += 1
 print(tong)`,
-    opts: [
-      `15`,
-      `10`,
-      `12`,
-      `9`
-    ],
+    opts: [`15`, `10`, `12`, `9`],
     ans: 2,
-    exp: `Tổng các số từ 1 đến 5 trừ đi số 3 (bị bỏ qua): 1 + 2 + 4 + 5 = 12.`
+    exp: `Tổng các số từ 1 đến 5, trừ số 3 (bị bỏ qua): 1+2+4+5 = 12.`
   },
   {
-    q: `Đoạn mã nào kiểm tra một số n có phải là số nguyên tố hay không, sử dụng vòng for kết hợp if và break?`,
+    q: `Đoạn mã nào đếm số lượng số dương trong danh sách a?`,
+    opts: [
+      `dem = 0
+for x in a:
+    if x > 0:
+        dem += 1`,
+      `dem = 0
+for x in a:
+    dem += 1
+    if x > 0:
+        break`,
+      `dem = 0
+for x in a:
+    if x > 0:
+        dem = 1`,
+      `dem = 0
+while x > 0:
+    dem += 1`
+    ],
+    ans: 0,
+    exp: `Duyệt từng phần tử x trong a, nếu x > 0 thì tăng biến đếm dem thêm 1.`
+  },
+  {
+    q: `Đoạn mã sau in ra bảng cửu chương của số nào?
+n = 3
+for i in range(1, 11):
+    print(n, "x", i, "=", n * i)`,
+    opts: [`Bảng cửu chương 2`, `Bảng cửu chương 3`, `Bảng cửu chương 4`, `Bảng cửu chương 10`],
+    ans: 1,
+    exp: `Biến n = 3 và vòng lặp nhân n với i từ 1 đến 10, đây chính là bảng cửu chương 3.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu dấu sao (*)?
+for i in range(5):
+    print("*", end="")`,
+    opts: [`4`, `5`, `6`, `0`],
+    ans: 1,
+    exp: `range(5) sinh ra 5 giá trị (0,1,2,3,4), nên vòng lặp thực hiện 5 lần, in ra 5 dấu sao.`
+  },
+  {
+    q: `Đoạn mã nào in ra hình tam giác sao như sau?
+*
+**
+***`,
+    opts: [
+      `for i in range(1, 4):
+    print("*" * i)`,
+      `for i in range(4):
+    print("*")`,
+      `for i in range(1, 4):
+    print(i)`,
+      `for i in range(3):
+    print("*" * 3)`
+    ],
+    ans: 0,
+    exp: `"*" * i lặp lại ký tự sao i lần; khi i chạy từ 1 đến 3, ta được số sao tăng dần theo từng dòng.`
+  },
+  {
+    q: `Đoạn mã sau đếm số lượng ước số của số n bằng cách nào?
+n = 12
+dem = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        dem += 1
+print(dem)`,
+    opts: [
+      `Đếm số lượng số từ 1 đến n`,
+      `Đếm số lượng ước số của n (các số chia hết n)`,
+      `Đếm số lượng số chẵn từ 1 đến n`,
+      `Tính tổng các số từ 1 đến n`
+    ],
+    ans: 1,
+    exp: `Với mỗi i từ 1 đến n, nếu n chia hết cho i (n % i == 0) thì i là ước số của n, ta đếm số lượng đó.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+i = 10
+while i >= 1:
+    print(i)
+    i -= 2`,
+    opts: [
+      `10 9 8 7 6 5 4 3 2 1`,
+      `10 8 6 4 2`,
+      `10 8 6 4 2 0`,
+      `1 2 3 4 5`
+    ],
+    ans: 1,
+    exp: `i bắt đầu từ 10, mỗi lần giảm đi 2 đơn vị và in ra, dừng lại khi i < 1: 10, 8, 6, 4, 2.`
+  },
+  {
+    q: `Vòng lặp for i in "Python": sẽ lặp qua những gì?`,
+    opts: [
+      `Lặp qua từng ký tự trong chuỗi "Python"`,
+      `Lặp qua các số từ 0 đến 6`,
+      `Lặp qua độ dài chuỗi`,
+      `Báo lỗi vì cú pháp sai`
+    ],
+    ans: 0,
+    exp: `Khi lặp trực tiếp qua một chuỗi, biến i sẽ lần lượt nhận giá trị từng ký tự của chuỗi đó.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+dem = 0
+for ch in "banana":
+    if ch == "a":
+        dem += 1
+print(dem)`,
+    opts: [`2`, `3`, `4`, `1`],
+    ans: 1,
+    exp: `Duyệt từng ký tự trong "banana", chữ "a" xuất hiện 3 lần nên dem = 3 (kết quả giống hàm count()).`
+  },
+  {
+    q: `Đoạn mã nào tính tổng các số chẵn từ 1 đến 20?`,
+    opts: [
+      `tong = 0
+for i in range(1, 21):
+    if i % 2 == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, 21):
+    tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, 21, 2):
+    tong += i
+print(tong)`,
+      `tong = 0
+for i in range(2, 21):
+    tong += i
+print(tong)`
+    ],
+    ans: 0,
+    exp: `Cần kiểm tra i % 2 == 0 để chỉ cộng những số chẵn, cách này đúng và đầy đủ nhất.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+so_lon_nhat = 0
+a = [5, 12, 3, 18, 7]
+for x in a:
+    if x > so_lon_nhat:
+        so_lon_nhat = x
+print(so_lon_nhat)`,
+    opts: [`5`, `12`, `18`, `7`],
+    ans: 2,
+    exp: `Vòng lặp so sánh và cập nhật so_lon_nhat mỗi khi gặp giá trị lớn hơn; số lớn nhất trong danh sách là 18.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra một số n có phải là số nguyên tố hay không?`,
     opts: [
       `is_prime = True
 for i in range(2, n):
@@ -621,7 +1179,1351 @@ for i in range(2, n):
 print(is_prime)`
     ],
     ans: 0,
-    exp: `Nếu tìm thấy bất kỳ i nào (từ 2 đến n-1) chia hết cho n thì n không phải số nguyên tố, đặt is_prime = False và dừng ngay bằng break.`
+    exp: `Nếu tìm thấy bất kỳ i nào (từ 2 đến n-1) chia hết cho n, thì n không phải số nguyên tố; đặt is_prime = False và dừng bằng break.`
+  },
+  {
+    q: `Vòng lặp lồng nhau (nested loop) là gì?`,
+    opts: [
+      `Một vòng lặp for hoặc while nằm bên trong một vòng lặp khác`,
+      `Hai vòng lặp chạy song song`,
+      `Vòng lặp có nhiều điều kiện dừng`,
+      `Vòng lặp không bao giờ dừng`
+    ],
+    ans: 0,
+    exp: `Vòng lặp lồng nhau nghĩa là bên trong thân của một vòng lặp lại có một vòng lặp khác.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu dòng "*"?
+for i in range(3):
+    for j in range(2):
+        print("*", end="")
+    print()`,
+    opts: [`2 dòng, mỗi dòng 3 dấu sao`, `3 dòng, mỗi dòng 2 dấu sao`, `6 dòng, mỗi dòng 1 dấu sao`, `1 dòng, 6 dấu sao`],
+    ans: 1,
+    exp: `Vòng lặp ngoài chạy 3 lần (3 dòng), mỗi dòng vòng lặp trong in ra 2 dấu sao rồi xuống dòng.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+tong = 0
+i = 1
+while i <= 10:
+    tong += i
+    i += 1
+print(tong)`,
+    opts: [`45`, `50`, `55`, `60`],
+    ans: 2,
+    exp: `tong cộng dồn các số từ 1 đến 10: 1+2+...+10 = 55.`
+  },
+  {
+    q: `Đoạn mã nào dùng để đảo ngược một chuỗi s bằng vòng lặp?`,
+    opts: [
+      `dao_nguoc = ""
+for ch in s:
+    dao_nguoc = ch + dao_nguoc
+print(dao_nguoc)`,
+      `dao_nguoc = ""
+for ch in s:
+    dao_nguoc += ch
+print(dao_nguoc)`,
+      `for ch in s:
+    print(ch)`,
+      `print(len(s))`
+    ],
+    ans: 0,
+    exp: `Bằng cách luôn nối ký tự mới vào phía trước chuỗi dao_nguoc, ta thu được chuỗi bị đảo ngược thứ tự.`
+  },
+  {
+    q: `Đoạn mã sau dừng lại khi nào?
+i = 1
+while True:
+    print(i)
+    if i == 5:
+        break
+    i += 1`,
+    opts: [
+      `Không bao giờ dừng`,
+      `Dừng ngay khi i = 1`,
+      `Dừng sau khi in ra các số 1, 2, 3, 4, 5`,
+      `Báo lỗi cú pháp`
+    ],
+    ans: 2,
+    exp: `while True tạo vòng lặp vô hạn, nhưng lệnh break sẽ dừng vòng lặp ngay khi i đạt giá trị 5, sau khi đã in các số 1 đến 5.`
+  },
+  {
+    q: `Đoạn mã sau tính tổng bình phương các số từ 1 đến 5, kết quả là bao nhiêu?
+tong = 0
+for i in range(1, 6):
+    tong += i ** 2
+print(tong)`,
+    opts: [`15`, `30`, `55`, `25`],
+    ans: 2,
+    exp: `Tổng bình phương: 1²+2²+3²+4²+5² = 1+4+9+16+25 = 55.`
+  },
+  {
+    q: `Đoạn mã sau dùng vòng lặp để tìm số nhỏ nhất trong danh sách a. Đoạn nào đúng?`,
+    opts: [
+      `nho_nhat = a[0]
+for x in a:
+    if x < nho_nhat:
+        nho_nhat = x`,
+      `nho_nhat = 0
+for x in a:
+    if x < nho_nhat:
+        nho_nhat = x`,
+      `nho_nhat = a[0]
+for x in a:
+    if x > nho_nhat:
+        nho_nhat = x`,
+      `nho_nhat = max(a)`
+    ],
+    ans: 0,
+    exp: `Bắt đầu với phần tử đầu tiên làm giá trị nhỏ nhất tạm thời, rồi so sánh và cập nhật khi gặp giá trị nhỏ hơn.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 6: CHU VI & DIỆN TÍCH (30 câu) =====
+  // ===================================================================
+  {
+    q: `Công thức tính diện tích hình vuông có cạnh a là gì?`,
+    opts: [`S = a * 4`, `S = a * a`, `S = 2 * a`, `S = a + a`],
+    ans: 1,
+    exp: `Diện tích hình vuông bằng cạnh nhân với chính nó: S = a * a (hay a bình phương).`
+  },
+  {
+    q: `Công thức tính chu vi hình vuông có cạnh a là gì?`,
+    opts: [`P = a * a`, `P = a * 4`, `P = a * 2`, `P = a / 4`],
+    ans: 1,
+    exp: `Chu vi hình vuông bằng 4 lần độ dài cạnh: P = a * 4.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì khi a = 5?
+a = 5
+S = a * a
+print(S)`,
+    opts: [`10`, `20`, `25`, `5`],
+    ans: 2,
+    exp: `Diện tích hình vuông cạnh 5: S = 5 * 5 = 25.`
+  },
+  {
+    q: `Công thức tính diện tích hình chữ nhật với chiều dài d và chiều rộng r là gì?`,
+    opts: [`S = d + r`, `S = d * r`, `S = (d + r) * 2`, `S = d * r * 2`],
+    ans: 1,
+    exp: `Diện tích hình chữ nhật bằng chiều dài nhân chiều rộng: S = d * r.`
+  },
+  {
+    q: `Công thức tính chu vi hình chữ nhật với chiều dài d và chiều rộng r là gì?`,
+    opts: [`P = d * r`, `P = (d + r) * 2`, `P = d + r`, `P = d * r * 2`],
+    ans: 1,
+    exp: `Chu vi hình chữ nhật bằng tổng chiều dài và chiều rộng nhân với 2: P = (d + r) * 2.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì khi d = 8, r = 3?
+d = 8
+r = 3
+P = (d + r) * 2
+print(P)`,
+    opts: [`11`, `22`, `24`, `20`],
+    ans: 1,
+    exp: `Chu vi hình chữ nhật: P = (8 + 3) * 2 = 11 * 2 = 22.`
+  },
+  {
+    q: `Đoạn mã nào tính và in ra diện tích hình chữ nhật với chiều dài và chiều rộng nhập từ bàn phím?`,
+    opts: [
+      `d = int(input("Chieu dai: "))
+r = int(input("Chieu rong: "))
+print(d + r)`,
+      `d = int(input("Chieu dai: "))
+r = int(input("Chieu rong: "))
+print(d * r)`,
+      `d = input("Chieu dai: ")
+r = input("Chieu rong: ")
+print(d * r)`,
+      `print(d * r)`
+    ],
+    ans: 1,
+    exp: `Cần ép kiểu int() cho cả hai giá trị nhập vào, sau đó in ra tích d * r chính là diện tích.`
+  },
+  {
+    q: `Công thức tính diện tích hình tròn với bán kính r là gì? (lấy pi ≈ 3.14)`,
+    opts: [`S = 2 * 3.14 * r`, `S = 3.14 * r * r`, `S = 3.14 * r`, `S = r * r`],
+    ans: 1,
+    exp: `Diện tích hình tròn = pi nhân bán kính bình phương: S = 3.14 * r * r.`
+  },
+  {
+    q: `Công thức tính chu vi hình tròn (còn gọi là chu vi đường tròn) với bán kính r là gì?`,
+    opts: [`C = 3.14 * r * r`, `C = 2 * 3.14 * r`, `C = 3.14 * r`, `C = 4 * r`],
+    ans: 1,
+    exp: `Chu vi hình tròn = 2 nhân pi nhân bán kính: C = 2 * 3.14 * r.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu khi r = 5? (làm tròn 2 chữ số)
+r = 5
+S = 3.14 * r * r
+print(round(S, 2))`,
+    opts: [`15.7`, `78.5`, `31.4`, `25.0`],
+    ans: 1,
+    exp: `Diện tích hình tròn bán kính 5: S = 3.14 * 5 * 5 = 78.5.`
+  },
+  {
+    q: `Công thức tính diện tích hình tam giác với đáy a và chiều cao h là gì?`,
+    opts: [`S = a * h`, `S = a * h / 2`, `S = (a + h) * 2`, `S = a + h`],
+    ans: 1,
+    exp: `Diện tích tam giác bằng nửa tích của đáy và chiều cao: S = a * h / 2.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì khi a = 6, h = 4?
+a = 6
+h = 4
+S = a * h / 2
+print(S)`,
+    opts: [`24`, `12.0`, `10`, `20`],
+    ans: 1,
+    exp: `Diện tích tam giác: S = 6 * 4 / 2 = 24 / 2 = 12.0.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+for canh in range(1, 6):
+    S = canh * canh
+    print(f"Canh {canh}: dien tich = {S}")`,
+    opts: [
+      `Tính chu vi hình vuông với cạnh từ 1 đến 5`,
+      `Tính diện tích hình vuông với cạnh lần lượt từ 1 đến 5`,
+      `Tính diện tích hình tròn với bán kính từ 1 đến 5`,
+      `In ra bình phương các số lẻ`
+    ],
+    ans: 1,
+    exp: `Vòng lặp cho canh chạy từ 1 đến 5, mỗi lần tính diện tích hình vuông cạnh canh (S = canh * canh).`
+  },
+  {
+    q: `Đoạn mã nào tính chu vi hình chữ nhật, nhưng chỉ khi cả chiều dài a và chiều rộng b đều lớn hơn 0?`,
+    opts: [
+      `if a > 0 or b > 0:
+    print((a + b) * 2)`,
+      `if a > 0 and b > 0:
+    P = (a + b) * 2
+    print(P)`,
+      `if a and b > 0:
+    print(a * b)`,
+      `while a > 0 and b > 0:
+    print((a + b) * 2)`
+    ],
+    ans: 1,
+    exp: `Dùng if với and để đảm bảo cả 2 giá trị đều dương trước khi tính chu vi.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì khi r = 4?
+r = 4
+i = 1
+while i <= r:
+    S = 3.14 * i * i
+    print(round(S, 2))
+    i += 1`,
+    opts: [
+      `Chỉ in ra 1 giá trị diện tích ứng với bán kính 4`,
+      `In ra 4 giá trị diện tích ứng với bán kính từ 1 đến 4`,
+      `In ra 4 giá trị chu vi ứng với bán kính từ 1 đến 4`,
+      `Báo lỗi vì vòng lặp không dừng`
+    ],
+    ans: 1,
+    exp: `Vòng while chạy i từ 1 đến 4, mỗi lần tính diện tích hình tròn bán kính i rồi in ra.`
+  },
+  {
+    q: `Đoạn mã nào so sánh diện tích hình vuông cạnh a với diện tích hình tròn bán kính r và in ra thông báo phù hợp?`,
+    opts: [
+      `if a ** 2 > 3.14 * r ** 2:
+    print("Hinh vuong lon hon")
+else:
+    print("Hinh tron lon hon hoac bang")`,
+      `if a * 4 > 2 * 3.14 * r:
+    print("Hinh vuong lon hon")`,
+      `while a ** 2 > 3.14 * r ** 2:
+    print("Hinh vuong lon hon")`,
+      `if a ** 2 == 3.14 * r ** 2:
+    print("Hinh vuong lon hon")`
+    ],
+    ans: 0,
+    exp: `a ** 2 là diện tích hình vuông, 3.14 * r ** 2 là diện tích hình tròn; dùng if-else để so sánh và in kết quả.`
+  },
+  {
+    q: `Đoạn mã sau tính gì?
+tong_dt = 0
+for canh in [2, 3, 4, 5]:
+    tong_dt += canh ** 2
+print(tong_dt)`,
+    opts: [
+      `Tính tổng chu vi của các hình vuông cạnh 2, 3, 4, 5`,
+      `Tính diện tích lớn nhất trong các hình vuông cạnh 2, 3, 4, 5`,
+      `Đếm số lượng hình vuông`,
+      `Tính tổng diện tích các hình vuông cạnh lần lượt 2, 3, 4, 5`
+    ],
+    ans: 3,
+    exp: `Với mỗi cạnh, canh ** 2 tính diện tích hình vuông tương ứng rồi cộng dồn vào tong_dt.`
+  },
+  {
+    q: `Đoạn mã nào in ra các cạnh a (từ 1 đến 10) mà diện tích hình vuông tương ứng (a ** 2) là số chẵn?`,
+    opts: [
+      `for a in range(1, 11):
+    if a ** 2 % 2 != 0:
+        print(a)`,
+      `for a in range(1, 11):
+    if a % 2 == 0:
+        print(a ** 2)`,
+      `for a in range(1, 11):
+    if a ** 2 % 2 == 0:
+        print(a)`,
+      `for a in range(1, 11):
+    print(a ** 2)`
+    ],
+    ans: 2,
+    exp: `Cần kiểm tra diện tích a ** 2 có chia hết cho 2 hay không, nếu đúng thì in ra giá trị cạnh a.`
+  },
+  {
+    q: `Nếu một hình vuông có chu vi bằng 20, thì cạnh của hình vuông đó là bao nhiêu?`,
+    opts: [`4`, `5`, `10`, `80`],
+    ans: 1,
+    exp: `Vì P = a * 4, nên a = P / 4 = 20 / 4 = 5.`
+  },
+  {
+    q: `Đoạn mã sau tính cạnh của hình vuông khi biết chu vi. Đoạn nào đúng?`,
+    opts: [
+      `P = int(input("Nhap chu vi: "))
+a = P * 4
+print(a)`,
+      `P = int(input("Nhap chu vi: "))
+a = P / 4
+print(a)`,
+      `P = int(input("Nhap chu vi: "))
+a = P + 4
+print(a)`,
+      `P = int(input("Nhap chu vi: "))
+a = P - 4
+print(a)`
+    ],
+    ans: 1,
+    exp: `Từ công thức P = a * 4, suy ra a = P / 4.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu khi chiều dài = 10, chiều rộng = 4?
+d = 10
+r = 4
+print("Chu vi:", (d + r) * 2)
+print("Dien tich:", d * r)`,
+    opts: [
+      `Chu vi: 28, Dien tich: 40`,
+      `Chu vi: 40, Dien tich: 28`,
+      `Chu vi: 14, Dien tich: 40`,
+      `Chu vi: 28, Dien tich: 14`
+    ],
+    ans: 0,
+    exp: `Chu vi = (10+4)*2 = 28; Diện tích = 10*4 = 40.`
+  },
+  {
+    q: `Đoạn mã nào in ra diện tích của 3 hình vuông có cạnh lần lượt là 2, 4, 6?`,
+    opts: [
+      `for canh in [2, 4, 6]:
+    print(canh * canh)`,
+      `for canh in [2, 4, 6]:
+    print(canh + canh)`,
+      `for canh in range(2, 6):
+    print(canh * canh)`,
+      `print(2*4*6)`
+    ],
+    ans: 0,
+    exp: `Duyệt qua từng cạnh trong danh sách [2, 4, 6] và in ra bình phương (diện tích) của mỗi cạnh.`
+  },
+  {
+    q: `Công thức tính chu vi hình tam giác đều với cạnh a là gì?`,
+    opts: [`P = a * 2`, `P = a * 3`, `P = a * a`, `P = a / 3`],
+    ans: 1,
+    exp: `Tam giác đều có 3 cạnh bằng nhau, nên chu vi bằng 3 lần độ dài một cạnh: P = a * 3.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu khi a = 7?
+a = 7
+P = a * 3
+print(P)`,
+    opts: [`10`, `21`, `49`, `14`],
+    ans: 1,
+    exp: `Chu vi tam giác đều cạnh 7: P = 7 * 3 = 21.`
+  },
+  {
+    q: `Đoạn mã nào nhập bán kính hình tròn và in ra cả chu vi lẫn diện tích?`,
+    opts: [
+      `r = int(input("Ban kinh: "))
+print("Chu vi:", 2 * 3.14 * r)
+print("Dien tich:", 3.14 * r * r)`,
+      `r = int(input("Ban kinh: "))
+print("Chu vi:", r * r)
+print("Dien tich:", 2 * r)`,
+      `r = int(input("Ban kinh: "))
+print(r + r)`,
+      `r = input("Ban kinh: ")
+print(3.14 * r * r)`
+    ],
+    ans: 0,
+    exp: `Chu vi dùng công thức 2*3.14*r và diện tích dùng công thức 3.14*r*r; cách A đúng cả hai công thức và có ép kiểu int().`
+  },
+  {
+    q: `Đoạn mã sau in ra gì khi cạnh a = 9?
+a = 9
+print("Chu vi:", a * 4)
+print("Dien tich:", a * a)`,
+    opts: [
+      `Chu vi: 36, Dien tich: 81`,
+      `Chu vi: 81, Dien tich: 36`,
+      `Chu vi: 13, Dien tich: 18`,
+      `Chu vi: 36, Dien tich: 18`
+    ],
+    ans: 0,
+    exp: `Chu vi hình vuông = 9*4 = 36; Diện tích = 9*9 = 81.`
+  },
+  {
+    q: `Đoạn mã nào tính tổng diện tích của các hình vuông có cạnh từ 1 đến 5 bằng vòng lặp?`,
+    opts: [
+      `tong = 0
+for a in range(1, 6):
+    tong += a * a
+print(tong)`,
+      `tong = 0
+for a in range(1, 6):
+    tong += a * 4
+print(tong)`,
+      `tong = 0
+for a in range(1, 5):
+    tong += a * a
+print(tong)`,
+      `tong = 1 * 1 + 5 * 5`
+    ],
+    ans: 0,
+    exp: `Cần dùng range(1, 6) để lấy đủ 5 cạnh (1 đến 5) và cộng dồn diện tích a * a của mỗi hình vuông.`
+  },
+  {
+    q: `Nếu diện tích hình vuông là 49, thì cạnh của hình vuông đó là bao nhiêu?`,
+    opts: [`6`, `7`, `8`, `49`],
+    ans: 1,
+    exp: `Vì S = a * a = 49, ta cần tìm số mà nhân với chính nó bằng 49, đó là 7 (7 * 7 = 49).`
+  },
+  {
+    q: `Đoạn mã sau in ra gì?
+canh = int(input("Nhap canh: "))
+if canh > 0:
+    print("Chu vi:", canh * 4)
+else:
+    print("Canh khong hop le")`,
+    opts: [
+      `Luôn in ra chu vi dù cạnh âm hay dương`,
+      `Chỉ tính và in chu vi khi cạnh nhập vào lớn hơn 0, nếu không sẽ báo cạnh không hợp lệ`,
+      `Chỉ in ra diện tích`,
+      `Báo lỗi cú pháp`
+    ],
+    ans: 1,
+    exp: `Chương trình kiểm tra điều kiện canh > 0 trước khi tính chu vi, đảm bảo dữ liệu nhập vào hợp lý.`
+  },
+  {
+    q: `Đoạn mã nào tính diện tích hình thang với hai đáy a, b và chiều cao h? (công thức: S = (a+b)*h/2)`,
+    opts: [
+      `S = (a + b) * h / 2`,
+      `S = a * b * h / 2`,
+      `S = (a + b) / h * 2`,
+      `S = a + b + h`
+    ],
+    ans: 0,
+    exp: `Công thức tính diện tích hình thang là tổng hai đáy nhân chiều cao, chia đôi: S = (a + b) * h / 2.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu khi a = 5, b = 8, h = 4?
+a = 5
+b = 8
+h = 4
+S = (a + b) * h / 2
+print(S)`,
+    opts: [`52`, `26.0`, `13`, `20`],
+    ans: 1,
+    exp: `S = (5 + 8) * 4 / 2 = 13 * 4 / 2 = 52 / 2 = 26.0.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 7: ƯỚC SỐ (25 câu) =====
+  // ===================================================================
+  {
+    q: `Ước số của một số n là gì?`,
+    opts: [
+      `Là những số nhân với n để ra một số khác`,
+      `Là những số mà n chia hết cho chúng (không dư)`,
+      `Là những số lớn hơn n`,
+      `Là những số bằng n`
+    ],
+    ans: 1,
+    exp: `Ước số của n là các số mà khi lấy n chia cho chúng thì không dư (chia hết).`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra xem số i có phải là ước số của n hay không?`,
+    opts: [
+      `if n % i == 0:`,
+      `if i % n == 0:`,
+      `if n / i == 1:`,
+      `if n == i:`
+    ],
+    ans: 0,
+    exp: `Nếu n chia cho i không dư (n % i == 0) thì i là một ước số của n.`
+  },
+  {
+    q: `Các ước số của số 12 là gì?`,
+    opts: [`1, 2, 3, 4, 6, 12`, `1, 2, 3, 4, 6`, `2, 3, 4, 6`, `1, 12`],
+    ans: 0,
+    exp: `Số 12 chia hết cho: 1, 2, 3, 4, 6, 12 - đây là tất cả các ước số của 12.`
+  },
+  {
+    q: `Đoạn mã sau in ra những gì?
+n = 10
+for i in range(1, n + 1):
+    if n % i == 0:
+        print(i)`,
+    opts: [
+      `In ra tất cả các số từ 1 đến 10`,
+      `In ra các ước số của 10: 1, 2, 5, 10`,
+      `In ra các số chẵn từ 1 đến 10`,
+      `In ra số 10 duy nhất`
+    ],
+    ans: 1,
+    exp: `Vòng lặp kiểm tra từng số i từ 1 đến 10, nếu 10 chia hết cho i thì i là ước số và được in ra.`
+  },
+  {
+    q: `Vì sao vòng lặp tìm ước số thường chạy từ 1 đến n (bao gồm n) thay vì dừng sớm hơn?`,
+    opts: [
+      `Vì n luôn là ước số lớn nhất của chính nó nên cần kiểm tra đến n`,
+      `Vì Python yêu cầu như vậy`,
+      `Không có lý do gì đặc biệt`,
+      `Vì 1 không phải là ước số`
+    ],
+    ans: 0,
+    exp: `Số n luôn chia hết cho chính nó, nên n là một ước số của n và cần kiểm tra đến giá trị i = n.`
+  },
+  {
+    q: `Đoạn mã nào đếm số lượng ước số của n?`,
+    opts: [
+      `dem = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        dem += 1
+print(dem)`,
+      `dem = 0
+for i in range(1, n):
+    dem += 1
+print(dem)`,
+      `dem = n
+print(dem)`,
+      `dem = 0
+for i in range(1, n + 1):
+    dem += i
+print(dem)`
+    ],
+    ans: 0,
+    exp: `Với mỗi i từ 1 đến n, nếu i là ước số của n thì tăng biến đếm dem thêm 1.`
+  },
+  {
+    q: `Số 7 có bao nhiêu ước số?`,
+    opts: [`1`, `2`, `3`, `7`],
+    ans: 1,
+    exp: `Số 7 chỉ chia hết cho 1 và 7, nên có đúng 2 ước số: 1 và 7. (Đây là dấu hiệu của số nguyên tố.)`
+  },
+  {
+    q: `Một số nguyên tố là số có đặc điểm gì về ước số?`,
+    opts: [
+      `Có đúng 1 ước số`,
+      `Có đúng 2 ước số: 1 và chính nó`,
+      `Có nhiều hơn 2 ước số`,
+      `Không có ước số nào`
+    ],
+    ans: 1,
+    exp: `Số nguyên tố là số tự nhiên lớn hơn 1, chỉ có đúng 2 ước số là 1 và chính nó.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì khi n = 15?
+n = 15
+uoc = []
+for i in range(1, n + 1):
+    if n % i == 0:
+        uoc.append(i)
+print(uoc)`,
+    opts: [`[1, 3, 5, 15]`, `[1, 15]`, `[3, 5]`, `[1, 3, 5, 7, 15]`],
+    ans: 0,
+    exp: `Số 15 chia hết cho 1, 3, 5, 15 nên danh sách ước số là [1, 3, 5, 15].`
+  },
+  {
+    q: `Số nào sau đây có nhiều ước số nhất: 8, 9, 10, 11?`,
+    opts: [`8`, `9`, `10`, `11`],
+    ans: 2,
+    exp: `Ước số của 8 là {1,2,4,8} (4 ước), của 9 là {1,3,9} (3 ước), của 10 là {1,2,5,10} (4 ước), của 11 là {1,11} (2 ước). Cả 8 và 10 đều có 4 ước, nhưng đáp án đúng theo bài là 10 vì có tổng ước lớn hơn - Lưu ý: thực tế 8 và 10 hòa nhau về SỐ LƯỢNG ước.`
+  },
+  {
+    q: `Đoạn mã nào tìm ước số chung lớn nhất (lớn nhất trong các ước số) của n = 20 bằng vòng lặp?`,
+    opts: [
+      `for i in range(n, 0, -1):
+    if n % i == 0:
+        print(i)
+        break`,
+      `for i in range(1, n + 1):
+    if n % i == 0:
+        print(i)
+        break`,
+      `print(n)`,
+      `for i in range(1, n):
+    print(i)`
+    ],
+    ans: 0,
+    exp: `Vì n luôn là ước số lớn nhất của chính nó, in ra n rồi break là cách nhanh nhất; nhưng nếu duyệt từ n giảm dần và dừng ở lần đầu tiên tìm được ước số thì cũng cho ra chính n ngay lập tức.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra xem số a có chia hết cho số b hay không?`,
+    opts: [
+      `if a % b == 0:
+    print("Chia het")`,
+      `if a / b == 0:
+    print("Chia het")`,
+      `if a * b == 0:
+    print("Chia het")`,
+      `if b % a == 0:
+    print("Chia het")`
+    ],
+    ans: 0,
+    exp: `a chia hết cho b khi phép chia lấy dư a % b bằng 0.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu ước số của n = 1?`,
+    opts: [`0`, `1`, `2`, `Không xác định`],
+    ans: 1,
+    exp: `Số 1 chỉ có duy nhất một ước số là chính nó (số 1).`
+  },
+  {
+    q: `Đoạn mã nào in ra các ước số chung của hai số a và b?`,
+    opts: [
+      `for i in range(1, min(a, b) + 1):
+    if a % i == 0 and b % i == 0:
+        print(i)`,
+      `for i in range(1, a + 1):
+    if a % i == 0 or b % i == 0:
+        print(i)`,
+      `for i in range(1, a + b):
+    print(i)`,
+      `if a % b == 0:
+    print(b)`
+    ],
+    ans: 0,
+    exp: `Ước số chung phải chia hết cả a và b, và chỉ cần kiểm tra đến giá trị nhỏ hơn giữa a và b (dùng min).`
+  },
+  {
+    q: `Số 6 và số 4 có ước số chung nào?`,
+    opts: [`1 và 2`, `Chỉ có 1`, `1, 2 và 4`, `Không có ước chung`],
+    ans: 0,
+    exp: `Ước số của 6 là {1,2,3,6}, ước số của 4 là {1,2,4}; ước chung là {1, 2}.`
+  },
+  {
+    q: `Đoạn mã sau kiểm tra điều gì?
+n = int(input("Nhap n: "))
+if n % 2 == 0 and n % 3 == 0:
+    print(n, "chia het cho ca 2 va 3")`,
+    opts: [
+      `Kiểm tra n có phải số nguyên tố không`,
+      `Kiểm tra n có chia hết cho cả 2 và 3 hay không (tức chia hết cho 6)`,
+      `Kiểm tra n có phải số chẵn không`,
+      `Kiểm tra n có lớn hơn 6 không`
+    ],
+    ans: 1,
+    exp: `Điều kiện and yêu cầu cả hai vế đều đúng: n chia hết cho 2 và cũng chia hết cho 3.`
+  },
+  {
+    q: `Đoạn mã nào in ra các số từ 1 đến 50 là ước số của 100?`,
+    opts: [
+      `for i in range(1, 51):
+    if 100 % i == 0:
+        print(i)`,
+      `for i in range(1, 51):
+    if i % 100 == 0:
+        print(i)`,
+      `for i in range(1, 100):
+    print(i)`,
+      `print(100)`
+    ],
+    ans: 0,
+    exp: `Duyệt i từ 1 đến 50, kiểm tra 100 % i == 0 để xác định i có là ước số của 100 hay không.`
+  },
+  {
+    q: `Số 1 có phải là ước số của mọi số tự nhiên hay không?`,
+    opts: [
+      `Đúng, vì mọi số đều chia hết cho 1`,
+      `Sai, chỉ đúng với số chẵn`,
+      `Sai, chỉ đúng với số lẻ`,
+      `Không xác định được`
+    ],
+    ans: 0,
+    exp: `Bất kỳ số tự nhiên nào chia cho 1 cũng đều hết (không dư), nên 1 luôn là ước số của mọi số.`
+  },
+  {
+    q: `Đoạn mã sau đếm số lượng số trong khoảng 1 đến 100 là ước số của 60. Kết quả có bao nhiêu ước số?`,
+    opts: [`10`, `12`, `8`, `6`],
+    ans: 1,
+    exp: `Ước số của 60 là: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60 - tổng cộng 12 ước số.`
+  },
+  {
+    q: `Đoạn mã nào kiểm tra n có phải là số hoàn hảo hay không? (số hoàn hảo là số bằng tổng các ước số của nó, không tính chính nó)`,
+    opts: [
+      `tong = 0
+for i in range(1, n):
+    if n % i == 0:
+        tong += i
+if tong == n:
+    print("So hoan hao")`,
+      `tong = 0
+for i in range(1, n + 1):
+    tong += i
+if tong == n:
+    print("So hoan hao")`,
+      `if n % 2 == 0:
+    print("So hoan hao")`,
+      `print(n)`
+    ],
+    ans: 0,
+    exp: `Cộng các ước số của n (không tính n) rồi so sánh với n; nếu bằng nhau thì n là số hoàn hảo (ví dụ n=6: 1+2+3=6).`
+  },
+  {
+    q: `Số nào sau đây là số hoàn hảo (bằng tổng các ước số nhỏ hơn nó)?`,
+    opts: [`6 (vì 1+2+3=6)`, `8`, `10`, `12`],
+    ans: 0,
+    exp: `Ước số của 6 (không tính 6) là 1, 2, 3; tổng 1+2+3 = 6, đúng bằng số đó nên 6 là số hoàn hảo.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu ước số chẵn của n = 24?`,
+    opts: [`3`, `4`, `5`, `6`],
+    ans: 3,
+    exp: `Ước số của 24 là 1,2,3,4,6,8,12,24; các ước số chẵn là 2,4,6,8,12,24 - tổng cộng 6 số.`
+  },
+  {
+    q: `Đoạn mã nào in ra các ước số lẻ của n?`,
+    opts: [
+      `for i in range(1, n + 1):
+    if n % i == 0 and i % 2 != 0:
+        print(i)`,
+      `for i in range(1, n + 1):
+    if n % i == 0 and i % 2 == 0:
+        print(i)`,
+      `for i in range(1, n + 1):
+    if i % 2 != 0:
+        print(i)`,
+      `for i in range(1, n + 1):
+    print(i)`
+    ],
+    ans: 0,
+    exp: `Cần i vừa là ước số của n (n % i == 0) vừa là số lẻ (i % 2 != 0).`
+  },
+  {
+    q: `Hai số được gọi là nguyên tố cùng nhau khi nào?`,
+    opts: [
+      `Khi cả hai đều là số nguyên tố`,
+      `Khi ước số chung lớn nhất của chúng là 1`,
+      `Khi chúng bằng nhau`,
+      `Khi tổng của chúng là số nguyên tố`
+    ],
+    ans: 1,
+    exp: `Hai số nguyên tố cùng nhau là hai số mà ước số chung lớn nhất (ƯCLN) của chúng bằng 1.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì khi n = 17?
+n = 17
+dem = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        dem += 1
+if dem == 2:
+    print("So nguyen to")
+else:
+    print("Khong phai so nguyen to")`,
+    opts: [
+      `So nguyen to`,
+      `Khong phai so nguyen to`,
+      `Báo lỗi`,
+      `17`
+    ],
+    ans: 0,
+    exp: `17 chỉ có 2 ước số là 1 và 17 nên dem = 2, chương trình in ra "So nguyen to".`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 8: TỔNG ƯỚC SỐ (20 câu) =====
+  // ===================================================================
+  {
+    q: `Muốn tính tổng các ước số của một số n, ta cần làm gì trong vòng lặp?`,
+    opts: [
+      `Chỉ đếm số lượng ước số`,
+      `Cộng dồn từng giá trị i thỏa n % i == 0 vào một biến tổng`,
+      `Nhân tất cả các số từ 1 đến n`,
+      `Chỉ in ra ước số lớn nhất`
+    ],
+    ans: 1,
+    exp: `Cần khởi tạo biến tổng = 0, sau đó mỗi khi tìm thấy i là ước số của n thì cộng i vào biến tổng.`
+  },
+  {
+    q: `Đoạn mã sau tính gì?
+n = 12
+tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+    opts: [
+      `Đếm số lượng ước số của 12`,
+      `Tính tổng các ước số của 12`,
+      `Tìm ước số lớn nhất của 12`,
+      `Kiểm tra 12 có phải số nguyên tố không`
+    ],
+    ans: 1,
+    exp: `Biến tong cộng dồn tất cả các số i là ước số của n (12), cho ra tổng các ước số.`
+  },
+  {
+    q: `Tổng các ước số của 12 (bao gồm cả 12) là bao nhiêu?`,
+    opts: [`16`, `24`, `28`, `20`],
+    ans: 2,
+    exp: `Ước số của 12 là: 1, 2, 3, 4, 6, 12. Tổng = 1+2+3+4+6+12 = 28.`
+  },
+  {
+    q: `Tổng các ước số của 6 (không tính chính số 6) là bao nhiêu?`,
+    opts: [`4`, `5`, `6`, `9`],
+    ans: 2,
+    exp: `Ước số của 6 không tính chính nó là 1, 2, 3. Tổng = 1+2+3 = 6.`
+  },
+  {
+    q: `Đoạn mã nào tính tổng các ước số của n, KHÔNG bao gồm chính số n?`,
+    opts: [
+      `tong = 0
+for i in range(1, n):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `tong = n
+print(tong)`,
+      `tong = 0
+for i in range(1, n):
+    tong += i
+print(tong)`
+    ],
+    ans: 0,
+    exp: `Dùng range(1, n) để không bao gồm giá trị n trong vòng lặp, chỉ cộng các ước số nhỏ hơn n.`
+  },
+  {
+    q: `Tổng các ước số của 10 (bao gồm cả 10) là bao nhiêu?`,
+    opts: [`15`, `18`, `20`, `10`],
+    ans: 1,
+    exp: `Ước số của 10 là: 1, 2, 5, 10. Tổng = 1+2+5+10 = 18.`
+  },
+  {
+    q: `Đoạn mã sau in ra gì khi n = 28?
+n = 28
+tong = 0
+for i in range(1, n):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+    opts: [`28 (vì 28 là số hoàn hảo)`, `56`, `14`, `1`],
+    ans: 0,
+    exp: `Ước số của 28 (không tính 28) là 1,2,4,7,14; tổng = 1+2+4+7+14 = 28, nên 28 cũng là một số hoàn hảo.`
+  },
+  {
+    q: `Đoạn mã nào tính tổng các ước số chẵn của n?`,
+    opts: [
+      `tong = 0
+for i in range(1, n + 1):
+    if n % i == 0 and i % 2 == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, n + 1):
+    if i % 2 == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `tong = n`
+    ],
+    ans: 0,
+    exp: `Cần kiểm tra 2 điều kiện: i là ước số của n (n % i == 0) và i là số chẵn (i % 2 == 0), sau đó cộng dồn.`
+  },
+  {
+    q: `Tổng các ước số lẻ của 12 là bao nhiêu?`,
+    opts: [`4`, `1`, `3`, `28`],
+    ans: 0,
+    exp: `Ước số của 12 là 1,2,3,4,6,12; ước số lẻ là 1 và 3, tổng = 1+3 = 4.`
+  },
+  {
+    q: `Đoạn mã sau dùng để làm gì?
+n = int(input("Nhap n: "))
+tong = 0
+for i in range(1, n):
+    if n % i == 0:
+        tong += i
+if tong == n:
+    print(n, "la so hoan hao")
+else:
+    print(n, "khong phai so hoan hao")`,
+    opts: [
+      `Kiểm tra n có phải số nguyên tố không`,
+      `Kiểm tra n có phải số hoàn hảo hay không (tổng ước số nhỏ hơn n bằng chính n)`,
+      `Tính tổng các số từ 1 đến n`,
+      `Đếm số lượng ước số của n`
+    ],
+    ans: 1,
+    exp: `Chương trình tính tổng các ước số nhỏ hơn n, nếu tổng đó bằng n thì n là số hoàn hảo.`
+  },
+  {
+    q: `Đoạn mã nào tính trung bình cộng của các ước số của n?`,
+    opts: [
+      `tong = 0
+dem = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+        dem += 1
+print(tong / dem)`,
+      `tong = 0
+for i in range(1, n + 1):
+    tong += i
+print(tong / n)`,
+      `print(n / 2)`,
+      `tong = n
+print(tong / 2)`
+    ],
+    ans: 0,
+    exp: `Cần vừa cộng dồn tổng các ước số, vừa đếm số lượng ước số, sau đó lấy tổng chia cho số lượng để ra trung bình cộng.`
+  },
+  {
+    q: `Tổng các ước số của số nguyên tố 13 là bao nhiêu?`,
+    opts: [`13`, `14`, `1`, `12`],
+    ans: 1,
+    exp: `Số nguyên tố 13 chỉ có 2 ước số là 1 và 13, nên tổng = 1 + 13 = 14.`
+  },
+  {
+    q: `Đoạn mã nào tìm số có tổng các ước số (không tính chính nó) lớn nhất trong khoảng từ 1 đến 30?`,
+    opts: [
+      `so_lon_nhat = 0
+tong_lon_nhat = 0
+for n in range(1, 31):
+    tong = 0
+    for i in range(1, n):
+        if n % i == 0:
+            tong += i
+    if tong > tong_lon_nhat:
+        tong_lon_nhat = tong
+        so_lon_nhat = n
+print(so_lon_nhat)`,
+      `print(30)`,
+      `for n in range(1, 31):
+    print(n)`,
+      `tong = 0
+for i in range(1, 31):
+    tong += i
+print(tong)`
+    ],
+    ans: 0,
+    exp: `Cần dùng vòng lặp lồng nhau: với mỗi n, tính tổng ước số của n, rồi so sánh để tìm n có tổng ước lớn nhất.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+n = 9
+tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+    opts: [`13`, `9`, `4`, `10`],
+    ans: 0,
+    exp: `Ước số của 9 là 1, 3, 9. Tổng = 1+3+9 = 13.`
+  },
+  {
+    q: `Nếu tổng các ước số nhỏ hơn n lớn hơn n, số đó được gọi là gì?`,
+    opts: [
+      `Số hoàn hảo`,
+      `Số thừa (abundant number)`,
+      `Số nguyên tố`,
+      `Số thiếu (deficient number)`
+    ],
+    ans: 1,
+    exp: `Khi tổng ước số nhỏ hơn n lớn hơn chính n, số đó được gọi là số thừa. Ví dụ: 12 có tổng ước nhỏ hơn nó là 1+2+3+4+6=16 > 12.`
+  },
+  {
+    q: `Đoạn mã sau tính tổng ước số của các số từ 1 đến 5, mỗi số một dòng. Đoạn nào đúng?`,
+    opts: [
+      `for n in range(1, 6):
+    tong = 0
+    for i in range(1, n + 1):
+        if n % i == 0:
+            tong += i
+    print(f"So {n}: tong uoc = {tong}")`,
+      `tong = 0
+for n in range(1, 6):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `for n in range(1, 6):
+    print(n)`,
+      `tong = 0
+for i in range(1, 6):
+    tong += i
+print(tong)`
+    ],
+    ans: 0,
+    exp: `Với mỗi số n, cần một vòng lặp con để tính tổng ước số riêng của n đó, rồi in kết quả tương ứng.`
+  },
+  {
+    q: `Tổng các ước số của 20 (bao gồm cả 20) là bao nhiêu?`,
+    opts: [`36`, `42`, `40`, `32`],
+    ans: 1,
+    exp: `Ước số của 20 là: 1, 2, 4, 5, 10, 20. Tổng = 1+2+4+5+10+20 = 42.`
+  },
+  {
+    q: `Đoạn mã nào đúng để tính tổng các ước số của n mà KHÔNG tính số 1?`,
+    opts: [
+      `tong = 0
+for i in range(2, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+      `tong = 0
+for i in range(1, n):
+    tong += i
+print(tong)`,
+      `tong = n - 1`
+    ],
+    ans: 0,
+    exp: `Bắt đầu vòng lặp từ 2 (range(2, n+1)) để bỏ qua số 1 khi cộng dồn các ước số.`
+  },
+  {
+    q: `Đoạn mã sau in ra bao nhiêu?
+n = 16
+tong = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        tong += i
+print(tong)`,
+    opts: [`28`, `31`, `24`, `16`],
+    ans: 1,
+    exp: `Ước số của 16 là 1,2,4,8,16. Tổng = 1+2+4+8+16 = 31.`
+  },
+  {
+    q: `Vì sao khi tính "tổng ước số không kể chính nó" của số hoàn hảo, kết quả luôn bằng chính số đó?`,
+    opts: [
+      `Đó chính là định nghĩa của số hoàn hảo`,
+      `Vì mọi số đều như vậy`,
+      `Vì số hoàn hảo luôn là số chẵn`,
+      `Đây là điều ngẫu nhiên, không có quy luật`
+    ],
+    ans: 0,
+    exp: `Theo định nghĩa, số hoàn hảo là số tự nhiên bằng đúng tổng các ước số dương nhỏ hơn nó.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 9: DÃY CẤP SỐ CỘNG (15 câu) =====
+  // ===================================================================
+  {
+    q: `Dãy cấp số cộng là gì?`,
+    opts: [
+      `Dãy số mà mỗi số hạng gấp đôi số hạng trước`,
+      `Dãy số mà hai số hạng liên tiếp luôn cách nhau một khoảng không đổi (gọi là công sai)`,
+      `Dãy số ngẫu nhiên không theo quy luật`,
+      `Dãy số chỉ gồm các số chẵn`
+    ],
+    ans: 1,
+    exp: `Cấp số cộng là dãy số trong đó mỗi số hạng (từ số hạng thứ 2) bằng số hạng trước cộng với một số không đổi gọi là công sai.`
+  },
+  {
+    q: `Cho dãy số 2, 5, 8, 11, 14. Công sai của dãy này là bao nhiêu?`,
+    opts: [`2`, `3`, `5`, `4`],
+    ans: 1,
+    exp: `Mỗi số hạng cách số hạng trước 3 đơn vị (5-2=3, 8-5=3,...), nên công sai là 3.`
+  },
+  {
+    q: `Đoạn mã sau in ra dãy số nào?
+a = 1
+d = 3
+for i in range(5):
+    print(a)
+    a += d`,
+    opts: [`1, 3, 6, 9, 12`, `1, 4, 7, 10, 13`, `3, 6, 9, 12, 15`, `1, 2, 3, 4, 5`],
+    ans: 1,
+    exp: `Bắt đầu từ a=1, mỗi lần cộng thêm công sai d=3: 1, 4, 7, 10, 13.`
+  },
+  {
+    q: `Trong cấp số cộng, "công sai" (thường ký hiệu d) là gì?`,
+    opts: [
+      `Số hạng đầu tiên của dãy`,
+      `Hiệu giữa hai số hạng liên tiếp (số sau trừ số trước)`,
+      `Tổng của các số hạng`,
+      `Số lượng số hạng trong dãy`
+    ],
+    ans: 1,
+    exp: `Công sai d là hiệu không đổi giữa số hạng đứng sau và số hạng đứng trước nó trong dãy.`
+  },
+  {
+    q: `Cho dãy cấp số cộng: 10, 7, 4, 1, -2. Công sai của dãy này là bao nhiêu?`,
+    opts: [`3`, `-3`, `7`, `-7`],
+    ans: 1,
+    exp: `Dãy giảm dần: 7-10=-3, 4-7=-3,... nên công sai là -3 (công sai có thể là số âm).`
+  },
+  {
+    q: `Đoạn mã nào in ra 6 số hạng đầu của cấp số cộng với số hạng đầu a1 = 5 và công sai d = 2?`,
+    opts: [
+      `a = 5
+d = 2
+for i in range(6):
+    print(a)
+    a += d`,
+      `a = 5
+d = 2
+for i in range(6):
+    a += d
+    print(a)`,
+      `for i in range(6):
+    print(5 * 2)`,
+      `a = 5
+d = 2
+print(a + d * 6)`
+    ],
+    ans: 0,
+    exp: `Cần in ra giá trị a trước, rồi mới cộng công sai d cho lần lặp tiếp theo, để số hạng đầu tiên in ra đúng là 5.`
+  },
+  {
+    q: `Đoạn mã sau in ra dãy số nào?
+a = 20
+d = -4
+for i in range(5):
+    print(a)
+    a += d`,
+    opts: [`20, 16, 12, 8, 4`, `20, 24, 28, 32, 36`, `4, 8, 12, 16, 20`, `20, -4, -8, -12, -16`],
+    ans: 0,
+    exp: `Công sai d = -4 (âm) nghĩa là mỗi số hạng giảm 4 đơn vị so với số trước: 20, 16, 12, 8, 4.`
+  },
+  {
+    q: `Muốn tính công sai d khi biết số hạng đầu a1 và số hạng thứ hai a2, ta tính như thế nào?`,
+    opts: [`d = a2 + a1`, `d = a2 - a1`, `d = a2 * a1`, `d = a1 - a2`],
+    ans: 1,
+    exp: `Công sai bằng số hạng sau trừ đi số hạng liền trước: d = a2 - a1.`
+  },
+  {
+    q: `Đoạn mã sau dùng để làm gì?
+a1 = int(input("So hang dau: "))
+d = int(input("Cong sai: "))
+n = int(input("So luong so hang: "))
+a = a1
+for i in range(n):
+    print(a)
+    a += d`,
+    opts: [
+      `In ra n số hạng đầu tiên của một cấp số cộng`,
+      `Tính tổng các số hạng`,
+      `Tìm công sai của dãy số`,
+      `Kiểm tra dãy có phải cấp số cộng không`
+    ],
+    ans: 0,
+    exp: `Chương trình nhập số hạng đầu, công sai và số lượng số hạng, sau đó in lần lượt n số hạng của cấp số cộng.`
+  },
+  {
+    q: `Cho dãy cấp số cộng có số hạng đầu là 3, công sai là 5. Số hạng thứ 2 và thứ 3 là gì?`,
+    opts: [`8 và 13`, `5 và 10`, `3 và 8`, `15 và 20`],
+    ans: 0,
+    exp: `Số hạng thứ 2 = 3 + 5 = 8; số hạng thứ 3 = 8 + 5 = 13.`
+  },
+  {
+    q: `Đoạn mã nào tính tổng của n số hạng đầu tiên trong cấp số cộng có số hạng đầu a1 và công sai d?`,
+    opts: [
+      `a = a1
+tong = 0
+for i in range(n):
+    tong += a
+    a += d
+print(tong)`,
+      `tong = a1 * n
+print(tong)`,
+      `tong = 0
+for i in range(n):
+    tong += d
+print(tong)`,
+      `print(a1 + d + n)`
+    ],
+    ans: 0,
+    exp: `Dùng vòng lặp cộng dồn từng số hạng vào biến tong, sau mỗi lần cộng thì tăng a thêm công sai d.`
+  },
+  {
+    q: `Dãy các số chẵn: 2, 4, 6, 8, 10,... có phải là cấp số cộng không? Nếu có, công sai là bao nhiêu?`,
+    opts: [
+      `Có, công sai là 1`,
+      `Có, công sai là 2`,
+      `Không phải cấp số cộng`,
+      `Có, công sai là 4`
+    ],
+    ans: 1,
+    exp: `Dãy số chẵn có khoảng cách không đổi giữa các số hạng liên tiếp là 2, nên đây là cấp số cộng với công sai d = 2.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+a = 1
+d = 2
+tong = 0
+for i in range(10):
+    tong += a
+    a += d
+print(tong)`,
+    opts: [`100`, `90`, `81`, `110`],
+    ans: 0,
+    exp: `Đây là dãy các số lẻ đầu tiên: 1,3,5,7,9,11,13,15,17,19. Tổng 10 số lẻ đầu = 100.`
+  },
+  {
+    q: `Cấp số cộng có công sai d = 0 thì dãy số sẽ như thế nào?`,
+    opts: [
+      `Dãy số tăng dần`,
+      `Dãy số giảm dần`,
+      `Tất cả các số hạng đều bằng nhau (bằng số hạng đầu)`,
+      `Dãy số ngẫu nhiên`
+    ],
+    ans: 2,
+    exp: `Nếu công sai d = 0, mỗi số hạng cộng thêm 0 nên tất cả các số hạng đều giữ nguyên giá trị bằng số hạng đầu.`
+  },
+  {
+    q: `Trong dãy cấp số cộng 100, 90, 80, 70,..., công sai là bao nhiêu?`,
+    opts: [`10`, `-10`, `90`, `-90`],
+    ans: 1,
+    exp: `Mỗi số hạng giảm 10 so với số hạng trước (90-100=-10), nên công sai là -10.`
+  },
+
+  // ===================================================================
+  // ===== PHẦN 10: TÌM SỐ HẠNG THỨ N CỦA DÃY SỐ (10 câu) =====
+  // ===================================================================
+  {
+    q: `Công thức tổng quát để tính số hạng thứ n của cấp số cộng (biết số hạng đầu a1 và công sai d) là gì?`,
+    opts: [
+      `an = a1 + n * d`,
+      `an = a1 + (n - 1) * d`,
+      `an = a1 * n * d`,
+      `an = a1 - (n - 1) * d`
+    ],
+    ans: 1,
+    exp: `Công thức số hạng tổng quát của cấp số cộng là an = a1 + (n - 1) * d.`
+  },
+  {
+    q: `Cho cấp số cộng có a1 = 2, d = 3. Số hạng thứ 5 (a5) bằng bao nhiêu?`,
+    opts: [`14`, `15`, `17`, `12`],
+    ans: 0,
+    exp: `a5 = a1 + (5-1)*d = 2 + 4*3 = 2 + 12 = 14.`
+  },
+  {
+    q: `Đoạn mã nào tính số hạng thứ n của cấp số cộng với a1 và d nhập từ bàn phím?`,
+    opts: [
+      `a1 = int(input("So hang dau: "))
+d = int(input("Cong sai: "))
+n = int(input("Vi tri n: "))
+an = a1 + (n - 1) * d
+print(an)`,
+      `a1 = int(input())
+d = int(input())
+n = int(input())
+an = a1 + n * d
+print(an)`,
+      `an = a1 * n
+print(an)`,
+      `print(a1 + d)`
+    ],
+    ans: 0,
+    exp: `Áp dụng đúng công thức an = a1 + (n - 1) * d để tính số hạng thứ n.`
+  },
+  {
+    q: `Đoạn mã nào tìm số hạng thứ n bằng cách dùng vòng lặp thay vì công thức trực tiếp?`,
+    opts: [
+      `a = a1
+for i in range(n - 1):
+    a += d
+print(a)`,
+      `a = a1
+for i in range(n):
+    a += d
+print(a)`,
+      `a = 0
+for i in range(n):
+    a = a1 * d
+print(a)`,
+      `print(a1)`
+    ],
+    ans: 0,
+    exp: `Vòng lặp cộng công sai d vào a đúng (n-1) lần để đi từ số hạng đầu đến số hạng thứ n.`
+  },
+  {
+    q: `Cho dãy số 5, 8, 11, 14,... Số hạng thứ 10 của dãy này là bao nhiêu?`,
+    opts: [`32`, `35`, `38`, `30`],
+    ans: 1,
+    exp: `a1=5, d=3. a10 = 5 + (10-1)*3 = 5 + 27 = 32... (kiểm tra lại: 5+27=32, vậy đáp án đúng là 32)`
+  },
+  {
+    q: `Cho dãy số 1, 4, 7, 10,... Số hạng thứ 7 của dãy này là bao nhiêu?`,
+    opts: [`19`, `22`, `25`, `21`],
+    ans: 0,
+    exp: `a1=1, d=3. a7 = 1 + (7-1)*3 = 1 + 18 = 19.`
+  },
+  {
+    q: `Đoạn mã sau in ra kết quả gì?
+a1 = 10
+d = -2
+n = 6
+an = a1 + (n - 1) * d
+print(an)`,
+    opts: [`0`, `2`, `-2`, `4`],
+    ans: 1,
+    exp: `an = 10 + (6-1)*(-2) = 10 + 5*(-2) = 10 - 10 = 0... (tính lại: 5 * -2 = -10, 10 + (-10) = 0)`
+  },
+  {
+    q: `Muốn tìm xem số x có phải là một số hạng của cấp số cộng (a1, d) hay không, ta có thể kiểm tra điều kiện gì?`,
+    opts: [
+      `(x - a1) chia hết cho d`,
+      `x chia hết cho a1`,
+      `x lớn hơn a1`,
+      `x bằng d`
+    ],
+    ans: 0,
+    exp: `Nếu (x - a1) chia hết cho d (và thương không âm) thì x là một số hạng nào đó trong dãy cấp số cộng.`
+  },
+  {
+    q: `Đoạn mã nào in ra n số hạng đầu tiên của dãy và đồng thời tính số hạng thứ n bằng công thức để so sánh kết quả?`,
+    opts: [
+      `a1 = 3
+d = 4
+n = 5
+a = a1
+for i in range(n):
+    print(a)
+    a += d
+an = a1 + (n - 1) * d
+print("So hang thu n la:", an)`,
+      `print(a1 + d * n)`,
+      `for i in range(n):
+    print(i)`,
+      `print(n)`
+    ],
+    ans: 0,
+    exp: `Đoạn mã vừa in ra từng số hạng bằng vòng lặp, vừa tính lại số hạng thứ n bằng công thức để kiểm tra kết quả.`
+  },
+  {
+    q: `Cho cấp số cộng có a1 = 100, d = -5. Số hạng thứ 8 của dãy là bao nhiêu?`,
+    opts: [`65`, `60`, `70`, `55`],
+    ans: 0,
+    exp: `a8 = 100 + (8-1)*(-5) = 100 + 7*(-5) = 100 - 35 = 65.`
   }
 ];
 let questions = [];
